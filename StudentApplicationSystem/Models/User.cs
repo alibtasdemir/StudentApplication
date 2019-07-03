@@ -11,6 +11,7 @@ namespace StudentApplicationSystem.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class User
@@ -21,16 +22,34 @@ namespace StudentApplicationSystem.Models
             this.Applications = new HashSet<Application>();
             this.InterviewQuestionPapers = new HashSet<InterviewQuestionPaper>();
         }
-    
+        
+        [Key]
         public int userId { get; set; }
+        [DisplayName("Name")]
         public string name { get; set; }
+        [DisplayName("Last Name")]
         public string surname { get; set; }
+        [Required]
+        [DisplayName("E-Mail")]
         public string email { get; set; }
+        [Required]
+        [DisplayName("Department")]
         public string department { get; set; }
+        [Required]
+        [DisplayName("GPA")]
         public Nullable<double> gpa { get; set; }
+        [Required]
+        [DisplayName("Contact Number")]
         public string phone_number { get; set; }
+        [DisplayName("Modified By")]
         public Nullable<int> cd_modifier { get; set; }
+        [DisplayName("Modified")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> dt_modified { get; set; }
+        [DisplayName("Created")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> dt_created { get; set; }
         
         [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$", ErrorMessage = "Please use one uppercase character at least.")]

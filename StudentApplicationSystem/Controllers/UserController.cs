@@ -79,10 +79,11 @@ namespace StudentApplicationSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "userId,name,surname,email,department,gpa,phone_number,cd_modifier,dt_modified,dt_created")] User user)
+        public ActionResult Edit([Bind(Include = "userId,name,surname,email,department,gpa,phone_number,password,dt_created")] User user)
         {
             if (ModelState.IsValid)
             {
+                user.dt_modified = DateTime.Now;
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
