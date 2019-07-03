@@ -1,43 +1,62 @@
-﻿using System;
+﻿using StudentApplicationSystem.Models;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using StudentApplicationSystem.Models;
+using System.Web;
+using System.Web.Mvc;
 
 namespace StudentApplicationSystem.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
+        public ActionResult Login()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(string email, string password)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            User obj;
+            if (ModelState.IsValid)
+            {
+                using (StudentApplicationSystemDBEntities1 db = new StudentApplicationSystemDBEntities1())
+                {
+                    obj = db.Users.Where(a => a.email.Equals(email) && a.password.Equals(password)).FirstOrDefault();
+                    if (obj != null)
+                    {
+                        Session["UserID"] = obj.userId.ToString();
+                        Session["UserName"] = obj.email.ToString();
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            else
+            {
+                return View();
+            }
+                
+            return View(obj);
+        }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
         }
     }
 }

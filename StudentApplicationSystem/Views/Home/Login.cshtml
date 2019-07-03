@@ -1,0 +1,126 @@
+﻿@model StudentApplicationSystem.Models.User
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<script type="text/javascript">
+    function registerValidation() {
+
+        var fname = document.registration.fname;
+        var lname = document.registration.lname;
+        var email = document.registration.email;
+        var pass = document.registration.password;
+
+        if (passid_validation(pass, 8, 16)) {
+
+            if (allLetter(fname, lname)) {
+
+                if (ValidateEmail(email)) {
+                    return true;
+                }
+            }
+        }
+        console.log("Returned false");
+        return false;
+
+    }
+
+    function passid_validation(passid, mx, my) {
+        var passid_len = passid.value.length;
+        var format = /(?=.*[A-Za-z])(?=.*\d)(?=.*[@("@")$!%*#?&])[A-Za-z\d@("@")$!%*#?&]{8,16}$/;
+        if (passid_len == 0 || passid_len >= my || passid_len < mx) {
+            alert("Password should not be empty / length must be between " + mx + " to " + my);
+            passid.focus();
+            console.log("Returned false");
+            return false;
+        }
+        if (passid.value.match(format)) {
+    	    return true;
+        }else{
+    	    alert('Password must contain at least one digit, one uppercase, one lowercase and one symbol.');
+    	    passid.focus();
+    	    console.log("Returned false");
+    	    return false;
+        }
+
+    }
+
+    function allLetter(fname, lname) {
+            var letters = /^[A-Za-z]+$/;
+            if (fname.value.match(letters) && lname.value.match(letters)) {
+
+                return true;
+            } else {
+                alert('Name fields must have alphabet characters only');
+                fname.focus();
+                lname.focus();
+                console.log("Returned false");
+                return false;
+            }
+    }
+
+    function ValidateEmail(uemail) {
+            var mailformat = /^\w+([\.-]?\w+)*@("@")\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (uemail.value.match(mailformat)) {
+                return true;
+            } else {
+                alert("You have entered an invalid email address!");
+                uemail.focus();
+                console.log("Returned false");
+                return false;
+            }
+    }
+</script>
+
+
+<h2>Login</h2>
+
+<div class="row">
+
+    <div>
+        <hr class="soft" />
+        <div class="well">
+            <form class="form-horizontal" onsubmit="registerValidation();" action=@Url.Action("Login")>
+                <!-- Email -->
+                <div class="control-group">
+                    <label class="control-label" for="inputEmail">Email <sup>*</sup></label>
+                    <div class="controls">
+                        <input type="email" placeholder="Email" name="email">
+                    </div>
+                </div>
+                <!-- Password -->
+                <div class="control-group">
+                    <label class="control-label">Password <sup>*</sup></label>
+                    <div class="controls">
+                        <input type="password"
+                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$"
+                               placeholder="Password" name="password">
+                        <p style="color: #7c; font-size: 10px;"
+                           class="form-control-static">
+                            *Password must be 8-16 length<br>*Must contain at least
+                            one uppercase, one lowercase and one digit.
+                        </p>
+                    </div>
+                </div>
+
+
+                <!-- Submit Button -->
+                <div class="control-group">
+                    <div class="controls">
+                        <input type="submit" name="submitAccount" value="Login"
+                               class="exclusive shopBtn">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
