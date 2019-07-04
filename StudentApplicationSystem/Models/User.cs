@@ -65,6 +65,7 @@ namespace StudentApplicationSystem.Models
             get { return isAdmin == 1 ? "Yes" : "No"; }
             set { }
         }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Application> Applications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

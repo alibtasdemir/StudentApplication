@@ -1,0 +1,50 @@
+﻿@model StudentApplicationSystem.Models.Application
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Application</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.paperId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.paperId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dt_created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dt_created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.applicationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

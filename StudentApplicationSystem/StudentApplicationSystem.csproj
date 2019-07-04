@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ApplicationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -141,6 +142,9 @@
       <DependentUpon>StudentApplicationSystemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InterviewQuestionPaper.cs">
+      <DependentUpon>StudentApplicationSystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Job.cs">
       <DependentUpon>StudentApplicationSystemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Question.cs">
@@ -229,6 +233,11 @@
     <Content Include="Views\Question\Details.cshtml" />
     <Content Include="Views\Question\Edit.cshtml" />
     <Content Include="Views\Question\Index.cshtml" />
+    <Content Include="Views\Applications\Create.cshtml" />
+    <Content Include="Views\Applications\Delete.cshtml" />
+    <Content Include="Views\Applications\Details.cshtml" />
+    <Content Include="Views\Applications\Edit.cshtml" />
+    <Content Include="Views\Applications\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

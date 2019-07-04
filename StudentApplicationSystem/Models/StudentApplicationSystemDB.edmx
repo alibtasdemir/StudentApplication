@@ -39,6 +39,16 @@
           <Property Name="cd_modifier" Type="int" />
           <Property Name="dt_modified" Type="datetime" />
         </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="jobId" />
+          </Key>
+          <Property Name="jobId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="applicantList" Type="varchar" MaxLength="250" />
+          <Property Name="jobName" Type="varchar" MaxLength="250" />
+          <Property Name="applicationStart" Type="datetime" />
+          <Property Name="applicationFinish" Type="datetime" />
+        </EntityType>
         <EntityType Name="Question">
           <Key>
             <PropertyRef Name="questionId" />
@@ -143,6 +153,7 @@
           <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InterviewQuestionPaper" EntityType="Self.InterviewQuestionPaper" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="applicationId" Association="Self.applicationId">
@@ -215,6 +226,16 @@
           <NavigationProperty Name="Question" Relationship="Self.q1" FromRole="InterviewQuestionPaper" ToRole="Question" />
           <NavigationProperty Name="Question4" Relationship="Self.q2" FromRole="InterviewQuestionPaper" ToRole="Question" />
           <NavigationProperty Name="Question5" Relationship="Self.q3" FromRole="InterviewQuestionPaper" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="jobId" />
+          </Key>
+          <Property Name="jobId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="applicantList" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="jobName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="applicationStart" Type="DateTime" Precision="3" />
+          <Property Name="applicationFinish" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -321,10 +342,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="StudentApplicationSystemDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="StudentApplicationSystemEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__RefactorLog" EntityType="Self.C__RefactorLog" />
           <EntitySet Name="Applications" EntityType="Self.Application" />
           <EntitySet Name="InterviewQuestionPapers" EntityType="Self.InterviewQuestionPaper" />
+          <EntitySet Name="Jobs" EntityType="Self.Job" />
           <EntitySet Name="Questions" EntityType="Self.Question" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="applicationId" Association="Self.applicationId">
@@ -357,7 +379,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="StudentApplicationSystemDBModelStoreContainer" CdmEntityContainer="StudentApplicationSystemDBEntities">
+        <EntityContainerMapping StorageEntityContainer="StudentApplicationSystemDBModelStoreContainer" CdmEntityContainer="StudentApplicationSystemEntities">
           <EntitySetMapping Name="C__RefactorLog">
             <EntityTypeMapping TypeName="StudentApplicationSystemDBModel.C__RefactorLog">
               <MappingFragment StoreEntitySet="__RefactorLog">
@@ -392,6 +414,17 @@
                 <ScalarProperty Name="dt_created" ColumnName="dt_created" />
                 <ScalarProperty Name="cd_modifier" ColumnName="cd_modifier" />
                 <ScalarProperty Name="dt_modified" ColumnName="dt_modified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jobs">
+            <EntityTypeMapping TypeName="StudentApplicationSystemDBModel.Job">
+              <MappingFragment StoreEntitySet="Job">
+                <ScalarProperty Name="jobId" ColumnName="jobId" />
+                <ScalarProperty Name="applicantList" ColumnName="applicantList" />
+                <ScalarProperty Name="jobName" ColumnName="jobName" />
+                <ScalarProperty Name="applicationStart" ColumnName="applicationStart" />
+                <ScalarProperty Name="applicationFinish" ColumnName="applicationFinish" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

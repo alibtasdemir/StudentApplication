@@ -13,10 +13,10 @@ namespace StudentApplicationSystem.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class StudentApplicationSystemDBEntities : DbContext
+    public partial class StudentApplicationSystemEntities : DbContext
     {
-        public StudentApplicationSystemDBEntities()
-            : base("name=StudentApplicationSystemDBEntities")
+        public StudentApplicationSystemEntities()
+            : base("name=StudentApplicationSystemEntities")
         {
         }
     
@@ -28,6 +28,7 @@ namespace StudentApplicationSystem.Models
         public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
         public virtual DbSet<Application> Applications { get; set; }
         public virtual DbSet<InterviewQuestionPaper> InterviewQuestionPapers { get; set; }
+        public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }

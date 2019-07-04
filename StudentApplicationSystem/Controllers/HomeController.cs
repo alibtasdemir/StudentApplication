@@ -27,7 +27,7 @@ namespace StudentApplicationSystem.Controllers
             
             if (ModelState.IsValid)
             {
-                using (StudentApplicationSystemDBEntities db = new StudentApplicationSystemDBEntities())
+                using (StudentApplicationSystemEntities db = new StudentApplicationSystemEntities())
                 {
                     User obj = db.Users.Where(a => a.email.Equals(user.email) && a.password.Equals(user.password)).FirstOrDefault();
                     if (obj != null)

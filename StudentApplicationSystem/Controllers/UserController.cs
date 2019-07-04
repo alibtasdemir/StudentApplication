@@ -12,7 +12,7 @@ namespace StudentApplicationSystem.Controllers
 {
     public class UserController : Controller
     {
-        private StudentApplicationSystemDBEntities db = new StudentApplicationSystemDBEntities();
+        private StudentApplicationSystemEntities db = new StudentApplicationSystemEntities();
 
         // GET: User
         public ActionResult Index()
@@ -53,7 +53,7 @@ namespace StudentApplicationSystem.Controllers
                 user.dt_created = DateTime.Now;
                 db.Users.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home", null);
             }
 
             return View(user);

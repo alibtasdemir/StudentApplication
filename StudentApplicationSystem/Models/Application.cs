@@ -11,7 +11,7 @@ namespace StudentApplicationSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Application
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,15 +19,18 @@ namespace StudentApplicationSystem.Models
         {
             this.InterviewQuestionPapers = new HashSet<InterviewQuestionPaper>();
         }
-    
+
         public int applicationId { get; set; }
         public int userId { get; set; }
+        public int jobId { get; set; }
         public byte[] cv { get; set; }
         public Nullable<int> paperId { get; set; }
         public Nullable<System.DateTime> dt_created { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InterviewQuestionPaper> InterviewQuestionPapers { get; set; }
+        public virtual Job Job { get; set; }
+        public virtual InterviewQuestionPaper InterviewQuestionPaper { get; set; }
         public virtual User User { get; set; }
     }
 }

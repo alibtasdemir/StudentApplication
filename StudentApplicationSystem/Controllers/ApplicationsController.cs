@@ -10,111 +10,127 @@ using StudentApplicationSystem.Models;
 
 namespace StudentApplicationSystem.Controllers
 {
-    public class QuestionController : Controller
+    public class ApplicationsController : Controller
     {
         private StudentApplicationSystemEntities db = new StudentApplicationSystemEntities();
 
-        // GET: Question
+        // GET: Applications
         public ActionResult Index()
         {
-            return View(db.Questions.ToList());
+            int userid = (int)Session["userId"];
+            
+            User user = db.Users.Where(a => a.userId.Equals(userid)).FirstOrDefault();
+
+            ICollection<Application> applications = user.Applications;
+            
+            return View(applications);
         }
 
-        // GET: Question/Details/5
+        // GET: Applications/Details/5
         public ActionResult Details(int? id)
         {
+            // Check if id passed right.
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Question question = db.Questions.Find(id);
-            if (question == null)
+
+            int userid = (int)Session["userId"];
+            User user = db.Users.Where(a => a.userId.Equals(userid)).FirstOrDefault();
+            Application application = db.Applications.Find(id);
+
+            if (application == null)
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(question);
+
+            // Check if user is admin or has right to see the application.
+            return user.isAdmin == 1 || user.Applications.Contains(application)
+                ? View(application)
+                : (ActionResult)new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        // GET: Question/Create
+        // GET: Applications/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Question/Create
+        // POST: Applications/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "question1")] Question question)
+        public ActionResult Create([Bind(Include = "applicationId,cv,paperId")] Application application)
         {
             if (ModelState.IsValid)
             {
-                question.cd_creater = (int)Session["userId"];
-                question.dt_created = DateTime.Now;
-                db.Questions.Add(question);
+                application.userId = (int)Session["userId"];
+                User user = db.Users.Where(a => a.userId.Equals(application.userId)).FirstOrDefault();
+                application.dt_created = DateTime.Now;
+                user.Applications.Add(application);
+                db.Applications.Add(application);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(question);
+            ViewBag.userId = new SelectList(db.Users, "userId", "name", application.userId);
+            return View(application);
         }
 
-        // GET: Question/Edit/5
+        // GET: Applications/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Question question = db.Questions.Find(id);
-            if (question == null)
+            Application application = db.Applications.Find(id);
+            if (application == null)
             {
                 return HttpNotFound();
             }
-            return View(question);
+            return View(application);
         }
 
-        // POST: Question/Edit/5
+        // POST: Applications/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "questionId,question1,cd_creater,dt_created")] Question question)
+        public ActionResult Edit([Bind(Include = "applicationId,userId,cv,paperId,dt_created")] Application application)
         {
             if (ModelState.IsValid)
             {
-                question.cd_modifier = (int)Session["userId"];
-                question.dt_modified = DateTime.Now;
-                db.Entry(question).State = EntityState.Modified;
+                db.Entry(application).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(question);
+            return View(application);
         }
 
-        // GET: Question/Delete/5
+        // GET: Applications/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Question question = db.Questions.Find(id);
-            if (question == null)
+            Application application = db.Applications.Find(id);
+            if (application == null)
             {
                 return HttpNotFound();
             }
-            return View(question);
+            return View(application);
         }
 
-        // POST: Question/Delete/5
+        // POST: Applications/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Question question = db.Questions.Find(id);
-            db.Questions.Remove(question);
+            Application application = db.Applications.Find(id);
+            db.Applications.Remove(application);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
