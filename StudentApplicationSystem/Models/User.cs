@@ -22,7 +22,7 @@ namespace StudentApplicationSystem.Models
             this.Applications = new HashSet<Application>();
             this.InterviewQuestionPapers = new HashSet<InterviewQuestionPaper>();
         }
-        
+
         [Key]
         public int userId { get; set; }
         [DisplayName("Name")]
@@ -32,13 +32,10 @@ namespace StudentApplicationSystem.Models
         [Required]
         [DisplayName("E-Mail")]
         public string email { get; set; }
-        [Required]
         [DisplayName("Department")]
         public string department { get; set; }
-        [Required]
         [DisplayName("GPA")]
         public Nullable<double> gpa { get; set; }
-        [Required]
         [DisplayName("Contact Number")]
         public string phone_number { get; set; }
         [DisplayName("Modified By")]
@@ -51,10 +48,23 @@ namespace StudentApplicationSystem.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> dt_created { get; set; }
-        
         [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$", ErrorMessage = "Please use one uppercase character at least.")]
         public string password { get; set; }
-    
+        [DisplayName("Admin?")]
+        public Nullable<int> isAdmin { get; set; }
+
+        public bool BoolValue
+        {
+            // This function sets the int admin value by using checkbox in forms.
+            get { return isAdmin == 1; }
+            set { isAdmin = value ? 1 : 0; }
+        }
+
+        public string printAdmin
+        {
+            get { return isAdmin == 1 ? "Yes" : "No"; }
+            set { }
+        }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Application> Applications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="StudentApplicationSystemDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="StudentApplicationSystemDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__RefactorLog">
           <Key>
             <PropertyRef Name="OperationKey" />
@@ -65,6 +65,7 @@
           <Property Name="cd_modifier" Type="int" />
           <Property Name="dt_modified" Type="datetime" />
           <Property Name="dt_created" Type="datetime" />
+          <Property Name="isAdmin" Type="int" />
         </EntityType>
         <Association Name="applicationId">
           <End Role="Application" Type="Self.Application" Multiplicity="0..1" />
@@ -169,7 +170,8 @@
             <End Role="Application" EntitySet="Application" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="StudentApplicationSystemDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -209,7 +211,7 @@
           <Property Name="cd_modifier" Type="Int32" />
           <Property Name="dt_modified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Application" Relationship="Self.applicationId" FromRole="InterviewQuestionPaper" ToRole="Application" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Interview__userI__31EC6D26" FromRole="InterviewQuestionPaper" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Interview__userI__4E88ABD4" FromRole="InterviewQuestionPaper" ToRole="User" />
           <NavigationProperty Name="Question" Relationship="Self.q1" FromRole="InterviewQuestionPaper" ToRole="Question" />
           <NavigationProperty Name="Question4" Relationship="Self.q2" FromRole="InterviewQuestionPaper" ToRole="Question" />
           <NavigationProperty Name="Question5" Relationship="Self.q3" FromRole="InterviewQuestionPaper" ToRole="Question" />
@@ -236,15 +238,16 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="department" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="gpa" Type="Double" />
           <Property Name="phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cd_modifier" Type="Int32" />
           <Property Name="dt_modified" Type="DateTime" Precision="3" />
           <Property Name="dt_created" Type="DateTime" Precision="3" />
+          <Property Name="isAdmin" Type="Int32" />
           <NavigationProperty Name="Applications" Relationship="Self.userId" FromRole="User" ToRole="Application" />
-          <NavigationProperty Name="InterviewQuestionPapers" Relationship="Self.FK__Interview__userI__31EC6D26" FromRole="User" ToRole="InterviewQuestionPaper" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="InterviewQuestionPapers" Relationship="Self.FK__Interview__userI__4E88ABD4" FromRole="User" ToRole="InterviewQuestionPaper" />
         </EntityType>
         <Association Name="applicationId">
           <End Role="Application" Type="Self.Application" Multiplicity="0..1" />
@@ -270,7 +273,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Interview__userI__31EC6D26">
+        <Association Name="FK__Interview__userI__4E88ABD4">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="InterviewQuestionPaper" Type="Self.InterviewQuestionPaper" Multiplicity="*" />
           <ReferentialConstraint>
@@ -318,7 +321,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="StudentApplicationSystemDBEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="StudentApplicationSystemDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__RefactorLog" EntityType="Self.C__RefactorLog" />
           <EntitySet Name="Applications" EntityType="Self.Application" />
           <EntitySet Name="InterviewQuestionPapers" EntityType="Self.InterviewQuestionPaper" />
@@ -332,7 +335,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Application" EntitySet="Applications" />
           </AssociationSet>
-          <AssociationSet Name="FK__Interview__userI__31EC6D26" Association="Self.FK__Interview__userI__31EC6D26">
+          <AssociationSet Name="FK__Interview__userI__4E88ABD4" Association="Self.FK__Interview__userI__4E88ABD4">
             <End Role="User" EntitySet="Users" />
             <End Role="InterviewQuestionPaper" EntitySet="InterviewQuestionPapers" />
           </AssociationSet>
@@ -354,7 +357,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="StudentApplicationSystemDBModelStoreContainer" CdmEntityContainer="StudentApplicationSystemDBEntities1">
+        <EntityContainerMapping StorageEntityContainer="StudentApplicationSystemDBModelStoreContainer" CdmEntityContainer="StudentApplicationSystemDBEntities">
           <EntitySetMapping Name="C__RefactorLog">
             <EntityTypeMapping TypeName="StudentApplicationSystemDBModel.C__RefactorLog">
               <MappingFragment StoreEntitySet="__RefactorLog">
@@ -407,17 +410,18 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="StudentApplicationSystemDBModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="surname" ColumnName="surname" />
                 <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="department" ColumnName="department" />
                 <ScalarProperty Name="gpa" ColumnName="gpa" />
                 <ScalarProperty Name="phone_number" ColumnName="phone_number" />
                 <ScalarProperty Name="cd_modifier" ColumnName="cd_modifier" />
                 <ScalarProperty Name="dt_modified" ColumnName="dt_modified" />
                 <ScalarProperty Name="dt_created" ColumnName="dt_created" />
+                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -10,8 +10,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@if (Model.Count() == 0)
-{
+@if (Model.Count() == 0) {
     <text>There is no user!</text>
 }
 else
@@ -45,6 +44,9 @@ else
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.dt_created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isAdmin)
             </th>
             <th>
                 Operations
@@ -84,12 +86,14 @@ else
                     @Html.DisplayFor(modelItem => item.dt_created)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.printAdmin)
+                </td>
+                <td>
                     <a href=@Url.Action("Edit", new { id = item.userId })><i class="glyphicon glyphicon-edit"> Edit </i></a>
                     <a href=@Url.Action("Details", new { id = item.userId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
                     <a href=@Url.Action("Delete", new { id = item.userId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
                 </td>
             </tr>
-        }
         }
     </table>
 

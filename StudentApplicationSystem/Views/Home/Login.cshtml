@@ -77,44 +77,42 @@
 <h2>Login</h2>
 
 <div class="row">
-
     <div>
         <hr class="soft" />
-        <div class="well">
-            <form class="form-horizontal" onsubmit="registerValidation();" action=@Url.Action("Login")>
-                <!-- Email -->
-                <div class="control-group">
-                    <label class="control-label" for="inputEmail">Email <sup>*</sup></label>
-                    <div class="controls">
-                        <input type="email" placeholder="Email" name="email">
-                    </div>
-                </div>
-                <!-- Password -->
-                <div class="control-group">
-                    <label class="control-label">Password <sup>*</sup></label>
-                    <div class="controls">
-                        <input type="password"
-                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$"
-                               placeholder="Password" name="password">
-                        <p style="color: #7c; font-size: 10px;"
-                           class="form-control-static">
-                            *Password must be 8-16 length<br>*Must contain at least
-                            one uppercase, one lowercase and one digit.
-                        </p>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>User</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-
-                <!-- Submit Button -->
-                <div class="control-group">
-                    <div class="controls">
-                        <input type="submit" name="submitAccount" value="Login"
-                               class="exclusive shopBtn">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-            </form>
-        </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Login" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
 
     </div>
 </div>
@@ -122,5 +120,3 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-
-

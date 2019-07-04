@@ -7,6 +7,16 @@
     <img src="../logo.jpg" />
 </div>
 
+
+@if (Session["UserName"] != null)
+{
+<div class="well">
+ 
+    <h2>@Session["UserName"]</h2>
+    <p>@Session["userId"]</p>
+
+</div>
+}
 <!--
 <hr class="soft" />
 

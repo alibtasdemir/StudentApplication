@@ -21,28 +21,31 @@ namespace StudentApplicationSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(string email, string password)
+        public ActionResult Login([Bind(Include = "email,password")] User user)
         {
-            User obj;
+            System.Diagnostics.Debug.WriteLine("Debugging Login");
+            
             if (ModelState.IsValid)
             {
-                using (StudentApplicationSystemDBEntities1 db = new StudentApplicationSystemDBEntities1())
+                using (StudentApplicationSystemDBEntities db = new StudentApplicationSystemDBEntities())
                 {
-                    obj = db.Users.Where(a => a.email.Equals(email) && a.password.Equals(password)).FirstOrDefault();
+                    User obj = db.Users.Where(a => a.email.Equals(user.email) && a.password.Equals(user.password)).FirstOrDefault();
+                    System.Diagnostics.Debug.WriteLine(obj.password);
                     if (obj != null)
                     {
                         Session["UserID"] = obj.userId.ToString();
                         Session["UserName"] = obj.email.ToString();
+                        Session["userId"] = obj.userId;
                         return RedirectToAction("Index");
                     }
+                    return HttpNotFound();
                 }
             }
             else
             {
-                return View();
+                return HttpNotFound();
             }
                 
-            return View(obj);
         }
 
     }

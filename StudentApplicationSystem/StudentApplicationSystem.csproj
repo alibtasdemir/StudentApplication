@@ -134,34 +134,34 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Application.cs">
-      <DependentUpon>StudentApplicationDB.tt</DependentUpon>
+      <DependentUpon>StudentApplicationSystemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C__RefactorLog.cs">
-      <DependentUpon>StudentApplicationDB.tt</DependentUpon>
+      <DependentUpon>StudentApplicationSystemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InterviewQuestionPaper.cs">
-      <DependentUpon>StudentApplicationDB.tt</DependentUpon>
+      <DependentUpon>StudentApplicationSystemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Question.cs">
-      <DependentUpon>StudentApplicationDB.tt</DependentUpon>
+      <DependentUpon>StudentApplicationSystemDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StudentApplicationDB.Context.cs">
+    <Compile Include="Models\StudentApplicationSystemDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>StudentApplicationDB.Context.tt</DependentUpon>
+      <DependentUpon>StudentApplicationSystemDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StudentApplicationDB.cs">
+    <Compile Include="Models\StudentApplicationSystemDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>StudentApplicationDB.tt</DependentUpon>
+      <DependentUpon>StudentApplicationSystemDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StudentApplicationDB.Designer.cs">
+    <Compile Include="Models\StudentApplicationSystemDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>StudentApplicationDB.edmx</DependentUpon>
+      <DependentUpon>StudentApplicationSystemDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>StudentApplicationDB.tt</DependentUpon>
+      <DependentUpon>StudentApplicationSystemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -174,24 +174,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\StudentApplicationDB.Context.tt">
+    <Content Include="Models\StudentApplicationSystemDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>StudentApplicationDB.edmx</DependentUpon>
-      <LastGenOutput>StudentApplicationDB.Context.cs</LastGenOutput>
+      <DependentUpon>StudentApplicationSystemDB.edmx</DependentUpon>
+      <LastGenOutput>StudentApplicationSystemDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\StudentApplicationDB.tt">
+    <Content Include="Models\StudentApplicationSystemDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>StudentApplicationDB.edmx</DependentUpon>
-      <LastGenOutput>StudentApplicationDB.cs</LastGenOutput>
+      <DependentUpon>StudentApplicationSystemDB.edmx</DependentUpon>
+      <LastGenOutput>StudentApplicationSystemDB.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\StudentApplicationDB.edmx">
+    <EntityDeploy Include="Models\StudentApplicationSystemDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>StudentApplicationDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>StudentApplicationSystemDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\StudentApplicationDB.edmx.diagram">
-      <DependentUpon>StudentApplicationDB.edmx</DependentUpon>
+    <Content Include="Models\StudentApplicationSystemDB.edmx.diagram">
+      <DependentUpon>StudentApplicationSystemDB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

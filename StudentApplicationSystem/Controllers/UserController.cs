@@ -12,7 +12,7 @@ namespace StudentApplicationSystem.Controllers
 {
     public class UserController : Controller
     {
-        private StudentApplicationSystemDBEntities1 db = new StudentApplicationSystemDBEntities1();
+        private StudentApplicationSystemDBEntities db = new StudentApplicationSystemDBEntities();
 
         // GET: User
         public ActionResult Index()
@@ -46,7 +46,7 @@ namespace StudentApplicationSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,surname,email,department,gpa,phone_number")] User user)
+        public ActionResult Create([Bind(Include = "name,surname,password,email,department,gpa,phone_number")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -115,6 +115,12 @@ namespace StudentApplicationSystem.Controllers
             db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)
