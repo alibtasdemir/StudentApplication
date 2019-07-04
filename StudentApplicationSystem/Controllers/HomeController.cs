@@ -30,15 +30,22 @@ namespace StudentApplicationSystem.Controllers
                 using (StudentApplicationSystemDBEntities db = new StudentApplicationSystemDBEntities())
                 {
                     User obj = db.Users.Where(a => a.email.Equals(user.email) && a.password.Equals(user.password)).FirstOrDefault();
-                    System.Diagnostics.Debug.WriteLine(obj.password);
                     if (obj != null)
                     {
+                        Session["isAdmin"] = obj.isAdmin;
                         Session["UserID"] = obj.userId.ToString();
-                        Session["UserName"] = obj.email.ToString();
                         Session["userId"] = obj.userId;
+                        Session["UserName"] = obj.email.ToString();
+
+                        if (obj.isAdmin == 0)
+                        {
+                            Session["Name"] = obj.name.ToString() + " " + obj.surname.ToString();
+                        }
+                        
                         return RedirectToAction("Index");
                     }
-                    return HttpNotFound();
+                    
+                    return View("LoginFail");
                 }
             }
             else

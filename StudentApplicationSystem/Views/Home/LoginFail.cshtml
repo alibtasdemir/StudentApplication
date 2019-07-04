@@ -1,0 +1,24 @@
+﻿@model StudentApplicationSystem.Models.User
+
+@{
+    ViewBag.Title = "Login Failed";
+}
+
+<h2>Login Failed</h2>
+
+<p>
+    Redirecting to Login screen in 3 sec. If auto-direct does not work use <a href=@Url.Action("Login")>this link</a>.
+
+</p>
+
+<script type="text/javascript">
+    window.setTimeout(function () {
+    window.location.href = '/Home/Login';
+    }, 3000);
+
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

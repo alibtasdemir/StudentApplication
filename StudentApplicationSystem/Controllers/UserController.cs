@@ -46,7 +46,7 @@ namespace StudentApplicationSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,surname,password,email,department,gpa,phone_number")] User user)
+        public ActionResult Create([Bind(Include = "name,surname,password,email,department,gpa,phone_number,BoolValue")] User user)
         {
             if (ModelState.IsValid)
             {
