@@ -81,14 +81,16 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Create" class="btn btn-success" />
         </div>
     </div>
 </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn btn-link" onclick="location.href='@Url.Action("Index", "User")';return false;">
+        <span class="glyphicon glyphicon-arrow-left"></span> Back To List
+    </button>
 </div>
 
 @section Scripts {

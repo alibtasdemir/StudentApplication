@@ -11,7 +11,9 @@ namespace StudentApplicationSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Question
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,12 +23,22 @@ namespace StudentApplicationSystem.Models
             this.InterviewQuestionPapers1 = new HashSet<InterviewQuestionPaper>();
             this.InterviewQuestionPapers2 = new HashSet<InterviewQuestionPaper>();
         }
-    
+        [Key]
         public int questionId { get; set; }
+        [Required]
+        [DisplayName("Question")]
         public string question1 { get; set; }
+        [DisplayName("Created By")]
         public Nullable<int> cd_creater { get; set; }
+        [DisplayName("Modified By")]
         public Nullable<int> cd_modifier { get; set; }
+        [DisplayName("Created")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> dt_created { get; set; }
+        [DisplayName("Modified")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> dt_modified { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

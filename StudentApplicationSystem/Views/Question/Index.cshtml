@@ -1,0 +1,91 @@
+﻿@model IEnumerable<StudentApplicationSystem.Models.Question>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<hr class="soft" />
+
+@if (Session["UserName"] != null)
+{
+    if ((int)Session["isAdmin"] != 0)
+    {
+        <p>
+            <button class="btn btn-success" onclick="location.href='@Url.Action("Create", "Question")';return false;">
+                <span class="glyphicon glyphicon-plus"></span> Add Question
+            </button>
+        </p>
+
+        if (Model.Count() == 0)
+        {
+            <text>There is no question!</text>
+        }
+        else
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.question1)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.cd_creater)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.cd_modifier)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dt_created)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dt_modified)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.question1)
+                        </td>
+                        <td>
+                            <a href=@Url.Action("Details", "User" , new { id = item.cd_creater })><i class="glyphicon glyphicon-zoom-in"> @item.cd_creater </i></a>
+                        </td>
+                        <td>
+                            @if (item.cd_modifier != null)
+                            {
+                                <a href=@Url.Action("Details", "User", new { id = item.cd_modifier })><i class="glyphicon glyphicon-zoom-in"> @item.cd_modifier </i></a>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.cd_modifier)
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dt_created)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dt_modified)
+                        </td>
+                        <td>
+                            <a href=@Url.Action("Edit", new { id = item.questionId })><i class="glyphicon glyphicon-edit"> Edit </i></a>
+                            <a href=@Url.Action("Details", new { id = item.questionId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
+                            <a href=@Url.Action("Delete", new { id = item.questionId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        }
+    }
+    else
+    {
+        <h2>Please Login with an admin account to see Question List.</h2>
+    }
+}
+else
+{
+    <h2>Please Login!</h2>
+}

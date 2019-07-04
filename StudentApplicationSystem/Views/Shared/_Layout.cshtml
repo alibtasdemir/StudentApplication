@@ -28,6 +28,7 @@
                         if ((int)Session["isAdmin"] == 1)
                         {
                             <li>@Html.ActionLink("User List", "Index", "User")</li>
+                            <li>@Html.ActionLink("Question List", "Index", "Question")</li>
                         }
 
                         <li>@Html.ActionLink("Logout", "Logout", "User")</li>

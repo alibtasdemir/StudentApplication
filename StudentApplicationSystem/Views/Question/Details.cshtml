@@ -1,0 +1,65 @@
+﻿@model StudentApplicationSystem.Models.Question
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Question</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.question1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.question1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cd_creater)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cd_creater)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cd_modifier)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cd_modifier)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dt_created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dt_created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dt_modified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dt_modified)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <button class="btn btn-link" onclick="location.href='@Url.Action("Edit", "Question", new { id = Model.questionId })';return false;">
+        <span class="glyphicon glyphicon-search"></span> Edit
+    </button>
+
+    <button class="btn btn-link" onclick="location.href='@Url.Action("Index", "Question")';return false;">
+        <span class="glyphicon glyphicon-arrow-left"></span> Back To List
+    </button>
+    @*@@Html.ActionLink("Edit", "Edit", new { id = Model.questionId }) |
+    @Html.ActionLink("Back to List", "Index")*@
+</p>

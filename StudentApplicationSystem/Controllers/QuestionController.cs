@@ -10,118 +10,113 @@ using StudentApplicationSystem.Models;
 
 namespace StudentApplicationSystem.Controllers
 {
-    public class UserController : Controller
+    public class QuestionController : Controller
     {
         private StudentApplicationSystemDBEntities db = new StudentApplicationSystemDBEntities();
 
-        // GET: User
+        // GET: Question
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            return View(db.Questions.ToList());
         }
 
-        // GET: User/Details/5
+        // GET: Question/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Question question = db.Questions.Find(id);
+            if (question == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(question);
         }
 
-        // GET: User/Create
+        // GET: Question/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: User/Create
+        // POST: Question/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,surname,password,email,department,gpa,phone_number,BoolValue")] User user)
+        public ActionResult Create([Bind(Include = "question1")] Question question)
         {
             if (ModelState.IsValid)
             {
-                user.dt_created = DateTime.Now;
-                db.Users.Add(user);
+                question.cd_creater = (int)Session["userId"];
+                question.dt_created = DateTime.Now;
+                db.Questions.Add(question);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(user);
+            return View(question);
         }
 
-        // GET: User/Edit/5
+        // GET: Question/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Question question = db.Questions.Find(id);
+            if (question == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(question);
         }
 
-        // POST: User/Edit/5
+        // POST: Question/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "userId,name,surname,email,department,gpa,phone_number,password,dt_created,BoolValue")] User user)
+        public ActionResult Edit([Bind(Include = "questionId,question1,cd_creater,dt_created")] Question question)
         {
             if (ModelState.IsValid)
             {
-                user.cd_modifier = (int)Session["userId"];
-                user.dt_modified = DateTime.Now;
-                db.Entry(user).State = EntityState.Modified;
+                question.cd_modifier = (int)Session["userId"];
+                question.dt_modified = DateTime.Now;
+                db.Entry(question).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(user);
+            return View(question);
         }
 
-        // GET: User/Delete/5
+        // GET: Question/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Question question = db.Questions.Find(id);
+            if (question == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(question);
         }
 
-        // POST: User/Delete/5
+        // POST: Question/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
+            Question question = db.Questions.Find(id);
+            db.Questions.Remove(question);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        public ActionResult Logout()
-        {
-            Session.Clear();
-            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

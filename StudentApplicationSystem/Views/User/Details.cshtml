@@ -85,6 +85,13 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.userId }) |
-    @Html.ActionLink("Back to List", "Index")
+
+    <button class="btn btn-link" onclick="location.href='@Url.Action("Edit", "User", new { id = Model.userId })';return false;">
+        <span class="glyphicon glyphicon-search"></span> Edit
+    </button>
+
+    <button class="btn btn-link" onclick="location.href='@Url.Action("Index", "User")';return false;">
+        <span class="glyphicon glyphicon-arrow-left"></span> Back To List
+    </button>
+
 </p>
