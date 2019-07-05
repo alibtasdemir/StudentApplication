@@ -115,6 +115,12 @@ namespace StudentApplicationSystem.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Apply(int? id)
+        {
+            Session["jobId"] = id;
+            return RedirectToAction("Create", "Applications");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

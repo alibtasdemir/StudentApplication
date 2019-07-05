@@ -13,6 +13,7 @@ namespace StudentApplicationSystem.Controllers
     public class ApplicationsController : Controller
     {
         private StudentApplicationSystemEntities db = new StudentApplicationSystemEntities();
+        private int jobId;
 
         // GET: Applications
         public ActionResult Index()
@@ -69,6 +70,7 @@ namespace StudentApplicationSystem.Controllers
                 User user = db.Users.Where(a => a.userId.Equals(application.userId)).FirstOrDefault();
                 application.dt_created = DateTime.Now;
                 user.Applications.Add(application);
+                application.jobId = (int)Session["jobId"];
                 db.Applications.Add(application);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -133,6 +135,12 @@ namespace StudentApplicationSystem.Controllers
             db.Applications.Remove(application);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public int getJobId(int jobId)
+        {
+            this.jobId = jobId;
+            return 1;
         }
 
         protected override void Dispose(bool disposing)

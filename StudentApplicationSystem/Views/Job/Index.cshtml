@@ -34,37 +34,43 @@ else
             <th>
                 @Html.DisplayNameFor(model => model.applicationFinish)
             </th>
-            @if ((int)Session["isAdmin"] == 1)
-            {
-                <th>Operations</th>
-            }
+            <th>Operations</th>
+            
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.applicantList)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.jobName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.applicationStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.applicationFinish)
+            </td>
+            @if ((int)Session["isAdmin"] == 1)
+            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.applicantList)
+                    <a href=@Url.Action("Edit", new { id = item.jobId })><i class="glyphicon glyphicon-edit"> Edit </i></a>
+                    <a href=@Url.Action("Details", new { id = item.jobId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
+                    <a href=@Url.Action("Delete", new { id = item.jobId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
                 </td>
+            }
+            else if ((int)Session["isAdmin"] == 0)
+            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.jobName)
+                    <a href=@Url.Action("Apply", "Job", new { id = item.jobId })><i class="glyphicon glyphicon-edit"> Apply </i></a>
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.applicationStart)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.applicationFinish)
-                </td>
-                @if ((int)Session["isAdmin"] == 1)
-                {
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.jobId }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.jobId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.jobId })
-                    </td>
-                }
+
+                    }
             </tr>
         }
 
     </table>
+    <h1></h1>
 }

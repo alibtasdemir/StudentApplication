@@ -4,11 +4,17 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
-@using (Html.BeginForm())
+@if (Session["userName"] == null)
 {
-    @Html.AntiForgeryToken()
+    Response.Redirect("~/Home/NotAuthorized");
+}
+else if ((int)Session["isAdmin"] == 0)
+{
+    <h2>Apply</h2>
+
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <h4>Application</h4>
@@ -38,8 +44,14 @@
             </div>
         </div>
     </div>
-}
+    }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+}
+else
+{
+    Response.Redirect("~/Home/NotAuthorized");
+}
