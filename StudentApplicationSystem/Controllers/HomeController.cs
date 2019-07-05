@@ -55,5 +55,10 @@ namespace StudentApplicationSystem.Controllers
                 
         }
 
+        public ActionResult NotAuthorized()
+        {
+            return View();
+        }
+
     }
 }

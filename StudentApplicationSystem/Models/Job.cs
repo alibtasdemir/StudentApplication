@@ -11,13 +11,23 @@ namespace StudentApplicationSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Job
     {
         public int jobId { get; set; }
+        [DisplayName("Applicants")]
         public string applicantList { get; set; }
+        [DisplayName("Name")]
         public string jobName { get; set; }
+        [DisplayName("Starting Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> applicationStart { get; set; }
+        [DisplayName("Ending Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> applicationFinish { get; set; }
     }
 }

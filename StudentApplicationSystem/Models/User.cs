@@ -29,14 +29,17 @@ namespace StudentApplicationSystem.Models
         public string name { get; set; }
         [DisplayName("Last Name")]
         public string surname { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Email is required.")]
         [DisplayName("E-Mail")]
+        [RegularExpression("\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*", ErrorMessage = "Email is invalid")]
         public string email { get; set; }
         [DisplayName("Department")]
         public string department { get; set; }
         [DisplayName("GPA")]
+        [Range(1.0, 4.0)]
         public Nullable<double> gpa { get; set; }
         [DisplayName("Contact Number")]
+        //[Mask("+1 (999) 000-0000", IncludeLiterals = MaskIncludeLiteralsMode.DecimalSymbol, PromptChar = '_', ErrorMessage = "Phone number is invalid")]
         public string phone_number { get; set; }
         [DisplayName("Modified By")]
         public Nullable<int> cd_modifier { get; set; }

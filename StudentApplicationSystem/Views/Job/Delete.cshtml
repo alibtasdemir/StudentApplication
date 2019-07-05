@@ -1,4 +1,4 @@
-﻿@model StudentApplicationSystem.Models.Question
+﻿@model StudentApplicationSystem.Models.Job
 
 @{
     ViewBag.Title = "Delete";
@@ -14,51 +14,43 @@ else if ((int)Session["isAdmin"] != 1)
 }
 else
 {
-    <h2>Delete</h2>
+    <h2>Delete Job Poster</h2>
 
     <h3>Are you sure you want to delete this?</h3>
     <div>
-        <h4>Question</h4>
+        <h4>Job</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.question1)
+                @Html.DisplayNameFor(model => model.applicantList)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.question1)
+                @Html.DisplayFor(model => model.applicantList)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.cd_creater)
+                @Html.DisplayNameFor(model => model.jobName)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.cd_creater)
+                @Html.DisplayFor(model => model.jobName)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.cd_modifier)
+                @Html.DisplayNameFor(model => model.applicationStart)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.cd_modifier)
+                @Html.DisplayFor(model => model.applicationStart)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.dt_created)
+                @Html.DisplayNameFor(model => model.applicationFinish)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.dt_created)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.dt_modified)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.dt_modified)
+                @Html.DisplayFor(model => model.applicationFinish)
             </dd>
 
         </dl>

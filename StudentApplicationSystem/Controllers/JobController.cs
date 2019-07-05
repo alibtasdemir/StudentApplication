@@ -10,128 +10,109 @@ using StudentApplicationSystem.Models;
 
 namespace StudentApplicationSystem.Controllers
 {
-    public class UserController : Controller
+    public class JobController : Controller
     {
         private StudentApplicationSystemEntities db = new StudentApplicationSystemEntities();
 
-        // GET: User
+        // GET: Job
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            return View(db.Jobs.ToList());
         }
 
-        // GET: User/Details/5
+        // GET: Job/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Job job = db.Jobs.Find(id);
+            if (job == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(job);
         }
 
-        // GET: User/Create
+        // GET: Job/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: User/Create
+        // POST: Job/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,surname,password,email,department,gpa,phone_number,BoolValue")] User user)
+        public ActionResult Create([Bind(Include = "jobId,applicantList,jobName,applicationStart,applicationFinish")] Job job)
         {
             if (ModelState.IsValid)
             {
-                if (Session["userName"] == null)
-                {
-                    user.BoolValue = false;
-                }
-                user.dt_created = DateTime.Now;
-                db.Users.Add(user);
+                db.Jobs.Add(job);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home", null);
+                return RedirectToAction("Index");
             }
 
-            return View(user);
+            return View(job);
         }
 
-        // GET: User/Edit/5
+        // GET: Job/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Job job = db.Jobs.Find(id);
+            if (job == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(job);
         }
 
-        // POST: User/Edit/5
+        // POST: Job/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "userId,name,surname,email,department,gpa,phone_number,password,dt_created,BoolValue")] User user)
+        public ActionResult Edit([Bind(Include = "jobId,applicantList,jobName,applicationStart,applicationFinish")] Job job)
         {
             if (ModelState.IsValid)
             {
-                if ((int)Session["isAdmin"] != 1)
-                    user.BoolValue = false;
-                user.cd_modifier = (int)Session["userId"];
-                user.dt_modified = DateTime.Now;
-                db.Entry(user).State = EntityState.Modified;
+                db.Entry(job).State = EntityState.Modified;
                 db.SaveChanges();
-                if((int)Session["isAdmin"] != 1)
-                {
-                    return RedirectToAction("Details", new { id = user.userId });
-                }
                 return RedirectToAction("Index");
             }
-            return View(user);
+            return View(job);
         }
 
-        // GET: User/Delete/5
+        // GET: Job/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Job job = db.Jobs.Find(id);
+            if (job == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(job);
         }
 
-        // POST: User/Delete/5
+        // POST: Job/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
+            Job job = db.Jobs.Find(id);
+            db.Jobs.Remove(job);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        public ActionResult Logout()
-        {
-            Session.Clear();
-            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

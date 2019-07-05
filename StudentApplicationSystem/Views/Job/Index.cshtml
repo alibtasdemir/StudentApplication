@@ -1,0 +1,70 @@
+﻿@model IEnumerable<StudentApplicationSystem.Models.Job>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (Session["userName"] == null)
+{
+    Response.Redirect("~/Home/NotAuthorized");
+}
+else
+{
+    <h2>Index</h2>
+
+    if ((int)Session["isAdmin"] == 1)
+    {
+        <p>
+            <button class="btn btn-success" onclick="location.href='@Url.Action("Create", "Job")';return false;">
+                <span class="glyphicon glyphicon-plus"></span> New Job Poster
+            </button>
+        </p>
+    }
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.applicantList)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.jobName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.applicationStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.applicationFinish)
+            </th>
+            @if ((int)Session["isAdmin"] == 1)
+            {
+                <th>Operations</th>
+            }
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.applicantList)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.jobName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.applicationStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.applicationFinish)
+                </td>
+                @if ((int)Session["isAdmin"] == 1)
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.jobId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.jobId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.jobId })
+                    </td>
+                }
+            </tr>
+        }
+
+    </table>
+}

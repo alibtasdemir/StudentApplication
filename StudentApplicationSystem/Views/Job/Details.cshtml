@@ -1,0 +1,68 @@
+﻿@model StudentApplicationSystem.Models.Job
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@if (Session["userName"] == null)
+{
+    Response.Redirect("~/Home/NotAuthorized");
+}
+else
+{
+    <h2>Details of Job Poster</h2>
+
+    <div>
+        <h4>Job</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.applicantList)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.applicantList)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.jobName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.jobName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.applicationStart)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.applicationStart)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.applicationFinish)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.applicationFinish)
+            </dd>
+
+        </dl>
+    </div>
+
+    if ((int)Session["isAdmin"] == 1)
+    {
+        <p>
+            <button class="btn btn-link" onclick="location.href='@Url.Action("Edit", "Job", new { id = Model.jobId })';return false;">
+                <span class="glyphicon glyphicon-search"></span> Edit
+            </button>
+
+            <button class="btn btn-link" onclick="location.href='@Url.Action("Index", "Job")';return false;">
+                <span class="glyphicon glyphicon-arrow-left"></span> Back To List
+            </button>
+
+        </p>
+    }
+}
+
