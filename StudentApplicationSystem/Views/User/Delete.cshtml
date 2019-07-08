@@ -1,8 +1,12 @@
 ﻿@model StudentApplicationSystem.Models.User
 
 @{
+    /**/
+
     ViewBag.Title = "Delete";
 }
+
+
 
 @if (Session["userName"] == null)
 {
@@ -14,95 +18,111 @@ else if ((int)Session["isAdmin"] == 0)
 }
 else
 {
-    <h2>Delete</h2>
+    if ((int)Session["userId"] == Model.userId)
+    {
+        <h1>You can not delete yourself !</h1>
+        <div>
+            <button class="btn btn-link" onclick="location.href='@Url.Action("Index", "User")';return false;">
+                <span class="glyphicon glyphicon-arrow-left"></span> Back To List
+            </button>
+        </div>
+    }
+    else
+    {
+        <h2>Delete</h2>
 
-    <h3>Are you sure you want to delete this?</h3>
-    <div>
-        <h4>User</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.name)
-            </dt>
+        <h3>Are you sure you want to delete this?</h3>
+        <div>
+            <h4>User</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.name)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.name)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.name)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.surname)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.surname)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.surname)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.surname)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.email)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.email)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.email)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.email)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.department)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.department)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.department)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.department)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.gpa)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.gpa)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.gpa)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.gpa)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.phone_number)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.phone_number)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.phone_number)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.phone_number)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.cd_modifier)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.cd_modifier)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.cd_modifier)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.cd_modifier)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.dt_modified)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.dt_modified)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.dt_modified)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.dt_modified)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.dt_created)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.dt_created)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.dt_created)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.dt_created)
+                </dd>
 
-        </dl>
+            </dl>
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-danger" /> |
-                @Html.ActionLink("Back to List", "Index")
-            </div>
-        }
-    </div>
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+
+                    <button class="btn btn-link" onclick="location.href='@Url.Action("Index", "User")';return false;">
+                        <span class="glyphicon glyphicon-arrow-left"></span> Back To List
+                    </button>
+                </div>
+            }
+        </div>
+    }
+
 }

@@ -16,6 +16,12 @@ namespace StudentApplicationSystem.Models
 
     public partial class Job
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Job()
+        {
+            this.Applications = new HashSet<Application>();
+        }
+        [Key]
         public int jobId { get; set; }
         [DisplayName("Applicants")]
         public string applicantList { get; set; }
@@ -29,5 +35,8 @@ namespace StudentApplicationSystem.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> applicationFinish { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Application> Applications { get; set; }
     }
 }

@@ -25,21 +25,30 @@
                     @if (Session["UserName"] != null)
                     {
                         <li>@Html.ActionLink(Session["UserName"].ToString(), "Details", "User", new { id = Session["userId"] }, null)</li>
+
                         if ((int)Session["isAdmin"] == 1)
                         {
+                            <!--IF ADMIN-->
                             <li>@Html.ActionLink("User List", "Index", "User")</li>
                             <li>@Html.ActionLink("Question List", "Index", "Question")</li>
                         }
                         <li>@Html.ActionLink("Jobs", "Index", "Job")</li>
-                        <li>@Html.ActionLink("Applications","Index","Applications")</li>
+                        <li>@Html.ActionLink("Applications", "Index", "Applications")</li>
                         <li>@Html.ActionLink("Logout", "Logout", "User")</li>
+                    }
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Session["UserName"] != null)
+                    {
+                        <li>@Html.ActionLink(Session["UserName"].ToString(), "Details", "User", new { id = Session["userId"] }, null)</li>
+
                     }
                     else
                     {
                         <li>@Html.ActionLink("Register", "Create", "User")</li>
                         <li>@Html.ActionLink("Login", "Login", "Home")</li>
                     }
-
                 </ul>
             </div>
         </div>

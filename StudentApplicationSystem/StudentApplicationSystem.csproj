@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ApplicationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InterviewQuestionPapersController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -245,6 +246,11 @@
     <Content Include="Views\Job\Edit.cshtml" />
     <Content Include="Views\Job\Index.cshtml" />
     <Content Include="Views\Home\NotAuthorized.cshtml" />
+    <Content Include="Views\InterviewQuestionPapers\Create.cshtml" />
+    <Content Include="Views\InterviewQuestionPapers\Delete.cshtml" />
+    <Content Include="Views\InterviewQuestionPapers\Details.cshtml" />
+    <Content Include="Views\InterviewQuestionPapers\Edit.cshtml" />
+    <Content Include="Views\InterviewQuestionPapers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,9 +6,6 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -21,31 +18,47 @@
             @Html.DisplayNameFor(model => model.dt_created)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.name)
+            @Html.DisplayNameFor(model => model.Job.jobName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Job.applicationFinish)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.paperId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dt_created)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.applicationId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.applicationId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.applicationId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink("Download CV", "Download", new {id = item.applicationId }, htmlAttributes: new { target="_blank"})
+                
+            </td>
+            <td>
+                @if (item.paperId != null)
+                {
+                    <a href=@Url.Action("Edit", "InterviewQuestionPapers", new { id = item.paperId })><i class="glyphicon glyphicon-zoom-in"> Go to Interview </i></a>
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.paperId)
+                }
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dt_created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Job.jobName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Job.applicationFinish)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.applicationId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.applicationId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.applicationId })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -38,6 +39,8 @@ namespace StudentApplicationSystem.Controllers
         // GET: User/Create
         public ActionResult Create()
         {
+            List<SelectListItem> items = DepartmentList();
+            ViewData["ListItems"] = items;
             return View();
         }
 
@@ -48,8 +51,37 @@ namespace StudentApplicationSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "name,surname,password,email,department,gpa,phone_number,BoolValue")] User user)
         {
+            
             if (ModelState.IsValid)
             {
+                try
+                {
+                    if (Session["userName"] == null)
+                    {
+                        user.BoolValue = false;
+                    }
+                    user.dt_created = DateTime.Now;
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
+
+
+
+                /**
                 if (Session["userName"] == null)
                 {
                     user.BoolValue = false;
@@ -57,6 +89,8 @@ namespace StudentApplicationSystem.Controllers
                 user.dt_created = DateTime.Now;
                 db.Users.Add(user);
                 db.SaveChanges();
+                
+                **/
                 return RedirectToAction("Index", "Home", null);
             }
 
@@ -75,6 +109,8 @@ namespace StudentApplicationSystem.Controllers
             {
                 return HttpNotFound();
             }
+            List<SelectListItem> items = DepartmentList();
+            ViewData["ListItems"] = items;
             return View(user);
         }
 
@@ -141,6 +177,104 @@ namespace StudentApplicationSystem.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        public List<SelectListItem> DepartmentList()
+        {
+            List<SelectListItem> selectlist = new List<SelectListItem>();
+            List<string> DList = new List<string>();
+            DList.Add("Faculty of Computer and Information Sciences - Computer Engineering");
+            DList.Add("Faculty of Computer and Information Sciences - Information Systems Engineering");
+            DList.Add("Faculty of Computer and Information Sciences - Software Engineering");
+
+            DList.Add("Faculty of Education - Computer Education and Instructional Technologies");
+            DList.Add("Faculty of Education - Foreign Language Education");
+            DList.Add("Faculty of Education - Special Education");
+            DList.Add("Faculty of Education - Science Education Department");
+            DList.Add("Faculty of Education - Mathematics Education Department");
+            DList.Add("Faculty of Education - Social Sciences Education Department");
+            DList.Add("Faculty of Education - Faculty of Education");
+
+            DList.Add("Faculty of Dentistry - Dentistry");
+
+            DList.Add("Faculty of Arts and Sciences - Turkish Language and Literature");
+            DList.Add("Faculty of Arts and Sciences - History");
+            DList.Add("Faculty of Arts and Sciences - Sociology");
+            DList.Add("Faculty of Arts and Sciences - Social Work");
+            DList.Add("Faculty of Arts and Sciences - History of Art");
+            DList.Add("Faculty of Arts and Sciences - Mathematics");
+            DList.Add("Faculty of Arts and Sciences - Chemistry");
+            DList.Add("Faculty of Arts and Sciences - Physics");
+            DList.Add("Faculty of Arts and Sciences - Philosophy");
+            DList.Add("Faculty of Arts and Sciences - Geography");
+            DList.Add("Faculty of Arts and Sciences - Translation Studies");
+            DList.Add("Faculty of Arts and Sciences - Biology");
+            DList.Add("Faculty of Arts and Sciences - German Language and Literature");
+
+            DList.Add("Faculty of Law - Law");
+
+            DList.Add("Faculty of Theology - Theology");
+
+            DList.Add("Faculty of Communication - Public Relations and Advertising");
+            DList.Add("Faculty of Communication - Communication Design and Media");
+            DList.Add("Faculty of Communication - Journalism");
+            DList.Add("Faculty of Communication - Radio Television and Cinema");
+
+            DList.Add("Sakarya Business School - Human Resources Management");
+            DList.Add("Sakarya Business School - Business");
+            DList.Add("Sakarya Business School - Health Administration");
+            DList.Add("Sakarya Business School - International Trade");
+            DList.Add("Sakarya Business School - Management Information Systems");
+
+            DList.Add("Faculty of Engineering - Environmental Engineering");
+            DList.Add("Faculty of Engineering - Civil Engineering");
+            DList.Add("Faculty of Engineering - Electrical and Electronics Engineering");
+            DList.Add("Faculty of Engineering - Food Engineering");
+            DList.Add("Faculty of Engineering - Industrial Engineering");
+            DList.Add("Faculty of Engineering - Geophysical Engineering");
+            DList.Add("Faculty of Engineering - Mechanical Engineering");
+            DList.Add("Faculty of Engineering - Metallurgical and Materials Engineering");
+
+            DList.Add("Faculty of Health Sciences - Midwifery");
+            DList.Add("Faculty of Health Sciences - Nursing");
+
+            DList.Add("Faculty of Art Design And Architecture - Visual Communication and Design");
+            DList.Add("Faculty of Art Design And Architecture - Traditional Turkish Arts");
+            DList.Add("Faculty of Art Design And Architecture - Painting");
+            DList.Add("Faculty of Art Design And Architecture - Architecture");
+            DList.Add("Faculty of Art Design And Architecture - Ceramic and Glass Design");
+
+
+            DList.Add("Faculty of Political Sciences - Labour Economics and Industrial Relations");
+            DList.Add("Faculty of Political Sciences - Econometrics");
+            DList.Add("Faculty of Political Sciences - Economics");
+            DList.Add("Faculty of Political Sciences - Political Science and Public Administration");
+            DList.Add("Faculty of Political Sciences - Public Finance");
+            DList.Add("Faculty of Political Sciences - International Relations");
+
+
+
+            DList.Add("Faculty of Technical Education - Electrical Training");
+            DList.Add("Faculty of Technical Education - Mechanical Education");
+            DList.Add("Faculty of Technical Education - Metal Education");
+            DList.Add("Faculty of Technical Education - Construction Education");
+
+            DList.Add("Faculty of Faculty of Medicine - Medicine");
+
+            DList.Sort();
+
+            foreach (string department in DList)
+            {
+                selectlist.Add(new SelectListItem
+                {
+                    Text = department,
+                    Value = department
+                });
+            }
+
+            return selectlist;
+        
         }
     }
 }

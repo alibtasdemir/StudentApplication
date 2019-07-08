@@ -1,0 +1,144 @@
+﻿@model StudentApplicationSystem.Models.InterviewQuestionPaper
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>InterviewQuestionPaper</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.jobId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.jobId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.question2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.question2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.question3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.question3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.answer1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.answer1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.answer2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.answer2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.answer3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.answer3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cd_creater)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cd_creater)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dt_created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dt_created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cd_modifier)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cd_modifier)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dt_modified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dt_modified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Application.applicationId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Application.applicationId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.question1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Question.question1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Question4.question1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Question4.question1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Question5.question1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Question5.question1)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

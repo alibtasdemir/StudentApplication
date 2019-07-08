@@ -33,7 +33,10 @@ namespace StudentApplicationSystem.Models
         [DisplayName("E-Mail")]
         [RegularExpression("\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*", ErrorMessage = "Email is invalid")]
         public string email { get; set; }
+        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$", ErrorMessage = "Please use one uppercase character at least.")]
+        public string password { get; set; }
         [DisplayName("Department")]
+        [StringLength(150)]
         public string department { get; set; }
         [DisplayName("GPA")]
         [Range(1.0, 4.0)]
@@ -51,11 +54,8 @@ namespace StudentApplicationSystem.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> dt_created { get; set; }
-        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$", ErrorMessage = "Please use one uppercase character at least.")]
-        public string password { get; set; }
         [DisplayName("Admin?")]
         public Nullable<int> isAdmin { get; set; }
-
         public bool BoolValue
         {
             // This function sets the int admin value by using checkbox in forms.
@@ -68,7 +68,8 @@ namespace StudentApplicationSystem.Models
             get { return isAdmin == 1 ? "Yes" : "No"; }
             set { }
         }
-
+        public string applicationList { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Application> Applications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

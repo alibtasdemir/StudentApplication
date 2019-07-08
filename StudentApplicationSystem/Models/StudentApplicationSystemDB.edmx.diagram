@@ -4,19 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f15e7b5bdc2a4b869ef3709bc979865e" Name="Diagram1">
-        <EntityTypeShape EntityType="StudentApplicationSystemDBModel.C__RefactorLog" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="StudentApplicationSystemDBModel.Application" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="StudentApplicationSystemDBModel.InterviewQuestionPaper" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="StudentApplicationSystemDBModel.Job" Width="1.5" PointX="5.75" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="StudentApplicationSystemDBModel.Question" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="StudentApplicationSystemDBModel.User" Width="1.5" PointX="1.5" PointY="10.375" IsExpanded="true" />
-        <AssociationConnector Association="StudentApplicationSystemDBModel.applicationId" ManuallyRouted="false" />
-        <AssociationConnector Association="StudentApplicationSystemDBModel.userId" ManuallyRouted="false" />
-        <AssociationConnector Association="StudentApplicationSystemDBModel.FK__Interview__userI__4E88ABD4" ManuallyRouted="false" />
-        <AssociationConnector Association="StudentApplicationSystemDBModel.q1" ManuallyRouted="false" />
-        <AssociationConnector Association="StudentApplicationSystemDBModel.q2" ManuallyRouted="false" />
-        <AssociationConnector Association="StudentApplicationSystemDBModel.q3" ManuallyRouted="false" />
+      <Diagram DiagramId="0435aaafb32f4ae080c663de61f158eb" Name="Diagram1">
+        <EntityTypeShape EntityType="StudentApplicationSystemModel.C__RefactorLog" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentApplicationSystemModel.Application" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentApplicationSystemModel.InterviewQuestionPaper" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentApplicationSystemModel.Job" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentApplicationSystemModel.Question" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentApplicationSystemModel.User" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <AssociationConnector Association="StudentApplicationSystemModel.applicationId" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentApplicationSystemModel.jobf" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentApplicationSystemModel.paper" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentApplicationSystemModel.userId" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentApplicationSystemModel.FK__Interview__userI__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentApplicationSystemModel.q1" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentApplicationSystemModel.q2" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentApplicationSystemModel.q3" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

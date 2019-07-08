@@ -23,6 +23,7 @@ namespace StudentApplicationSystem.Models
             this.InterviewQuestionPapers1 = new HashSet<InterviewQuestionPaper>();
             this.InterviewQuestionPapers2 = new HashSet<InterviewQuestionPaper>();
         }
+
         [Key]
         public int questionId { get; set; }
         [Required]
@@ -40,7 +41,7 @@ namespace StudentApplicationSystem.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> dt_modified { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InterviewQuestionPaper> InterviewQuestionPapers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

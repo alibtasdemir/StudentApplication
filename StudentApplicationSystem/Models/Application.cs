@@ -11,6 +11,9 @@ namespace StudentApplicationSystem.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Web;
 
     public partial class Application
     {
@@ -20,11 +23,17 @@ namespace StudentApplicationSystem.Models
             this.InterviewQuestionPapers = new HashSet<InterviewQuestionPaper>();
         }
 
+        [Key]
         public int applicationId { get; set; }
         public int userId { get; set; }
         public int jobId { get; set; }
+        [DisplayName("CV")]
         public byte[] cv { get; set; }
         public Nullable<int> paperId { get; set; }
+
+        [DisplayName("Created")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> dt_created { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -32,5 +41,6 @@ namespace StudentApplicationSystem.Models
         public virtual Job Job { get; set; }
         public virtual InterviewQuestionPaper InterviewQuestionPaper { get; set; }
         public virtual User User { get; set; }
+        public HttpPostedFileBase cvFile { get; set; }
     }
 }
