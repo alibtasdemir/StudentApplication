@@ -81,6 +81,12 @@ namespace StudentApplicationSystem.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (interviewQuestionPaper.dt_modified != null)
+            {
+                return RedirectToAction("Details", new { id });
+            }
+
             ViewBag.applicationId = new SelectList(db.Applications, "applicationId", "applicationId", interviewQuestionPaper.applicationId);
             ViewBag.userId = new SelectList(db.Users, "userId", "name", interviewQuestionPaper.userId);
             ViewBag.question1 = new SelectList(db.Questions, "questionId", "question1", interviewQuestionPaper.question1);

@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<StudentApplicationSystem.Models.User>
 
 @{
-                /**/
-
-                ViewBag.Title = "Welcome";
+    ViewBag.Title = "Welcome";
 }
 
 @if (Session["userName"] == null)
@@ -25,13 +23,15 @@ else
             <span class="glyphicon glyphicon-plus"></span> New User
         </button>
     </p>
-    if (Model.Count() == 0)
+
+    <div class="well">
+    @if (Model.Count() == 0)
     {
         <text>There is no user!</text>
     }
     else
     {
-        <table class="table">
+        <table class="table" id="myTable">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.name)
@@ -119,9 +119,28 @@ else
             }
         </table>
     }
+
+    <script>
+        var table2_Props = {
+            paging: true,
+            paging_length: 3,
+            rows_counter: true,
+            on_change: true,
+            rows_counter_text: "Users:",
+            btn_reset: true,
+            loader: true,
+            loader_text: "Loading...",
+            col_6: "none",
+            col_7: "none",
+            col_8: "none",
+            col_9: "select",
+            col_10: "none",
+            display_all_text: " [ Show all ] ",
+            sort_select: true
+        };
+        var tf2 = setFilterGrid("myTable", table2_Props);
+    </script>
+
+    </div>
 }
-
-
-
-
 

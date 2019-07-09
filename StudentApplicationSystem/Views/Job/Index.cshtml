@@ -10,67 +10,90 @@
 }
 else
 {
-    <h2>Index</h2>
+    <h2>Job Posters</h2>
 
-    if ((int)Session["isAdmin"] == 1)
-    {
+    <div>
+        @if ((int)Session["isAdmin"] == 1)
+        {
         <p>
             <button class="btn btn-success" onclick="location.href='@Url.Action("Create", "Job")';return false;">
                 <span class="glyphicon glyphicon-plus"></span> New Job Poster
             </button>
         </p>
-    }
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.applicantList)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.jobName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.applicationStart)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.applicationFinish)
-            </th>
-            <th>Operations</th>
-            
-        </tr>
-
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.applicantList)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.jobName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.applicationStart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.applicationFinish)
-            </td>
-            @if ((int)Session["isAdmin"] == 1)
-            {
-                <td>
-                    <a href=@Url.Action("Edit", new { id = item.jobId })><i class="glyphicon glyphicon-edit"> Edit </i></a>
-                    <a href=@Url.Action("Details", new { id = item.jobId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
-                    <a href=@Url.Action("Delete", new { id = item.jobId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
-                </td>
-            }
-            else if ((int)Session["isAdmin"] == 0)
-            {
-                <td>
-                    <a href=@Url.Action("Apply", "Job", new { id = item.jobId })><i class="glyphicon glyphicon-edit"> Apply </i></a>
-                </td>
-
-                    }
-            </tr>
         }
+    </div>
 
-    </table>
-    <h1></h1>
+        <div class="well">
+
+            <table class="table" id="myTable">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.applicantList)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.jobName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.applicationStart)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.applicationFinish)
+                    </th>
+                    <th>Operations</th>
+
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.applicantList)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.jobName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.applicationStart)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.applicationFinish)
+                        </td>
+                        @if ((int)Session["isAdmin"] == 1)
+                        {
+                            <td>
+                                <a href=@Url.Action("Edit", new { id = item.jobId })><i class="glyphicon glyphicon-edit"> Edit </i></a>
+                                <a href=@Url.Action("Details", new { id = item.jobId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
+                                <a href=@Url.Action("Delete", new { id = item.jobId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
+                            </td>
+                        }
+                        else if ((int)Session["isAdmin"] == 0)
+                        {
+                            <td>
+                                <a href=@Url.Action("Apply", "Job", new { id = item.jobId })><i class="glyphicon glyphicon-edit"> Apply </i></a>
+                            </td>
+
+                        }
+                    </tr>
+                }
+
+            </table>
+
+            <script>
+                var table2_Props = {
+                    paging: true,
+                    paging_length: 5,
+                    rows_counter: true,
+                    rows_counter_text: "Job Posters:",
+                    btn_reset: true,
+                    loader: true,
+                    loader_text: "Loading...",
+                    col_0: "none",
+                    col_4: "none",
+                    display_all_text: " [ Show all ] ",
+                    sort_select: true
+                };
+                var tf2 = setFilterGrid("myTable", table2_Props);
+
+            </script>
+        </div>
 }

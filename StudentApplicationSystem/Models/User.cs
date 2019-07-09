@@ -29,6 +29,15 @@ namespace StudentApplicationSystem.Models
         public string name { get; set; }
         [DisplayName("Last Name")]
         public string surname { get; set; }
+
+        public string printName
+        {
+            get
+            {
+                return name + " " + surname;
+            }
+        }
+
         [Required(ErrorMessage = "Email is required.")]
         [DisplayName("E-Mail")]
         [RegularExpression("\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*", ErrorMessage = "Email is invalid")]

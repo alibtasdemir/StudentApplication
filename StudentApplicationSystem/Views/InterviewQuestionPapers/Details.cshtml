@@ -11,75 +11,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.jobId)
+            @Html.DisplayNameFor(model => model.Application.Job.jobName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.jobId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.question2)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.question2)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.question3)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.question3)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.answer1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.answer1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.answer2)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.answer2)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.answer3)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.answer3)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cd_creater)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cd_creater)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dt_created)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dt_created)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cd_modifier)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cd_modifier)
+            @Html.DisplayFor(model => model.Application.Job.jobName)
         </dd>
 
         <dt>
@@ -91,19 +27,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Application.applicationId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Application.applicationId)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.User.name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.User.name)
+            @Html.DisplayFor(model => model.User.printName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.email)
         </dd>
 
         <dt>
@@ -115,11 +51,27 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.answer1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.answer1)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Question4.question1)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Question4.question1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.answer2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.answer2)
         </dd>
 
         <dt>
@@ -130,9 +82,17 @@
             @Html.DisplayFor(model => model.Question5.question1)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.answer3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.answer3)
+        </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.paperId }) |
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn btn-link" onclick="location.href='@Url.Action("Index", "Applications")';return false;">
+        <span class="glyphicon glyphicon-arrow-left"></span> Back To List
+    </button>
 </p>

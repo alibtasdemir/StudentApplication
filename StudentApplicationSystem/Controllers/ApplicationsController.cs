@@ -96,6 +96,10 @@ namespace StudentApplicationSystem.Controllers
 
                 application.jobId = (int)Session["jobId"];
 
+                Job job = db.Jobs.Find(application.jobId);
+
+                //var dummy = job.Applications;
+
                 var questionIds = db.Questions.OrderBy(h => Guid.NewGuid()).Select(c => c.questionId).Take(3).ToList();
 
                 InterviewQuestionPaper paper = new InterviewQuestionPaper();
@@ -107,12 +111,13 @@ namespace StudentApplicationSystem.Controllers
                 paper.jobId = application.jobId;
                 paper.dt_created = DateTime.Now;
                 paper.cd_creater = application.userId;
+                
 
                 db.InterviewQuestionPapers.Add(paper);
                 db.SaveChanges();
 
                 application.paperId = paper.paperId;
-
+                paper.applicationId = application.applicationId;
                 //db.Applications.Add(application);
                 db.SaveChanges();
                 return RedirectToAction("Index");

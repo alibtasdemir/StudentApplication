@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<StudentApplicationSystem.Models.Question>
 
 @{
-    ViewBag.Title = "Index";
+                /**/
+
+                ViewBag.Title = "Index";
 }
 
 @if (Session["userName"] == null)
@@ -14,22 +16,25 @@ else if ((int)Session["isAdmin"] != 1)
 }
 else
 {
-    <h2>Index</h2>
-
+    <h2>Questions</h2>
+    <div>
+        <p>
+            <button class="btn btn-success" onclick="location.href='@Url.Action("Create", "Question")';return false;">
+                <span class="glyphicon glyphicon-plus"></span> Add Question
+            </button>
+        </p>
+    </div>
     <hr class="soft" />
-    <p>
-        <button class="btn btn-success" onclick="location.href='@Url.Action("Create", "Question")';return false;">
-            <span class="glyphicon glyphicon-plus"></span> Add Question
-        </button>
-    </p>
 
-    if (Model.Count() == 0)
-    {
+    <div class="well">
+
+        @if (Model.Count() == 0)
+        {
         <text>There is no question!</text>
-    }
-    else
-    {
-        <table class="table">
+        }
+        else
+        {
+        <table class="table" id="myTable">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.question1)
@@ -83,5 +88,26 @@ else
             }
 
         </table>
-    }
+
+
+        <script>
+            var table2_Props = {
+                paging: true,
+                paging_length: 5,
+                rows_counter: true,
+                rows_counter_text: "Questions:",
+                btn_reset: true,
+                loader: true,
+                loader_text: "Loading...",
+                col_1: "select",
+                col_2: "select",
+                col_5: "none",
+                display_all_text: " [ Show all ] ",
+                sort_select: true
+            };
+            var tf2 = setFilterGrid("myTable", table2_Props);
+
+        </script>
+        }
+    </div>
 }

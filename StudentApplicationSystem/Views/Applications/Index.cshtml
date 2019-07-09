@@ -4,61 +4,123 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Applications</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.cv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.paperId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dt_created)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Job.jobName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Job.applicationFinish)
-        </th>
-        <th></th>
-    </tr>
+<hr class="soft"/>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.ActionLink("Download CV", "Download", new {id = item.applicationId }, htmlAttributes: new { target="_blank"})
-                
-            </td>
-            <td>
-                @if (item.paperId != null)
+<div class="well">
+
+    <table class="table" id="myTable">
+        <thead>
+            <tr>
+                @if ((int)Session["isAdmin"] == 1)
                 {
-                    <a href=@Url.Action("Edit", "InterviewQuestionPapers", new { id = item.paperId })><i class="glyphicon glyphicon-zoom-in"> Go to Interview </i></a>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.userId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.email)
+                    </th>
                 }
-                else
-                {
-                    @Html.DisplayFor(modelItem => item.paperId)
-                }
+                <th>
+                    @Html.DisplayNameFor(model => model.cv)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.paperId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dt_created)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Job.jobName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Job.applicationFinish)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.dt_created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Job.jobName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Job.applicationFinish)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.applicationId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.applicationId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.applicationId })
-            </td>
-        </tr>
-    }
+        <tbody id="tableData">
 
-</table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @if ((int)Session["isAdmin"] == 1)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.userId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.printName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.email)
+                        </td>
+                    }
+
+                    <td>
+                        <form target="_blank" action=@Url.Action("Download", "Applications", new { id = item.applicationId })>
+                            <button class="btn btn-primary" target="_blank" onclick="location.href='@Url.Action("Download", "Applications", new { id = item.applicationId })'">
+                                <span class="glyphicon glyphicon-download-alt"></span> Download
+                            </button>
+                        </form>
+
+
+                    </td>
+                    <td>
+                        @if (item.paperId != null)
+                        {
+                            <a href=@Url.Action("Edit", "InterviewQuestionPapers", new { id = item.paperId })><i class="glyphicon glyphicon-zoom-in"> Go to Interview </i></a>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.paperId)
+                        }
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dt_created)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Job.jobName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Job.applicationFinish)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.applicationId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.applicationId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.applicationId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<script>    
+    var table2_Props = {
+        paging: true,
+        paging_length: 3,
+        rows_counter: true,
+        rows_counter_text: "Applications:",
+        btn_reset: true,
+        loader: true,
+        loader_text: "Loading...",
+        col_0: "select",
+        col_3: "none",
+        col_4: "none",
+        col_6: "select",
+        col_8: "none",
+        display_all_text: " [ Show all ] ",
+        sort_select: true
+    };
+    var tf2 = setFilterGrid("myTable", table2_Props); 
+
+</script>
+

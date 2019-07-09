@@ -26,3 +26,45 @@ textarea {
 .soft {
     border-top: 1px solid #8c8b8b;
 }
+
+
+.btn-login {
+    border-radius: 4px;
+    background-color: #5cb85c;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 19px;
+    padding: 10px;
+    width: 130px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+
+.btn-login span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+
+.btn-login span:after {
+    content: '\1F511';
+    position: absolute;
+    opacity: 0;
+    top: -5px;
+    right: -10px;
+    transition: 0.5s;
+    }
+
+.btn-login:hover span {
+    padding-right: 35px;
+    }
+
+.btn-login:hover span:after {
+    opacity: 1;
+    right: 0;
+    }
