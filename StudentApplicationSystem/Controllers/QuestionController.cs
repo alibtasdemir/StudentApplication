@@ -17,6 +17,16 @@ namespace StudentApplicationSystem.Controllers
         // GET: Question
         public ActionResult Index()
         {
+            if(CheckVisitor())
+            {
+                // If non-user wants to reach question poll.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+            else if(!CheckAdmin())
+            {
+                // If normal user wants to reach question poll.
+                return RedirectToAction("NotAuthorized", "Home");
+            }            
             return View(db.Questions.ToList());
         }
 
@@ -26,6 +36,16 @@ namespace StudentApplicationSystem.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (CheckVisitor())
+            {
+                // If non-user wants to reach question details.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+            else if (!CheckAdmin())
+            {
+                // If normal user wants to reach question details.
+                return RedirectToAction("NotAuthorized", "Home");
             }
             Question question = db.Questions.Find(id);
             if (question == null)
@@ -38,6 +58,16 @@ namespace StudentApplicationSystem.Controllers
         // GET: Question/Create
         public ActionResult Create()
         {
+            if (CheckVisitor())
+            {
+                // If non-user wants to reach question create.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+            else if (!CheckAdmin())
+            {
+                // If normal user wants to reach question create.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
             return View();
         }
 
@@ -66,6 +96,16 @@ namespace StudentApplicationSystem.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (CheckVisitor())
+            {
+                // If non-user wants to reach question edit.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+            else if (!CheckAdmin())
+            {
+                // If normal user wants to reach question edit.
+                return RedirectToAction("NotAuthorized", "Home");
             }
             Question question = db.Questions.Find(id);
             if (question == null)
@@ -100,6 +140,16 @@ namespace StudentApplicationSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            if (CheckVisitor())
+            {
+                // If non-user wants to reach question edit.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+            else if (CheckAdmin())
+            {
+                // If normal user wants to reach question edit.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
             Question question = db.Questions.Find(id);
             if (question == null)
             {
@@ -119,6 +169,17 @@ namespace StudentApplicationSystem.Controllers
             return RedirectToAction("Index");
         }
 
+        public bool CheckVisitor()
+        {
+            //If visitor return true, if user return false.
+            return Session["userName"] == null ? true : false;
+        }
+
+        public bool CheckAdmin()
+        {
+            // If admin return true else false.
+            return (int)Session["isAdmin"] == 1 ? true : false;
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

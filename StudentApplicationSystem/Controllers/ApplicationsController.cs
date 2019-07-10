@@ -23,6 +23,12 @@ namespace StudentApplicationSystem.Controllers
         // GET: Applications
         public ActionResult Index()
         {
+            if (CheckVisitor())
+            {
+                // If non user person wants to reach Edit page.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+
             int userid = (int)Session["userId"];
             
             var user = db.Users.Where(a => a.userId.Equals(userid)).FirstOrDefault();
@@ -43,7 +49,11 @@ namespace StudentApplicationSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
+            if (CheckVisitor())
+            {
+                // If non user person wants to reach Edit page.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
             int userid = (int)Session["userId"];
             User user = db.Users.Where(a => a.userId.Equals(userid)).FirstOrDefault();
             Application application = db.Applications.Find(id);
@@ -97,9 +107,7 @@ namespace StudentApplicationSystem.Controllers
                 application.jobId = (int)Session["jobId"];
 
                 Job job = db.Jobs.Find(application.jobId);
-
-                //var dummy = job.Applications;
-
+                
                 var questionIds = db.Questions.OrderBy(h => Guid.NewGuid()).Select(c => c.questionId).Take(3).ToList();
 
                 InterviewQuestionPaper paper = new InterviewQuestionPaper();
@@ -118,7 +126,6 @@ namespace StudentApplicationSystem.Controllers
 
                 application.paperId = paper.paperId;
                 paper.applicationId = application.applicationId;
-                //db.Applications.Add(application);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -134,45 +141,18 @@ namespace StudentApplicationSystem.Controllers
             return File(application.cv, ".pdf");
 
         }
-
-        /*
-        // GET: Applications/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Application application = db.Applications.Find(id);
-            if (application == null)
-            {
-                return HttpNotFound();
-            }
-            return View(application);
-        }
-
-        // POST: Applications/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "applicationId,userId,cv,paperId,dt_created")] Application application)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(application).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(application);
-        }
-        */
+        
         // GET: Applications/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (CheckVisitor())
+            {
+                // If non user person wants to reach Edit page.
+                return RedirectToAction("NotAuthorized", "Home");
             }
             Application application = db.Applications.Find(id);
             if (application == null)
@@ -200,6 +180,17 @@ namespace StudentApplicationSystem.Controllers
         {
             this.jobId = jobId;
             return 1;
+        }
+
+        public bool CheckVisitor()
+        {
+            //If visitor return true, if user return false.
+            return Session["userName"] == null ? true : false;
+        }
+        public bool CheckAdmin()
+        {
+            // If admin return true else false.
+            return (int)Session["isAdmin"] == 1 ? true : false;
         }
 
         protected override void Dispose(bool disposing)

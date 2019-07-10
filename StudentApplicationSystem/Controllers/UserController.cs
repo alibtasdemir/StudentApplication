@@ -18,12 +18,12 @@ namespace StudentApplicationSystem.Controllers
         // GET: User
         public ActionResult Index()
         {
-            if(Session["userName"] == null)
+            if(CheckVisitor())
             {
                 // If a visitor wants to see UserList.
                 return RedirectToAction("NotAuthorized", "Home"); ;
             }
-            else if((int)Session["isAdmin"] == 0)
+            else if(!CheckAdmin())
             {
                 // If non-admin user wants to see UserList.
                 return RedirectToAction("NotAuthorized", "Home"); ;
@@ -41,12 +41,12 @@ namespace StudentApplicationSystem.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            if (Session["userId"] == null)
+            if (CheckVisitor())
             {
                 // If the user is not logged in.
                 return RedirectToAction("NotAuthorized", "Home");
             }
-            else if ((int)Session["isAdmin"] == 0 && id != (int)Session["userId"])
+            else if (!CheckAdmin() && id != (int)Session["userId"])
             {
                 // If user wants to see somebody elses' details.
                 return RedirectToAction("NotAuthorized", "Home");
@@ -137,14 +137,14 @@ namespace StudentApplicationSystem.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            if (Session["userName"] == null)
+            if (CheckVisitor())
             {
                 // If non user person wants to reach Edit page.
                 return RedirectToAction("NotAuthorized", "Home");
             }
             else
             {
-                if ((int)Session["isAdmin"] == 0 && (int)Session["userId"] != id)
+                if (CheckAdmin() && (int)Session["userId"] != id)
                 {
                     // If user is not an admin and not editing (her/him)self.
                     return RedirectToAction("NotAuthorized", "Home");
@@ -194,7 +194,7 @@ namespace StudentApplicationSystem.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            if(Session["userName"] == null)
+            if(CheckVisitor())
             {
                 // If non-user person wants to reach delete action.
                 return RedirectToAction("NotAuthorized", "Home");
@@ -202,7 +202,7 @@ namespace StudentApplicationSystem.Controllers
             else
             {
                 // If there is logged in user.
-                if ((int)Session["isAdmin"] == 0)
+                if (!CheckAdmin())
                 {
                     // If the user is not admin.
                     return RedirectToAction("NotAuthorized", "Home");
@@ -243,6 +243,18 @@ namespace StudentApplicationSystem.Controllers
             base.Dispose(disposing);
         }
 
+
+        public bool CheckVisitor()
+        {
+            //If visitor return true, if user return false.
+            return Session["userName"] == null ? true : false;
+        }
+
+        public bool CheckAdmin()
+        {
+            // If admin return true else false.
+            return (int)Session["isAdmin"] == 1 ? true : false;
+        }
 
         public List<SelectListItem> DepartmentList()
         {

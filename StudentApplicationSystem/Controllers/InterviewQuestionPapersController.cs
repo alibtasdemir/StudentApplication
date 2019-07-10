@@ -14,13 +14,6 @@ namespace StudentApplicationSystem.Controllers
     {
         private StudentApplicationSystemEntities db = new StudentApplicationSystemEntities();
 
-        // GET: InterviewQuestionPapers
-        public ActionResult Index()
-        {
-            var interviewQuestionPapers = db.InterviewQuestionPapers.Include(i => i.Application).Include(i => i.User).Include(i => i.Question).Include(i => i.Question4).Include(i => i.Question5);
-            return View(interviewQuestionPapers.ToList());
-        }
-
         // GET: InterviewQuestionPapers/Details/5
         public ActionResult Details(int? id)
         {
@@ -28,17 +21,31 @@ namespace StudentApplicationSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            if (CheckVisitor())
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
             InterviewQuestionPaper interviewQuestionPaper = db.InterviewQuestionPapers.Find(id);
             if (interviewQuestionPaper == null)
             {
                 return HttpNotFound();
             }
             return View(interviewQuestionPaper);
+            
         }
 
         // GET: InterviewQuestionPapers/Create
         public ActionResult Create()
         {
+            if (CheckVisitor())
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+            if (!CheckAdmin())
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
             ViewBag.applicationId = new SelectList(db.Applications, "applicationId", "applicationId");
             ViewBag.userId = new SelectList(db.Users, "userId", "name");
             ViewBag.question1 = new SelectList(db.Questions, "questionId", "question1");
@@ -75,6 +82,14 @@ namespace StudentApplicationSystem.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (CheckVisitor())
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+            if (!CheckAdmin())
+            {
+                return RedirectToAction("NotAuthorized", "Home");
             }
             InterviewQuestionPaper interviewQuestionPaper = db.InterviewQuestionPapers.Find(id);
             if (interviewQuestionPaper == null)
@@ -125,6 +140,14 @@ namespace StudentApplicationSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            if (CheckVisitor())
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+            if (!CheckAdmin())
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
             InterviewQuestionPaper interviewQuestionPaper = db.InterviewQuestionPapers.Find(id);
             if (interviewQuestionPaper == null)
             {
@@ -144,6 +167,17 @@ namespace StudentApplicationSystem.Controllers
             return RedirectToAction("Index");
         }
 
+        public bool CheckVisitor()
+        {
+            //If visitor return true, if user return false.
+            return Session["userName"] == null ? true : false;
+        }
+
+        public bool CheckAdmin()
+        {
+            // If admin return true else false.
+            return (int)Session["isAdmin"] == 1 ? true : false;
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

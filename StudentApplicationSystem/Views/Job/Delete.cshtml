@@ -4,65 +4,54 @@
     ViewBag.Title = "Delete";
 }
 
-@if (Session["userName"] == null)
-{
-    Response.Redirect("~/Home/NotAuthorized");
-}
-else if ((int)Session["isAdmin"] != 1)
-{
-    Response.Redirect("~/Home/NotAuthorized");
-}
-else
-{
-    <h2>Delete Job Poster</h2>
+<h2>Delete Job Poster</h2>
 
-    <h3>Are you sure you want to delete this?</h3>
-    <div>
-        <h4>Job</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.applicantList)
-            </dt>
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Job</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.applicantList)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.applicantList)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.applicantList)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.jobName)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.jobName)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.jobName)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.jobName)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.applicationStart)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.applicationStart)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.applicationStart)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.applicationStart)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.applicationFinish)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.applicationFinish)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.applicationFinish)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.applicationFinish)
+        </dd>
 
-        </dl>
+    </dl>
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
-            </div>
-        }
-    </div>
-}
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

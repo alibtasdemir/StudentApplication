@@ -4,103 +4,97 @@
     ViewBag.Title = "Index";
 }
 
-@if (Session["userName"] == null)
-{
-    Response.Redirect("~/Home/NotAuthorized");
-}
-else
-{
-    <h2>Job Posters</h2>
 
-    <div>
-        @if ((int)Session["isAdmin"] == 1)
-        {
-        <p>
-            <button class="btn btn-success" onclick="location.href='@Url.Action("Create", "Job")';return false;">
-                <span class="glyphicon glyphicon-plus"></span> New Job Poster
-            </button>
-        </p>
-        }
-    </div>
+<h2>Job Posters</h2>
 
-        <div class="well">
+<div>
+    @if ((int)Session["isAdmin"] == 1)
+    {
+    <p>
+        <button class="btn btn-success" onclick="location.href='@Url.Action("Create", "Job")';return false;">
+            <span class="glyphicon glyphicon-plus"></span> New Job Poster
+        </button>
+    </p>
+    }
+</div>
 
-            <table class="table" id="myTable">
+    <div class="well">
+
+        <table class="table" id="myTable">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.applicantList)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.jobName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.applicationStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.applicationFinish)
+                </th>
+                <th>Operations</th>
+
+            </tr>
+
+            @foreach (var item in Model)
+            {
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.applicantList)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.jobName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.applicationStart)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.applicationFinish)
-                    </th>
-                    <th>Operations</th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.applicantList)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.jobName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.applicationStart)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.applicationFinish)
+                    </td>
+                    @if ((int)Session["isAdmin"] == 1)
+                    {
+                        <td>
+                            <a href=@Url.Action("Edit", new { id = item.jobId })><i class="glyphicon glyphicon-edit"> Edit </i></a>
+                            <a href=@Url.Action("Details", new { id = item.jobId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
+                            <a href=@Url.Action("Delete", new { id = item.jobId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
+                        </td>
+                    }
+                    else if ((int)Session["isAdmin"] == 0)
+                    {
+                        <td>
+                            @if (DateTime.Compare(DateTime.Now, (DateTime)item.applicationStart) >= 0)
+                            {
+                                <a href=@Url.Action("Apply", "Job", new { id = item.jobId })><i class="glyphicon glyphicon-edit"> Apply </i></a>
+                            }
+                            else
+                            {
+                                @String.Format("{0:%d} days {0:%h} hours {0:%m} minutes remaining", ((DateTime)item.applicationStart - DateTime.Now));
+                            }
+                        </td>
 
+                    }
                 </tr>
+            }
 
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.applicantList)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.jobName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.applicationStart)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.applicationFinish)
-                        </td>
-                        @if ((int)Session["isAdmin"] == 1)
-                        {
-                            <td>
-                                <a href=@Url.Action("Edit", new { id = item.jobId })><i class="glyphicon glyphicon-edit"> Edit </i></a>
-                                <a href=@Url.Action("Details", new { id = item.jobId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
-                                <a href=@Url.Action("Delete", new { id = item.jobId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
-                            </td>
-                        }
-                        else if ((int)Session["isAdmin"] == 0)
-                        {
-                            <td>
-                                @if (DateTime.Compare(DateTime.Now, (DateTime)item.applicationStart) >= 0)
-                                {
-                                    <a href=@Url.Action("Apply", "Job", new { id = item.jobId })><i class="glyphicon glyphicon-edit"> Apply </i></a>
-                                }
-                                else
-                                {
-                                    @String.Format("{0:%d} days {0:%h} hours {0:%m} minutes remaining", ((DateTime)item.applicationStart - DateTime.Now));
-                                }
-                            </td>
+        </table>
 
-                        }
-                    </tr>
-                }
+        <script>
+            var table2_Props = {
+                paging: true,
+                paging_length: 5,
+                rows_counter: true,
+                rows_counter_text: "Job Posters:",
+                btn_reset: true,
+                loader: true,
+                loader_text: "Loading...",
+                col_0: "none",
+                col_4: "none",
+                display_all_text: " [ Show all ] ",
+                sort_select: true
+            };
+            var tf2 = setFilterGrid("myTable", table2_Props);
 
-            </table>
-
-            <script>
-                var table2_Props = {
-                    paging: true,
-                    paging_length: 5,
-                    rows_counter: true,
-                    rows_counter_text: "Job Posters:",
-                    btn_reset: true,
-                    loader: true,
-                    loader_text: "Loading...",
-                    col_0: "none",
-                    col_4: "none",
-                    display_all_text: " [ Show all ] ",
-                    sort_select: true
-                };
-                var tf2 = setFilterGrid("myTable", table2_Props);
-
-            </script>
-        </div>
-}
+        </script>
+    </div>

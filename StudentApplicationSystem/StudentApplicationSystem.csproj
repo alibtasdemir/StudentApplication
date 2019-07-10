@@ -284,7 +284,6 @@
     <Content Include="Views\InterviewQuestionPapers\Delete.cshtml" />
     <Content Include="Views\InterviewQuestionPapers\Details.cshtml" />
     <Content Include="Views\InterviewQuestionPapers\Edit.cshtml" />
-    <Content Include="Views\InterviewQuestionPapers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

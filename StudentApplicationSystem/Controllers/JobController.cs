@@ -17,6 +17,11 @@ namespace StudentApplicationSystem.Controllers
         // GET: Job
         public ActionResult Index()
         {
+            if(CheckVisitor())
+            {
+                // No visitor access.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
             return View(db.Jobs.ToList());
         }
 
@@ -26,6 +31,11 @@ namespace StudentApplicationSystem.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (CheckVisitor())
+            {
+                // No visitor access.
+                return RedirectToAction("NotAuthorized", "Home");
             }
             Job job = db.Jobs.Find(id);
             if (job == null)
@@ -38,6 +48,15 @@ namespace StudentApplicationSystem.Controllers
         // GET: Job/Create
         public ActionResult Create()
         {
+            if (CheckVisitor())
+            {
+                // No visitor access.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+            if (!CheckAdmin())
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
             return View();
         }
 
@@ -64,6 +83,15 @@ namespace StudentApplicationSystem.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (CheckVisitor())
+            {
+                // No visitor access.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+            if (!CheckAdmin())
+            {
+                return RedirectToAction("NotAuthorized", "Home");
             }
             Job job = db.Jobs.Find(id);
             if (job == null)
@@ -96,6 +124,15 @@ namespace StudentApplicationSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            if (CheckVisitor())
+            {
+                // No visitor access.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+            if (!CheckAdmin())
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
             Job job = db.Jobs.Find(id);
             if (job == null)
             {
@@ -119,6 +156,18 @@ namespace StudentApplicationSystem.Controllers
         {
             Session["jobId"] = id;
             return RedirectToAction("Create", "Applications");
+        }
+
+        public bool CheckVisitor()
+        {
+            //If visitor return true, if user return false.
+            return Session["userName"] == null ? true : false;
+        }
+
+        public bool CheckAdmin()
+        {
+            // If admin return true else false.
+            return (int)Session["isAdmin"] == 1 ? true : false;
         }
 
         protected override void Dispose(bool disposing)
