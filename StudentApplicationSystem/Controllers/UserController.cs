@@ -18,6 +18,17 @@ namespace StudentApplicationSystem.Controllers
         // GET: User
         public ActionResult Index()
         {
+            if(Session["userName"] == null)
+            {
+                // If a visitor wants to see UserList.
+                return RedirectToAction("NotAuthorized", "Home"); ;
+            }
+            else if((int)Session["isAdmin"] == 0)
+            {
+                // If non-admin user wants to see UserList.
+                return RedirectToAction("NotAuthorized", "Home"); ;
+            }
+
             return View(db.Users.ToList());
         }
 
@@ -26,19 +37,48 @@ namespace StudentApplicationSystem.Controllers
         {
             if (id == null)
             {
+                // If id parameter sent wrong.
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+
+            if (Session["userId"] == null)
             {
-                return HttpNotFound();
+                // If the user is not logged in.
+                return RedirectToAction("NotAuthorized", "Home");
             }
-            return View(user);
+            else if ((int)Session["isAdmin"] == 0 && id != (int)Session["userId"])
+            {
+                // If user wants to see somebody elses' details.
+                return RedirectToAction("NotAuthorized", "Home");
+
+            }
+            else
+            {
+                // If user is admin or non-admin user wants to see his/her own details.
+                User user = db.Users.Find(id);
+                if (user == null)
+                {
+                    // If there is no user with given ID.
+                    return HttpNotFound();
+                }
+                return View(user);
+            }
         }
 
         // GET: User/Create
         public ActionResult Create()
         {
+            if (Session["userName"] != null)
+            {
+                // If logged in user wants to create another user.
+                if ((int)Session["isAdmin"] == 0)
+                {
+                    // If this user is not admin.
+                    return RedirectToAction("NotAuthorized", "Home");
+
+                }
+            }
+            // Departments list for dropdown, prepared before Register form is rendered. 
             List<SelectListItem> items = DepartmentList();
             ViewData["ListItems"] = items;
             return View();
@@ -58,8 +98,11 @@ namespace StudentApplicationSystem.Controllers
                 {
                     if (Session["userName"] == null)
                     {
+                        // If create accesed by register.
                         user.BoolValue = false;
                     }
+
+                    // Creating time log stored.
                     user.dt_created = DateTime.Now;
                     db.Users.Add(user);
                     db.SaveChanges();
@@ -78,19 +121,7 @@ namespace StudentApplicationSystem.Controllers
                     }
                     throw;
                 }
-
-
-
-                /**
-                if (Session["userName"] == null)
-                {
-                    user.BoolValue = false;
-                }
-                user.dt_created = DateTime.Now;
-                db.Users.Add(user);
-                db.SaveChanges();
                 
-                **/
                 return RedirectToAction("Index", "Home", null);
             }
 
@@ -102,8 +133,24 @@ namespace StudentApplicationSystem.Controllers
         {
             if (id == null)
             {
+                // Checks ID parameter passed right.
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            if (Session["userName"] == null)
+            {
+                // If non user person wants to reach Edit page.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+            else
+            {
+                if ((int)Session["isAdmin"] == 0 && (int)Session["userId"] != id)
+                {
+                    // If user is not an admin and not editing (her/him)self.
+                    return RedirectToAction("NotAuthorized", "Home");
+                }
+            }
+
             User user = db.Users.Find(id);
             if (user == null)
             {
@@ -143,8 +190,25 @@ namespace StudentApplicationSystem.Controllers
         {
             if (id == null)
             {
+                // Checks ID parameter passed right.
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            if(Session["userName"] == null)
+            {
+                // If non-user person wants to reach delete action.
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+            else
+            {
+                // If there is logged in user.
+                if ((int)Session["isAdmin"] == 0)
+                {
+                    // If the user is not admin.
+                    return RedirectToAction("NotAuthorized", "Home");
+                }
+            }
+            
             User user = db.Users.Find(id);
             if (user == null)
             {

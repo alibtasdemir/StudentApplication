@@ -4,107 +4,104 @@
     ViewBag.Title = "Edit";
 }
 
-@if (Session["userName"] == null)
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
 {
-    Response.Redirect("~/Home/NotAuthorized");
-}
-else if (((int)Session["isAdmin"] == 1) || ((int)Session["userId"] == Model.userId))
-{
-    <h2>Edit</h2>
+    @Html.AntiForgeryToken()
 
+    <div class="form-horizontal">
+        <h4>User</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.userId)
+        @Html.HiddenFor(model => model.password)
+        @Html.HiddenFor(model => model.dt_created)
 
-    using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>User</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.userId)
-            @Html.HiddenFor(model => model.password)
-            @Html.HiddenFor(model => model.dt_created)
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.surname, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.surname, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.surname, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.department, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.department, (IEnumerable<SelectListItem>)ViewData["ListItems"], htmlAttributes: new { @class = "form-control" })
-                    @*
-                        @Html.EditorFor(model => model.department, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.department, "", new { @class = "text-danger" })
-                    *@
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.gpa, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.gpa, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.gpa, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.phone_number, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.phone_number, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.phone_number, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            @if ((int)Session["isAdmin"] == 1)
-            {
-                <div class="form-group">
-                    @Html.LabelFor(model => model.isAdmin, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.CheckBoxFor(model => model.BoolValue, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.BoolValue, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            }
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-success" />
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
             </div>
         </div>
-    }
 
-    <div>
-        <button class="btn btn-link" onclick="location.href='@Url.Action("Index", "User")';return false;">
-            <span class="glyphicon glyphicon-arrow-left"></span> Back To List
-        </button>
+        <div class="form-group">
+            @Html.LabelFor(model => model.surname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.surname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.surname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.department, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.department, (IEnumerable<SelectListItem>)ViewData["ListItems"], htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.gpa, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.gpa, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.gpa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.phone_number, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.phone_number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.phone_number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @if (Session["userName"] != null && (int)Session["isAdmin"] == 1)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.isAdmin, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.CheckBoxFor(model => model.BoolValue, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BoolValue, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
     </div>
 }
-else
-{
-    Response.Redirect("~/Home/NotAuthorized");
-}
+
+    <div>
+        @if (Session["userName"] != null && (int)Session["isAdmin"] == 1)
+        {
+            <button class="btn btn-link" onclick="location.href='@Url.Action("Index", "User")';return false;">
+                <span class="glyphicon glyphicon-arrow-left"></span> Back To List
+            </button>
+        }
+        else if(Session["userName"] != null)
+        {
+            <button class="btn btn-link" onclick="location.href='@Url.Action("Details", new { id = Model.userId })';return false;">
+                <span class="glyphicon glyphicon-arrow-left"></span> Back To Details
+            </button>
+        }
+
+    </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

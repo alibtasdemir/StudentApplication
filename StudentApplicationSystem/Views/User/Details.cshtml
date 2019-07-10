@@ -4,108 +4,101 @@
     ViewBag.Title = "Details";
 }
 
-@if (Session["userName"] == null)
+<h2>Details</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.department)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.department)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gpa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gpa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.phone_number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phone_number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cd_modifier)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cd_modifier)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dt_modified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dt_modified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dt_created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dt_created)
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    <button class="btn btn-link" onclick="location.href='@Url.Action("Edit", "User", new { id = Model.userId })';return false;">
+        <span class="glyphicon glyphicon-search"></span> Edit
+    </button>
+</p>
+@if (Session["userName"] != null && (int)Session["isAdmin"] == 1)
 {
-    Response.Redirect("~/Home/NotAuthorized");
-}
-else if (((int)Session["isAdmin"] == 1) || ((int)Session["userId"] == Model.userId))
-{
-    <h2>Details</h2>
+    <p>
 
-    <div>
-        <h4>User</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.name)
-            </dt>
+        
 
-            <dd>
-                @Html.DisplayFor(model => model.name)
-            </dd>
+        <button class="btn btn-link" onclick="location.href='@Url.Action("Index", "User")';return false;">
+            <span class="glyphicon glyphicon-arrow-left"></span> Back To List
+        </button>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.surname)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.surname)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.email)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.email)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.department)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.department)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.gpa)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.gpa)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.phone_number)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.phone_number)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.cd_modifier)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.cd_modifier)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.dt_modified)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.dt_modified)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.dt_created)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.dt_created)
-            </dd>
-
-        </dl>
-    </div>
-    if ((int)Session["isAdmin"] == 1)
-    {
-        <p>
-
-            <button class="btn btn-link" onclick="location.href='@Url.Action("Edit", "User", new { id = Model.userId })';return false;">
-                <span class="glyphicon glyphicon-search"></span> Edit
-            </button>
-
-            <button class="btn btn-link" onclick="location.href='@Url.Action("Index", "User")';return false;">
-                <span class="glyphicon glyphicon-arrow-left"></span> Back To List
-            </button>
-
-        </p>
-    }
-}
-else
-{
-    Response.Redirect("~/Home/NotAuthorized");
+    </p>
 }
