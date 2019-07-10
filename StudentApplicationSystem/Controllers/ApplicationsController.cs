@@ -82,6 +82,7 @@ namespace StudentApplicationSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "applicationId,cvFile,paperId")] Application application)
         {
+            
             if (ModelState.IsValid)
             {
                 if (application.cvFile != null && application.cvFile.ContentLength > 0)
@@ -120,7 +121,14 @@ namespace StudentApplicationSystem.Controllers
                 paper.dt_created = DateTime.Now;
                 paper.cd_creater = application.userId;
                 
-
+                foreach (Application appl in user.Applications)
+                {
+                    if(appl.jobId == application.jobId)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                
                 db.InterviewQuestionPapers.Add(paper);
                 db.SaveChanges();
 
