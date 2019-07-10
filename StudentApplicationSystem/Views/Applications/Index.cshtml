@@ -92,9 +92,8 @@
                         @Html.DisplayFor(modelItem => item.Job.applicationFinish)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.applicationId }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.applicationId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.applicationId })
+                        <a href=@Url.Action("Details", new { id = item.applicationId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
+                        <a href=@Url.Action("Delete", new { id = item.applicationId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
                     </td>
                 </tr>
             }
@@ -112,11 +111,9 @@
         btn_reset: true,
         loader: true,
         loader_text: "Loading...",
-        col_0: "select",
-        col_3: "none",
-        col_4: "none",
-        col_6: "select",
-        col_8: "none",
+        col_0: "nonw",
+        col_1: "none",
+        col_5: "none",
         display_all_text: " [ Show all ] ",
         sort_select: true
     };

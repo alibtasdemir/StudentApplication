@@ -69,7 +69,14 @@ else
                         else if ((int)Session["isAdmin"] == 0)
                         {
                             <td>
-                                <a href=@Url.Action("Apply", "Job", new { id = item.jobId })><i class="glyphicon glyphicon-edit"> Apply </i></a>
+                                @if (DateTime.Compare(DateTime.Now, (DateTime)item.applicationStart) >= 0)
+                                {
+                                    <a href=@Url.Action("Apply", "Job", new { id = item.jobId })><i class="glyphicon glyphicon-edit"> Apply </i></a>
+                                }
+                                else
+                                {
+                                    @String.Format("{0:%d} days {0:%h} hours {0:%m} minutes remaining", ((DateTime)item.applicationStart - DateTime.Now));
+                                }
                             </td>
 
                         }

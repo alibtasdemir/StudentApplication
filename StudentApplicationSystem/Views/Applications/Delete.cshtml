@@ -8,15 +8,30 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Application</h4>
+    <h4>Application for @Model.Job.jobName</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.printName)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.cv)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.cv)
+            @if (Model.cv != null)
+            {
+                <p>Uploaded!</p>
+            }
+            else
+            {
+                <p>Not uploaded!</p>
+            }
         </dd>
 
         <dt>
@@ -24,7 +39,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.paperId)
+            @if (Model.paperId != null)
+            {
+                <a href=@Url.Action("Edit", "InterviewQuestionPapers", new { id = Model.paperId })><i class="glyphicon glyphicon-zoom-in"> Go to Interview </i></a>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.paperId)
+            }
         </dd>
 
         <dt>
@@ -35,22 +57,18 @@
             @Html.DisplayFor(model => model.dt_created)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.name)
-        </dd>
-
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-danger" />
+
+            <button class="btn btn-link" onclick="location.href='@Url.Action("Index", "Applications")';return false;">
+                <span class="glyphicon glyphicon-arrow-left"></span> Back To List
+            </button>
         </div>
     }
 </div>

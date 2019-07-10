@@ -54,8 +54,8 @@ else if (((int)Session["isAdmin"] == 1) || ((int)Session["userId"] == Model.user
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.department, (IEnumerable<SelectListItem>)ViewData["ListItems"], htmlAttributes: new { @class = "form-control" })
                     @*
-        @Html.EditorFor(model => model.department, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.department, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.department, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.department, "", new { @class = "text-danger" })
                     *@
                 </div>
             </div>
@@ -76,7 +76,8 @@ else if (((int)Session["isAdmin"] == 1) || ((int)Session["userId"] == Model.user
                 </div>
             </div>
 
-            @if((int)Session["isAdmin"] == 1) { 
+            @if ((int)Session["isAdmin"] == 1)
+            {
                 <div class="form-group">
                     @Html.LabelFor(model => model.isAdmin, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -107,4 +108,6 @@ else
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery.mask.js")
+    @Scripts.Render("~/Scripts/jquery.phonemask.js")
 }

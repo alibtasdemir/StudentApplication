@@ -134,6 +134,8 @@ namespace StudentApplicationSystem.Controllers
             return File(application.cv, ".pdf");
 
         }
+
+        /*
         // GET: Applications/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -164,7 +166,7 @@ namespace StudentApplicationSystem.Controllers
             }
             return View(application);
         }
-
+        */
         // GET: Applications/Delete/5
         public ActionResult Delete(int? id)
         {

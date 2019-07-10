@@ -15,7 +15,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.cv)
+            @if (Model.cv != null)
+            {
+                <p>Uploaded!</p>
+            }
+            else
+            {
+                <p>Not uploaded!</p>
+            }
         </dd>
 
         <dt>
@@ -23,7 +30,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.paperId)
+            @if (Model.paperId != null)
+            {
+                <a href=@Url.Action("Edit", "InterviewQuestionPapers", new { id = Model.paperId })><i class="glyphicon glyphicon-zoom-in"> Go to Interview </i></a>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.paperId)
+            }
         </dd>
 
         <dt>
