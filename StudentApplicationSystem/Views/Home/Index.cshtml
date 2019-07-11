@@ -4,15 +4,15 @@
 
 <div>
     <h1>Student Application Platform</h1>
-    <img src="../logo.jpg" />
+    <img src="../logo.png" alt="logo" />
 </div>
 
 
 @if (Session["UserName"] != null)
 {
-<div class="well">
- 
-    <h2>Welcome @Session["UserName"]</h2>
-
+<div class="container">
+    <div>
+        <h2>Welcome @Session["UserName"]</h2>
+    </div>
 </div>
 }

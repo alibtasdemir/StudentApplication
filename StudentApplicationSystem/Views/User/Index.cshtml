@@ -5,26 +5,29 @@
 }
 
 
-@if(Session["userName"] != null)
+@Styles.Render("~/Content/filtergrid.css")
+@Scripts.Render("~/Scripts/tablefilter_all_min.js")
+
+@if (Session["userName"] != null)
 {
     <h2>Welcome @Session["UserName"]</h2>
 
     <hr class="soft" />
-    
+
     <p>
         <button class="btn btn-success" onclick="location.href='@Url.Action("Create", "User")';return false;">
             <span class="glyphicon glyphicon-plus"></span> New User
         </button>
     </p>
-    
-    <div class="well">
+
+    <div class="container table-responsive">
         @if (Model.Count() == 0)
         {
             <text>There is no user!</text>
         }
         else
         {
-            <table class="table" id="myTable">
+            <table class="table table-striped" id="myTable">
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.name)
@@ -60,9 +63,9 @@
                         Operations
                     </th>
                 </tr>
-    
-    
-    
+
+
+
                 @foreach (var item in Model)
                 {
                     <tr>
@@ -112,7 +115,7 @@
                 }
             </table>
         }
-    
+
         <script>
             var table2_Props = {
                 paging: true,
@@ -133,7 +136,7 @@
             };
             var tf2 = setFilterGrid("myTable", table2_Props);
         </script>
-    
+
     </div>
 }
 

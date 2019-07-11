@@ -4,13 +4,17 @@
     ViewBag.Title = "Index";
 }
 
+
+@Styles.Render("~/Content/filtergrid.css")
+@Scripts.Render("~/Scripts/tablefilter_all_min.js")
+
 <h2>Applications</h2>
 
-<hr class="soft"/>
+<hr class="soft" />
 
-<div class="well">
+<div class="container table-responsive">
 
-    <table class="table" id="myTable">
+    <table class="table table-striped" id="myTable">
         <thead>
             <tr>
                 @if ((int)Session["isAdmin"] == 1)
@@ -39,6 +43,15 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Job.applicationFinish)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Reviews.First().interviewDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Reviews.First().review1)
                 </th>
                 <th></th>
             </tr>
@@ -92,6 +105,26 @@
                         @Html.DisplayFor(modelItem => item.Job.applicationFinish)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.status)
+                    </td>
+                    <td>
+                        @if (item.Reviews.Count() > 0)
+                        {
+                            @Html.DisplayFor(modelItem => item.Reviews.First().interviewDate)
+                        }
+                        else
+                        {
+                            @Html.Display("TBA")
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reviews.First().review1)
+                    </td>
+                    <td>
+                        @if ((int)Session["isAdmin"] == 1 && item.status.Contains("Pending"))
+                        {
+                            <a href=@Url.Action("Review", "Applications", new { id = item.applicationId })><i class="glyphicon glyphicon-edit"> Review </i></a>
+                        }
                         <a href=@Url.Action("Details", new { id = item.applicationId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
                         <a href=@Url.Action("Delete", new { id = item.applicationId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
                     </td>
@@ -102,22 +135,75 @@
     </table>
 </div>
 
-<script>    
-    var table2_Props = {
-        paging: true,
-        paging_length: 3,
-        rows_counter: true,
-        rows_counter_text: "Applications:",
-        btn_reset: true,
-        loader: true,
-        loader_text: "Loading...",
-        col_0: "nonw",
-        col_1: "none",
-        col_5: "none",
-        display_all_text: " [ Show all ] ",
-        sort_select: true
-    };
-    var tf2 = setFilterGrid("myTable", table2_Props); 
+@if ((int)Session["isAdmin"] == 1)
+{
+    <script>
+        var table2_Props = {
+            paging: true,
+            paging_length: 3,
+            rows_counter: true,
+            rows_counter_text: "Applications:",
+            btn_reset: true,
+            loader: true,
+            loader_text: "Loading...",
+            col_3: "none",
+            col_4: "none",
+            col_8: "select",
+            col_10: "none",
+            col_11: "none",
+            display_all_text: " [ Show all ] ",
+            sort_select: true
+        };
+        var tf2 = setFilterGrid("myTable", table2_Props);
 
-</script>
+        var table = document.getElementById("tableData");
+        var rows = table.getElementsByTagName("tr");
+        for (i = 0; i < rows.length; i++) {
+            var td = rows[i].getElementsByTagName("td")[8];
+            var context = (td.textContent || td.innerText);
 
+            if (context.includes("Accepted")) {
+                td.style.color = "green";
+            } else if (context.includes("Pending")) {
+                td.style.color = "orange";
+            } else if (context.includes("Denied")) {
+                td.style.color = "red";
+            }
+        }
+    </script>
+}
+else
+{
+    <script>
+        var table2_Props = {
+            paging: true,
+            paging_length: 3,
+            rows_counter: true,
+            rows_counter_text: "Applications:",
+            btn_reset: true,
+            loader: true,
+            loader_text: "Loading...",
+            col_0: "none",
+            col_1: "none",
+            col_5: "select",
+            col_8: "none",
+            display_all_text: " [ Show all ] ",
+            sort_select: true
+        };
+        var tf2 = setFilterGrid("myTable", table2_Props);
+
+        var table = document.getElementById("tableData");
+        var rows = table.getElementsByTagName("tr");
+        for (i = 0; i < rows.length; i++) {
+            var td = rows[i].getElementsByTagName("td")[5];
+            var context = (td.textContent || td.innerText);
+            if (context.includes("Accepted")) {
+                td.style.color = "green";
+            } else if (context.includes("Pending")) {
+                td.style.color = "orange";
+            } else if (context.includes("Denied")) {
+                td.style.color = "red";
+            }
+        }
+    </script>
+}

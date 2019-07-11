@@ -1,0 +1,107 @@
+﻿@model StudentApplicationSystem.Models.Review
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Review</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.reviewId)
+    @Html.HiddenFor(model => model.userId)
+    @Html.HiddenFor(model => model.paperId)
+    @Html.HiddenFor(model => model.jobId)
+    @Html.HiddenFor(model => model.applicationId)
+    @Html.HiddenFor(model => model.dt_created)
+    @Html.HiddenFor(model => model.cd_creater)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Job.jobName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextArea("Job Name", Model.Job.jobName, new { disabled = "disabled", @readonly = true, style = "width:250px" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.User.name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextArea("Name", Model.User.printName, new { disabled = "disabled", @readonly = true, style = "width:250px" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.InterviewQuestionPaper.question1, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextArea("Question 1", Model.InterviewQuestionPaper.Question.question1, new { disabled = "disabled", @readonly = true, style = "width:250px" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.InterviewQuestionPaper.answer1, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextArea("Answer", Model.InterviewQuestionPaper.answer1, new { disabled = "disabled", @readonly = true, style = "width:250px" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.InterviewQuestionPaper.question2, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextArea("Question 2", Model.InterviewQuestionPaper.Question4.question1, new { disabled = "disabled", @readonly = true, style = "width:250px" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.InterviewQuestionPaper.answer2, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextArea("Answer", Model.InterviewQuestionPaper.answer2, new { disabled = "disabled", @readonly = true, style = "width:250px" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.InterviewQuestionPaper.question3, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextArea("Question 3", Model.InterviewQuestionPaper.Question5.question1, new { disabled = "disabled", @readonly = true, style = "width:250px" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.InterviewQuestionPaper.answer3, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextArea("Answer", Model.InterviewQuestionPaper.answer3, new { disabled = "disabled", @readonly = true, style = "width:250px" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.review1, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.review1, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.review1, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.interviewDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.interviewDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.interviewDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}

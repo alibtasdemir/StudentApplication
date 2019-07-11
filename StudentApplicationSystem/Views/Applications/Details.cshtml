@@ -58,7 +58,9 @@
 
     </dl>
 </div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.applicationId }) |
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn btn-link" onclick="location.href='@Url.Action("Index", "Applications")';return false;">
+        <span class="glyphicon glyphicon-arrow-left"></span> Back To List
+    </button>
 </p>

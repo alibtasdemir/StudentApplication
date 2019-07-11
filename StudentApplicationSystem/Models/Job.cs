@@ -20,7 +20,9 @@ namespace StudentApplicationSystem.Models
         public Job()
         {
             this.Applications = new HashSet<Application>();
+            this.Reviews = new HashSet<Review>();
         }
+
         [Key]
         public int jobId { get; set; }
         [DisplayName("Applicants")]
@@ -38,6 +40,7 @@ namespace StudentApplicationSystem.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Application> Applications { get; set; }
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

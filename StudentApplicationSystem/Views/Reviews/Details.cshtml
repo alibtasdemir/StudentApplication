@@ -1,0 +1,106 @@
+﻿@model StudentApplicationSystem.Models.Review
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Review</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.review1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.review1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.interviewDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.interviewDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dt_created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dt_created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dt_modified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dt_modified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cd_creater)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cd_creater)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cd_modifier)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cd_modifier)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Application.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Application.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InterviewQuestionPaper.answer1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InterviewQuestionPaper.answer1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Job.applicantList)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Job.applicantList)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.reviewId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -7,8 +7,7 @@
 <h2>Details of Job Poster</h2>
 
 <div>
-    <h4>Job</h4>
-    <hr />
+    <hr class="soft"/>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.applicantList)
@@ -45,7 +44,7 @@
     </dl>
 </div>
 
-if ((int)Session["isAdmin"] == 1)
+@if ((int)Session["isAdmin"] == 1)
 {
     <p>
         <button class="btn btn-link" onclick="location.href='@Url.Action("Edit", "Job", new { id = Model.jobId })';return false;">

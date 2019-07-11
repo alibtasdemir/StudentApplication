@@ -21,6 +21,7 @@ namespace StudentApplicationSystem.Models
         {
             this.Applications = new HashSet<Application>();
             this.InterviewQuestionPapers = new HashSet<InterviewQuestionPaper>();
+            this.Reviews = new HashSet<Review>();
         }
 
         [Key]
@@ -78,10 +79,12 @@ namespace StudentApplicationSystem.Models
             set { }
         }
         public string applicationList { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Application> Applications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InterviewQuestionPaper> InterviewQuestionPapers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

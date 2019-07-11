@@ -1,11 +1,13 @@
 ﻿@model IEnumerable<StudentApplicationSystem.Models.Question>
 
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Index";
+    ViewBag.Title = "Index";
 }
 
+@Styles.Render("~/Content/filtergrid.css")
+@Scripts.Render("~/Scripts/tablefilter_all_min.js")
 
 <h2>Questions</h2>
 <div>
@@ -17,87 +19,87 @@
 </div>
 <hr class="soft" />
 
-<div class="well">
+<div class="container table-responsive">
 
     @if (Model.Count() == 0)
     {
-    <text>There is no question!</text>
+        <text>There is no question!</text>
     }
     else
     {
-    <table class="table" id="myTable">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.question1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.cd_creater)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.cd_modifier)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.dt_created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.dt_modified)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+        <table class="table table-striped" id="myTable">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.question1)
-                </td>
-                <td>
-                    <a href=@Url.Action("Details", "User", new { id = item.cd_creater })><i class="glyphicon glyphicon-zoom-in"> @item.cd_creater </i></a>
-                </td>
-                <td>
-                    @if (item.cd_modifier != null)
-                    {
-                        <a href=@Url.Action("Details", "User", new { id = item.cd_modifier })><i class="glyphicon glyphicon-zoom-in"> @item.cd_modifier </i></a>
-                    }
-                    else
-                    {
-                        @Html.DisplayFor(modelItem => item.cd_modifier)
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.dt_created)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.dt_modified)
-                </td>
-                <td>
-                    <a href=@Url.Action("Edit", new { id = item.questionId })><i class="glyphicon glyphicon-edit"> Edit </i></a>
-                    <a href=@Url.Action("Details", new { id = item.questionId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
-                    <a href=@Url.Action("Delete", new { id = item.questionId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.question1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.cd_creater)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.cd_modifier)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dt_created)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dt_modified)
+                </th>
+                <th></th>
             </tr>
-        }
 
-    </table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.question1)
+                    </td>
+                    <td>
+                        <a href=@Url.Action("Details", "User", new { id = item.cd_creater })><i class="glyphicon glyphicon-zoom-in"> @item.cd_creater </i></a>
+                    </td>
+                    <td>
+                        @if (item.cd_modifier != null)
+                        {
+                            <a href=@Url.Action("Details", "User", new { id = item.cd_modifier })><i class="glyphicon glyphicon-zoom-in"> @item.cd_modifier </i></a>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.cd_modifier)
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dt_created)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dt_modified)
+                    </td>
+                    <td>
+                        <a href=@Url.Action("Edit", new { id = item.questionId })><i class="glyphicon glyphicon-edit"> Edit </i></a>
+                        <a href=@Url.Action("Details", new { id = item.questionId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
+                        <a href=@Url.Action("Delete", new { id = item.questionId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
+                    </td>
+                </tr>
+            }
+
+        </table>
 
 
-    <script>
-        var table2_Props = {
-            paging: true,
-            paging_length: 5,
-            rows_counter: true,
-            rows_counter_text: "Questions:",
-            btn_reset: true,
-            loader: true,
-            loader_text: "Loading...",
-            col_1: "select",
-            col_2: "select",
-            col_5: "none",
-            display_all_text: " [ Show all ] ",
-            sort_select: true
-        };
-        var tf2 = setFilterGrid("myTable", table2_Props);
+        <script>
+            var table2_Props = {
+                paging: true,
+                paging_length: 5,
+                rows_counter: true,
+                rows_counter_text: "Questions:",
+                btn_reset: true,
+                loader: true,
+                loader_text: "Loading...",
+                col_1: "select",
+                col_2: "select",
+                col_5: "none",
+                display_all_text: " [ Show all ] ",
+                sort_select: true
+            };
+            var tf2 = setFilterGrid("myTable", table2_Props);
 
-    </script>
+        </script>
     }
 </div>

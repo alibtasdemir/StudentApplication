@@ -13,37 +13,39 @@ namespace StudentApplicationSystem.Models
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    using System.Web;
 
-    public partial class Application
+    public partial class Review
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Application()
-        {
-            this.Reviews = new HashSet<Review>();
-            this.InterviewQuestionPapers = new HashSet<InterviewQuestionPaper>();
-        }
-
         [Key]
-        public int applicationId { get; set; }
+        public int reviewId { get; set; }
         public Nullable<int> userId { get; set; }
-        public Nullable<int> jobId { get; set; }
-        [DisplayName("CV")]
-        public byte[] cv { get; set; }
         public Nullable<int> paperId { get; set; }
+        public Nullable<int> jobId { get; set; }
+        public Nullable<int> applicationId { get; set; }
+        [DisplayName("Review")]
+        public string review1 { get; set; }
+        [DisplayName("Status")]
+        public string status { get; set; }
+        [DisplayName("Interview Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> interviewDate { get; set; }
         [DisplayName("Created")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> dt_created { get; set; }
-        public string status { get; set; }
+        [DisplayName("Modified")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> dt_modified { get; set; }
+        [DisplayName("Created By")]
+        public Nullable<int> cd_creater { get; set; }
+        [DisplayName("Modified By")]
+        public Nullable<int> cd_modifier { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Review> Reviews { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<InterviewQuestionPaper> InterviewQuestionPapers { get; set; }
-        public virtual Job Job { get; set; }
+        public virtual Application Application { get; set; }
         public virtual InterviewQuestionPaper InterviewQuestionPaper { get; set; }
+        public virtual Job Job { get; set; }
         public virtual User User { get; set; }
-        public HttpPostedFileBase cvFile { get; set; }
     }
 }

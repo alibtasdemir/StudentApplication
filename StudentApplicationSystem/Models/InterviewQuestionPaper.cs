@@ -20,8 +20,9 @@ namespace StudentApplicationSystem.Models
         public InterviewQuestionPaper()
         {
             this.Applications = new HashSet<Application>();
+            this.Reviews = new HashSet<Review>();
         }
-        
+
         [Key]
         [DisplayName("Interview Paper")]
         public int paperId { get; set; }
@@ -52,11 +53,13 @@ namespace StudentApplicationSystem.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> dt_modified { get; set; }
-    
+
         public virtual Application Application { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Application> Applications { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
         public virtual Question Question { get; set; }
         public virtual Question Question4 { get; set; }
         public virtual Question Question5 { get; set; }

@@ -16,11 +16,12 @@
             <PropertyRef Name="applicationId" />
           </Key>
           <Property Name="applicationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="userId" Type="int" Nullable="false" />
-          <Property Name="jobId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="jobId" Type="int" />
           <Property Name="cv" Type="varbinary(max)" />
           <Property Name="paperId" Type="int" />
           <Property Name="dt_created" Type="datetime" />
+          <Property Name="status" Type="nchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="InterviewQuestionPaper">
           <Key>
@@ -62,6 +63,23 @@
           <Property Name="dt_created" Type="datetime" />
           <Property Name="dt_modified" Type="datetime" />
         </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="reviewId" />
+          </Key>
+          <Property Name="reviewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="paperId" Type="int" />
+          <Property Name="jobId" Type="int" />
+          <Property Name="applicationId" Type="int" />
+          <Property Name="review" Type="nchar" MaxLength="500" />
+          <Property Name="status" Type="nchar" MaxLength="50" />
+          <Property Name="interviewDate" Type="datetime" />
+          <Property Name="dt_created" Type="datetime" />
+          <Property Name="dt_modified" Type="datetime" />
+          <Property Name="cd_creater" Type="int" />
+          <Property Name="cd_modifier" Type="int" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="userId" />
@@ -80,6 +98,18 @@
           <Property Name="isAdmin" Type="int" />
           <Property Name="applicationList" Type="varchar" MaxLength="250" />
         </EntityType>
+        <Association Name="application_id">
+          <End Role="Application" Type="Self.Application" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="applicationId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="applicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="applicationId">
           <End Role="Application" Type="Self.Application" Multiplicity="0..1" />
           <End Role="InterviewQuestionPaper" Type="Self.InterviewQuestionPaper" Multiplicity="*" />
@@ -105,13 +135,25 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="jobf">
-          <End Role="Job" Type="Self.Job" Multiplicity="1" />
+          <End Role="Job" Type="Self.Job" Multiplicity="0..1" />
           <End Role="Application" Type="Self.Application" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Job">
               <PropertyRef Name="jobId" />
             </Principal>
             <Dependent Role="Application">
+              <PropertyRef Name="jobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="jobid">
+          <End Role="Job" Type="Self.Job" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="jobId" />
+            </Principal>
+            <Dependent Role="Review">
               <PropertyRef Name="jobId" />
             </Dependent>
           </ReferentialConstraint>
@@ -124,6 +166,18 @@
               <PropertyRef Name="paperId" />
             </Principal>
             <Dependent Role="Application">
+              <PropertyRef Name="paperId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="paperid">
+          <End Role="InterviewQuestionPaper" Type="Self.InterviewQuestionPaper" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InterviewQuestionPaper">
+              <PropertyRef Name="paperId" />
+            </Principal>
+            <Dependent Role="Review">
               <PropertyRef Name="paperId" />
             </Dependent>
           </ReferentialConstraint>
@@ -164,8 +218,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="user_id">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="userId">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Application" Type="Self.Application" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -182,7 +248,12 @@
           <EntitySet Name="InterviewQuestionPaper" EntityType="Self.InterviewQuestionPaper" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="application_id" Association="Self.application_id">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
           <AssociationSet Name="applicationId" Association="Self.applicationId">
             <End Role="Application" EntitySet="Application" />
             <End Role="InterviewQuestionPaper" EntitySet="InterviewQuestionPaper" />
@@ -195,9 +266,17 @@
             <End Role="Job" EntitySet="Job" />
             <End Role="Application" EntitySet="Application" />
           </AssociationSet>
+          <AssociationSet Name="jobid" Association="Self.jobid">
+            <End Role="Job" EntitySet="Job" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
           <AssociationSet Name="paper" Association="Self.paper">
             <End Role="InterviewQuestionPaper" EntitySet="InterviewQuestionPaper" />
             <End Role="Application" EntitySet="Application" />
+          </AssociationSet>
+          <AssociationSet Name="paperid" Association="Self.paperid">
+            <End Role="InterviewQuestionPaper" EntitySet="InterviewQuestionPaper" />
+            <End Role="Review" EntitySet="Review" />
           </AssociationSet>
           <AssociationSet Name="q1" Association="Self.q1">
             <End Role="Question" EntitySet="Question" />
@@ -210,6 +289,10 @@
           <AssociationSet Name="q3" Association="Self.q3">
             <End Role="Question" EntitySet="Question" />
             <End Role="InterviewQuestionPaper" EntitySet="InterviewQuestionPaper" />
+          </AssociationSet>
+          <AssociationSet Name="user_id" Association="Self.user_id">
+            <End Role="User" EntitySet="User" />
+            <End Role="Review" EntitySet="Review" />
           </AssociationSet>
           <AssociationSet Name="userId" Association="Self.userId">
             <End Role="User" EntitySet="User" />
@@ -232,11 +315,13 @@
             <PropertyRef Name="applicationId" />
           </Key>
           <Property Name="applicationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userId" Type="Int32" Nullable="false" />
-          <Property Name="jobId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="jobId" Type="Int32" />
           <Property Name="cv" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="paperId" Type="Int32" />
           <Property Name="dt_created" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Reviews" Relationship="Self.application_id" FromRole="Application" ToRole="Review" />
           <NavigationProperty Name="InterviewQuestionPapers" Relationship="Self.applicationId" FromRole="Application" ToRole="InterviewQuestionPaper" />
           <NavigationProperty Name="Job" Relationship="Self.jobf" FromRole="Application" ToRole="Job" />
           <NavigationProperty Name="InterviewQuestionPaper" Relationship="Self.paper" FromRole="Application" ToRole="InterviewQuestionPaper" />
@@ -263,6 +348,7 @@
           <NavigationProperty Name="Application" Relationship="Self.applicationId" FromRole="InterviewQuestionPaper" ToRole="Application" />
           <NavigationProperty Name="Applications" Relationship="Self.paper" FromRole="InterviewQuestionPaper" ToRole="Application" />
           <NavigationProperty Name="User" Relationship="Self.FK__Interview__userI__52593CB8" FromRole="InterviewQuestionPaper" ToRole="User" />
+          <NavigationProperty Name="Reviews" Relationship="Self.paperid" FromRole="InterviewQuestionPaper" ToRole="Review" />
           <NavigationProperty Name="Question" Relationship="Self.q1" FromRole="InterviewQuestionPaper" ToRole="Question" />
           <NavigationProperty Name="Question4" Relationship="Self.q2" FromRole="InterviewQuestionPaper" ToRole="Question" />
           <NavigationProperty Name="Question5" Relationship="Self.q3" FromRole="InterviewQuestionPaper" ToRole="Question" />
@@ -277,6 +363,7 @@
           <Property Name="applicationStart" Type="DateTime" Precision="3" />
           <Property Name="applicationFinish" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Applications" Relationship="Self.jobf" FromRole="Job" ToRole="Application" />
+          <NavigationProperty Name="Reviews" Relationship="Self.jobid" FromRole="Job" ToRole="Review" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -291,6 +378,27 @@
           <NavigationProperty Name="InterviewQuestionPapers" Relationship="Self.q1" FromRole="Question" ToRole="InterviewQuestionPaper" />
           <NavigationProperty Name="InterviewQuestionPapers1" Relationship="Self.q2" FromRole="Question" ToRole="InterviewQuestionPaper" />
           <NavigationProperty Name="InterviewQuestionPapers2" Relationship="Self.q3" FromRole="Question" ToRole="InterviewQuestionPaper" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="reviewId" />
+          </Key>
+          <Property Name="reviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="paperId" Type="Int32" />
+          <Property Name="jobId" Type="Int32" />
+          <Property Name="applicationId" Type="Int32" />
+          <Property Name="review1" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="interviewDate" Type="DateTime" Precision="3" />
+          <Property Name="dt_created" Type="DateTime" Precision="3" />
+          <Property Name="dt_modified" Type="DateTime" Precision="3" />
+          <Property Name="cd_creater" Type="Int32" />
+          <Property Name="cd_modifier" Type="Int32" />
+          <NavigationProperty Name="Application" Relationship="Self.application_id" FromRole="Review" ToRole="Application" />
+          <NavigationProperty Name="InterviewQuestionPaper" Relationship="Self.paperid" FromRole="Review" ToRole="InterviewQuestionPaper" />
+          <NavigationProperty Name="Job" Relationship="Self.jobid" FromRole="Review" ToRole="Job" />
+          <NavigationProperty Name="User" Relationship="Self.user_id" FromRole="Review" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -311,7 +419,20 @@
           <Property Name="applicationList" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Applications" Relationship="Self.userId" FromRole="User" ToRole="Application" />
           <NavigationProperty Name="InterviewQuestionPapers" Relationship="Self.FK__Interview__userI__52593CB8" FromRole="User" ToRole="InterviewQuestionPaper" />
+          <NavigationProperty Name="Reviews" Relationship="Self.user_id" FromRole="User" ToRole="Review" />
         </EntityType>
+        <Association Name="application_id">
+          <End Role="Application" Type="Self.Application" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="applicationId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="applicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="applicationId">
           <End Role="Application" Type="Self.Application" Multiplicity="0..1" />
           <End Role="InterviewQuestionPaper" Type="Self.InterviewQuestionPaper" Multiplicity="*" />
@@ -325,7 +446,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="jobf">
-          <End Role="Job" Type="Self.Job" Multiplicity="1" />
+          <End Role="Job" Type="Self.Job" Multiplicity="0..1" />
           <End Role="Application" Type="Self.Application" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Job">
@@ -349,7 +470,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="userId">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Application" Type="Self.Application" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -369,6 +490,18 @@
             </Principal>
             <Dependent Role="InterviewQuestionPaper">
               <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="paperid">
+          <End Role="InterviewQuestionPaper" Type="Self.InterviewQuestionPaper" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InterviewQuestionPaper">
+              <PropertyRef Name="paperId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="paperId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -408,13 +541,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="jobid">
+          <End Role="Job" Type="Self.Job" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="jobId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="jobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_id">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="StudentApplicationSystemEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__RefactorLog" EntityType="Self.C__RefactorLog" />
           <EntitySet Name="Applications" EntityType="Self.Application" />
           <EntitySet Name="InterviewQuestionPapers" EntityType="Self.InterviewQuestionPaper" />
           <EntitySet Name="Jobs" EntityType="Self.Job" />
           <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Reviews" EntityType="Self.Review" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="application_id" Association="Self.application_id">
+            <End Role="Application" EntitySet="Applications" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
           <AssociationSet Name="applicationId" Association="Self.applicationId">
             <End Role="Application" EntitySet="Applications" />
             <End Role="InterviewQuestionPaper" EntitySet="InterviewQuestionPapers" />
@@ -435,6 +597,10 @@
             <End Role="User" EntitySet="Users" />
             <End Role="InterviewQuestionPaper" EntitySet="InterviewQuestionPapers" />
           </AssociationSet>
+          <AssociationSet Name="paperid" Association="Self.paperid">
+            <End Role="InterviewQuestionPaper" EntitySet="InterviewQuestionPapers" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
           <AssociationSet Name="q1" Association="Self.q1">
             <End Role="Question" EntitySet="Questions" />
             <End Role="InterviewQuestionPaper" EntitySet="InterviewQuestionPapers" />
@@ -446,6 +612,14 @@
           <AssociationSet Name="q3" Association="Self.q3">
             <End Role="Question" EntitySet="Questions" />
             <End Role="InterviewQuestionPaper" EntitySet="InterviewQuestionPapers" />
+          </AssociationSet>
+          <AssociationSet Name="jobid" Association="Self.jobid">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="user_id" Association="Self.user_id">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Review" EntitySet="Reviews" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -470,6 +644,7 @@
                 <ScalarProperty Name="cv" ColumnName="cv" />
                 <ScalarProperty Name="paperId" ColumnName="paperId" />
                 <ScalarProperty Name="dt_created" ColumnName="dt_created" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -513,6 +688,24 @@
                 <ScalarProperty Name="cd_modifier" ColumnName="cd_modifier" />
                 <ScalarProperty Name="dt_created" ColumnName="dt_created" />
                 <ScalarProperty Name="dt_modified" ColumnName="dt_modified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="StudentApplicationSystemModel.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="reviewId" ColumnName="reviewId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="paperId" ColumnName="paperId" />
+                <ScalarProperty Name="jobId" ColumnName="jobId" />
+                <ScalarProperty Name="applicationId" ColumnName="applicationId" />
+                <ScalarProperty Name="review1" ColumnName="review" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="interviewDate" ColumnName="interviewDate" />
+                <ScalarProperty Name="dt_created" ColumnName="dt_created" />
+                <ScalarProperty Name="dt_modified" ColumnName="dt_modified" />
+                <ScalarProperty Name="cd_creater" ColumnName="cd_creater" />
+                <ScalarProperty Name="cd_modifier" ColumnName="cd_modifier" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

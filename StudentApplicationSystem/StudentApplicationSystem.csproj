@@ -133,6 +133,7 @@
     <Compile Include="Controllers\InterviewQuestionPapersController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
+    <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -150,6 +151,9 @@
       <DependentUpon>StudentApplicationSystemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Question.cs">
+      <DependentUpon>StudentApplicationSystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Review.cs">
       <DependentUpon>StudentApplicationSystemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StudentApplicationSystemDB.Context.cs">
@@ -284,6 +288,10 @@
     <Content Include="Views\InterviewQuestionPapers\Delete.cshtml" />
     <Content Include="Views\InterviewQuestionPapers\Details.cshtml" />
     <Content Include="Views\InterviewQuestionPapers\Edit.cshtml" />
+    <Content Include="Views\Reviews\Delete.cshtml" />
+    <Content Include="Views\Reviews\Details.cshtml" />
+    <Content Include="Views\Reviews\Edit.cshtml" />
+    <Content Include="Views\Reviews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

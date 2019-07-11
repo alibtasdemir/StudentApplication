@@ -87,14 +87,16 @@ namespace StudentApplicationSystem.Controllers
             {
                 return RedirectToAction("NotAuthorized", "Home");
             }
-            if (!CheckAdmin())
-            {
-                return RedirectToAction("NotAuthorized", "Home");
-            }
+            
             InterviewQuestionPaper interviewQuestionPaper = db.InterviewQuestionPapers.Find(id);
             if (interviewQuestionPaper == null)
             {
                 return HttpNotFound();
+            }
+
+            if (!CheckAdmin() && (interviewQuestionPaper.userId != (int)Session["userId"]))
+            {
+                return RedirectToAction("NotAuthorized", "Home");
             }
 
             if (interviewQuestionPaper.dt_modified != null)
@@ -123,7 +125,7 @@ namespace StudentApplicationSystem.Controllers
                 interviewQuestionPaper.cd_modifier = (int)Session["userId"];  
                 db.Entry(interviewQuestionPaper).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Applications");
             }
             ViewBag.applicationId = new SelectList(db.Applications, "applicationId", "applicationId", interviewQuestionPaper.applicationId);
             ViewBag.userId = new SelectList(db.Users, "userId", "name", interviewQuestionPaper.userId);

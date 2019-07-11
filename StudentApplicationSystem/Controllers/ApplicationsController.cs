@@ -101,7 +101,8 @@ namespace StudentApplicationSystem.Controllers
                     }
                 }
                 application.userId = (int)Session["userId"];
-                User user = db.Users.Where(a => a.userId.Equals(application.userId)).FirstOrDefault();
+                application.status = "Pending";
+                User user = db.Users.Where(a => a.userId == (application.userId)).FirstOrDefault();
                 application.dt_created = DateTime.Now;
                 user.Applications.Add(application);
 
@@ -120,14 +121,6 @@ namespace StudentApplicationSystem.Controllers
                 paper.jobId = application.jobId;
                 paper.dt_created = DateTime.Now;
                 paper.cd_creater = application.userId;
-                
-                foreach (Application appl in user.Applications)
-                {
-                    if(appl.jobId == application.jobId)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
                 
                 db.InterviewQuestionPapers.Add(paper);
                 db.SaveChanges();
@@ -182,6 +175,26 @@ namespace StudentApplicationSystem.Controllers
             db.Applications.Remove(application);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Review(int? id)
+        {
+            Review review = new Review
+            {
+                dt_created = DateTime.Now,
+                applicationId = id,
+                cd_creater = (int)Session["userId"]
+            };
+
+            Application application = db.Applications.Find(review.applicationId);
+            review.userId = application.userId;
+            review.paperId = application.paperId;
+            review.jobId = application.jobId;
+
+            db.Reviews.Add(review);
+            db.SaveChanges();
+
+            return RedirectToAction("Edit", "Reviews", new { id = review.reviewId });
         }
 
         public int getJobId(int jobId)
