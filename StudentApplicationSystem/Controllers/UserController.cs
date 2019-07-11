@@ -144,7 +144,7 @@ namespace StudentApplicationSystem.Controllers
             }
             else
             {
-                if (CheckAdmin() && (int)Session["userId"] != id)
+                if (!CheckAdmin() && (int)Session["userId"] != id)
                 {
                     // If user is not an admin and not editing (her/him)self.
                     return RedirectToAction("NotAuthorized", "Home");
