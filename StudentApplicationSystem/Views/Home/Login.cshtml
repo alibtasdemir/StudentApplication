@@ -5,6 +5,16 @@
 }
 
 <script type="text/javascript">
+    function showPassword() {
+        var passField = document.getElementById("password");
+        if (passField.type === "password") {
+            passField.type = "text;"
+        } else {
+            passField.type = "password";
+        }
+    }
+
+
     function registerValidation() {
 
         var fname = document.registration.fname;
@@ -84,40 +94,54 @@
         {
             @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" , @placeholder = "Email"} })
-                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(model => model.password, new { @class = "form-control", @placeholder = "Password" })
-                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Login" class="btn btn-primary" id="login-button" />
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
                 </div>
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(model => model.password, new { @class = "form-control", @placeholder = "Password" })
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Show Password", new { @class="control-label col-md-2" })
+                <div class="col-md-10">
+                    <label class="switch">
+                        <input type="checkbox" id="passwordShow" onclick="showPassword()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Login" class="btn btn-primary" id="login-button" />
+                </div>
+            </div>
+        </div>
         }
 
     </div>
 
     <div>
         <form action="/User/Create">
-            <input type="submit" value="Register" class="btn btn-warning" id="register-button" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Sign Up" class="btn btn-primary" id="register-button-login" />
+                </div>
+            </div>
         </form>
     </div>
 
