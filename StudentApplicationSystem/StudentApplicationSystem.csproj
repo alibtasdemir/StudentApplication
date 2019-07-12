@@ -193,6 +193,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="icons\emailicon.png" />
+    <Content Include="icons\entericon.png" />
+    <Content Include="icons\helpicon.png" />
+    <Content Include="icons\passwordicon.png" />
+    <Content Include="icons\searchicon.png" />
     <Content Include="Models\StudentApplicationSystemDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>StudentApplicationSystemDB.edmx</DependentUpon>
@@ -292,6 +297,7 @@
     <Content Include="Views\Reviews\Details.cshtml" />
     <Content Include="Views\Reviews\Edit.cshtml" />
     <Content Include="Views\Reviews\Index.cshtml" />
+    <Content Include="Views\Shared\_HeaderNavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -145,7 +145,7 @@ namespace StudentApplicationSystem.Controllers
                 // If non-user wants to reach question edit.
                 return RedirectToAction("NotAuthorized", "Home");
             }
-            else if (CheckAdmin())
+            else if (!CheckAdmin())
             {
                 // If normal user wants to reach question edit.
                 return RedirectToAction("NotAuthorized", "Home");

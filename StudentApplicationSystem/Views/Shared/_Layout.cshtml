@@ -4,58 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Student Application System</title>
+    <link rel="icon" href="~/logo.png">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Student Application System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-
-                    @if (Session["UserName"] != null)
-                    {
-                        if ((int)Session["isAdmin"] == 1)
-                        {
-                            <!--IF ADMIN-->
-                            <li>@Html.ActionLink("User List", "Index", "User")</li>
-                            <li>@Html.ActionLink("Question List", "Index", "Question")</li>
-                        }
-                        <li>@Html.ActionLink("Jobs", "Index", "Job")</li>
-                        <li>@Html.ActionLink("Applications", "Index", "Applications")</li>
-                    }
-
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    @if (Session["UserName"] != null)
-                    {
-                        <li>@Html.ActionLink(Session["UserName"].ToString(), "Details", "User", new { id = Session["userId"] }, null)</li>
-                        <li>@Html.ActionLink("Logout", "Logout", "User")</li>
-
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Register", "Create", "User")</li>
-                        <li>@Html.ActionLink("Login", "Login", "Home")</li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("_HeaderNavBar")
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        <hr class="soft"/>
         <footer>
-            <p>&copy; @DateTime.Now.Year - Ford Otosan Student Application Platform</p>
+            <p>&copy; @DateTime.Now.Year - Ford Otosan Student Application Platform - Designed by Ali Baran Tasdemir</p>
         </footer>
     </div>
 

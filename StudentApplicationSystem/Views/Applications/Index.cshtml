@@ -118,7 +118,15 @@
                         }
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Reviews.First().review1)
+                        @if (item.Reviews.Count() > 0)
+                        {
+                            @Html.DisplayFor(modelItem => item.Reviews.First().review1)
+                        }
+                        else
+                        {
+                            @Html.Display("TBA")
+                        }
+
                     </td>
                     <td>
                         @if ((int)Session["isAdmin"] == 1 && item.status.Contains("Pending"))
@@ -126,7 +134,11 @@
                             <a href=@Url.Action("Review", "Applications", new { id = item.applicationId })><i class="glyphicon glyphicon-edit"> Review </i></a>
                         }
                         <a href=@Url.Action("Details", new { id = item.applicationId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
-                        <a href=@Url.Action("Delete", new { id = item.applicationId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
+                        @if ((int)Session["isAdmin"] == 1 && item.status.Contains("Pending"))
+                        {
+                            <a href=@Url.Action("Delete", new { id = item.applicationId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
+                        }
+                        
                     </td>
                 </tr>
             }

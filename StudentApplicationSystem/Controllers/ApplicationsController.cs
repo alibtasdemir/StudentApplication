@@ -170,7 +170,18 @@ namespace StudentApplicationSystem.Controllers
         {
             Application application = db.Applications.Find(id);
             int? paperId = application.paperId;
+            int? reviewId = application.Reviews.First().reviewId;
+            if(reviewId != null)
+            {
+                Review review = db.Reviews.Find(reviewId);
+                review.jobId = null;
+                review.applicationId = null;
+                review.paperId = null;
+                db.Reviews.Remove(review);
+            }
             InterviewQuestionPaper interview = db.InterviewQuestionPapers.Find(paperId);
+            interview.applicationId = null;
+            db.SaveChanges();
             db.InterviewQuestionPapers.Remove(interview);
             db.Applications.Remove(application);
             db.SaveChanges();

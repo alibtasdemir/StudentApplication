@@ -96,6 +96,29 @@ namespace StudentApplicationSystem.Controllers
             {
                 try
                 {
+                    // Check for email is already in use or not.
+                    bool alreadyexists = false;
+                    
+                    // Iterate in Database
+                    foreach( User u in db.Users.ToList())
+                    {
+                        if (u.email.Equals(user.email))
+                        {
+                            // If already in use break the loop and change match data.
+                            alreadyexists = true;
+                            break;
+                        }
+                    }
+
+                    if (alreadyexists)
+                    {
+                        // In case of duplicate emails, produce an error message and return back to register page.
+                        ModelState.AddModelError(string.Empty, "This email already in use.");
+                        List<SelectListItem> items = DepartmentList();
+                        ViewData["ListItems"] = items;
+                        return View();
+                    }
+
                     if (Session["userName"] == null)
                     {
                         // If create accesed by register.
@@ -170,6 +193,28 @@ namespace StudentApplicationSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Check for email is already in use or not.
+                bool alreadyexists = false;
+
+                // Iterate in Database
+                foreach (User u in db.Users.ToList())
+                {
+                    if (u.email.Equals(user.email) && !(user.userId.Equals(u.userId)))
+                    {                        // If already in use break the loop and change match data.
+                        alreadyexists = true;
+                        break;
+                    }
+                }
+
+                if (alreadyexists)
+                {
+                    // In case of duplicate emails, produce an error message and return back to register page.
+                    ModelState.AddModelError(string.Empty, "This email already in use.");
+                    List<SelectListItem> items = DepartmentList();
+                    ViewData["ListItems"] = items;
+                    return RedirectToAction("Edit", new { id = user.userId });
+                }
+
                 if ((int)Session["isAdmin"] != 1)
                     user.BoolValue = false;
                 user.cd_modifier = (int)Session["userId"];

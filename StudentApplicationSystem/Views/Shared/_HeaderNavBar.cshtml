@@ -1,0 +1,47 @@
+﻿<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div>
+                <a href=@Url.Action("Index", "Home")>
+                    <img src="~/icons/navbarlogo.png" id="navbar-logo" />
+                </a>
+            </div>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+
+                @if (Session["UserName"] != null)
+                {
+                    if ((int)Session["isAdmin"] == 1)
+                    {
+                        <!--IF ADMIN-->
+                        <li>@Html.ActionLink("User List", "Index", "User")</li>
+                        <li>@Html.ActionLink("Question List", "Index", "Question")</li>
+                    }
+                    <li>@Html.ActionLink("Jobs", "Index", "Job")</li>
+                    <li>@Html.ActionLink("Applications", "Index", "Applications")</li>
+                }
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                @if (Session["UserName"] != null)
+                {
+                    <li>@Html.ActionLink(Session["UserName"].ToString(), "Details", "User", new { id = Session["userId"] }, null)</li>
+                    <li>@Html.ActionLink("Logout", "Logout", "User")</li>
+
+                }
+                else
+                {
+                    <li><a href=@Url.Action("Create", "User")><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="@Url.Action("Login", "Home")"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

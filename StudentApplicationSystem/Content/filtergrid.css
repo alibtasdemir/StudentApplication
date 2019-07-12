@@ -40,13 +40,13 @@ table.TF td{ padding:5px 5px 5px 5px; border-bottom:1px solid #D0D0D0; border-ri
 	background: transparent url(../Scripts/TF_Themes/btn_filter.png) center center no-repeat !important;
 }
 .flt{ /* filter (input) appearance */
-	background-color:#fff; font-size:10px;
+	background-color:#fff; font-size:12px;
 	border:1px solid #ccc;
 	margin:0; width:97%; vertical-align:middle;
 }
 select.flt{ /* select filter */
 	background-color:#fff; border:1px solid #ccc; 
-	margin:0 1px 1px 0; width:99%; font-size:9px; vertical-align:middle;
+	margin:0 1px 1px 0; width:99%; font-size:11px; vertical-align:middle;
 }
 select.flt_multi{ /* multiple select filter */
 	background-color:#fff; border:1px solid #ccc; 

@@ -78,6 +78,28 @@ namespace StudentApplicationSystem.Controllers
             return View(review);
         }
 
+        public List<SelectListItem> StatusList()
+        {
+            List<SelectListItem> selectlist = new List<SelectListItem>();
+            List<string> DList = new List<string>();
+            DList.Add("Accepted");
+            DList.Add("Denied");
+
+            DList.Sort();
+
+            foreach (string status in DList)
+            {
+                selectlist.Add(new SelectListItem
+                {
+                    Text = status,
+                    Value = status
+                });
+            }
+
+            return selectlist;
+
+        }
+
         // GET: Reviews/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -90,6 +112,8 @@ namespace StudentApplicationSystem.Controllers
             {
                 return HttpNotFound();
             }
+            List<SelectListItem> items = StatusList();
+            ViewData["StatusItems"] = items;
             ViewBag.applicationId = new SelectList(db.Applications, "applicationId", "status", review.applicationId);
             ViewBag.paperId = new SelectList(db.InterviewQuestionPapers, "paperId", "answer1", review.paperId);
             ViewBag.jobId = new SelectList(db.Jobs, "jobId", "applicantList", review.jobId);
