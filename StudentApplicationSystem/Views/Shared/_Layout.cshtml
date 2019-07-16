@@ -9,17 +9,31 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    @Html.Partial("_LeftMenu")
+<div class="container">
+
+
+
     @Html.Partial("_HeaderNavBar")
-    <div class="container body-content">
-        @RenderBody()
-        <hr class="soft"/>
+
+
+    <div class="row row-offcanvas row-offcanvas-right">
+        <div class="container body-content col-12 col-md-9">
+
+
+
+            @RenderBody()
+
+        </div>
         <footer>
-            <p class="noselect">&copy; @DateTime.Now.Year - Ford Otosan Student Application Platform - Designed by Ali Baran Tasdemir</p>
+            <p class="noselect copyright">&copy; @DateTime.Now.Year - Ford Otosan Student Application Platform - Designed by Ali Baran Tasdemir</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+</div>
 </body>
 </html>

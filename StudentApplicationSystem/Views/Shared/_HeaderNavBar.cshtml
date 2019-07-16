@@ -18,14 +18,12 @@
 
                 @if (Session["UserName"] != null)
                 {
-                    if ((int)Session["isAdmin"] == 1)
+                    if ((int)Session["isAdmin"] == 0)
                     {
-                        <!--IF ADMIN-->
-                        <li>@Html.ActionLink("User List", "Index", "User")</li>
-                        <li>@Html.ActionLink("Question List", "Index", "Question")</li>
+                        <!--IF USER-->
+                        <li>@Html.ActionLink("Jobs", "Index", "Job")</li>
+                        <li>@Html.ActionLink("Applications", "Index", "Applications")</li>
                     }
-                    <li>@Html.ActionLink("Jobs", "Index", "Job")</li>
-                    <li>@Html.ActionLink("Applications", "Index", "Applications")</li>
                 }
 
             </ul>
