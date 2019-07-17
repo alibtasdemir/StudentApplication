@@ -29,6 +29,7 @@ namespace StudentApplicationSystem.Models
         public virtual DbSet<Application> Applications { get; set; }
         public virtual DbSet<InterviewQuestionPaper> InterviewQuestionPapers { get; set; }
         public virtual DbSet<Job> Jobs { get; set; }
+        public virtual DbSet<New> News { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<User> Users { get; set; }

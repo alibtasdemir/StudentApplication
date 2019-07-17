@@ -52,6 +52,21 @@
           <Property Name="applicationStart" Type="datetime" />
           <Property Name="applicationFinish" Type="datetime" />
         </EntityType>
+        <EntityType Name="New">
+          <Key>
+            <PropertyRef Name="newId" />
+          </Key>
+          <Property Name="newId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="header" Type="varchar" MaxLength="100" />
+          <Property Name="text" Type="varchar" MaxLength="1000" />
+          <Property Name="image" Type="varbinary(max)" />
+          <Property Name="featured" Type="int" />
+          <Property Name="featuredList" Type="varchar" MaxLength="50" />
+          <Property Name="dt_created" Type="datetime" />
+          <Property Name="dt_modified" Type="datetime" />
+          <Property Name="cd_creater" Type="int" />
+          <Property Name="cd_modifier" Type="int" />
+        </EntityType>
         <EntityType Name="Question">
           <Key>
             <PropertyRef Name="questionId" />
@@ -247,6 +262,7 @@
           <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InterviewQuestionPaper" EntityType="Self.InterviewQuestionPaper" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="New" EntityType="Self.New" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -364,6 +380,21 @@
           <Property Name="applicationFinish" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Applications" Relationship="Self.jobf" FromRole="Job" ToRole="Application" />
           <NavigationProperty Name="Reviews" Relationship="Self.jobid" FromRole="Job" ToRole="Review" />
+        </EntityType>
+        <EntityType Name="New">
+          <Key>
+            <PropertyRef Name="newId" />
+          </Key>
+          <Property Name="newId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="header" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="text" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="featured" Type="Int32" />
+          <Property Name="featuredList" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dt_created" Type="DateTime" Precision="3" />
+          <Property Name="dt_modified" Type="DateTime" Precision="3" />
+          <Property Name="cd_creater" Type="Int32" />
+          <Property Name="cd_modifier" Type="Int32" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -570,6 +601,7 @@
           <EntitySet Name="Applications" EntityType="Self.Application" />
           <EntitySet Name="InterviewQuestionPapers" EntityType="Self.InterviewQuestionPaper" />
           <EntitySet Name="Jobs" EntityType="Self.Job" />
+          <EntitySet Name="News" EntityType="Self.New" />
           <EntitySet Name="Questions" EntityType="Self.Question" />
           <EntitySet Name="Reviews" EntityType="Self.Review" />
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -676,6 +708,22 @@
                 <ScalarProperty Name="jobName" ColumnName="jobName" />
                 <ScalarProperty Name="applicationStart" ColumnName="applicationStart" />
                 <ScalarProperty Name="applicationFinish" ColumnName="applicationFinish" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="StudentApplicationSystemModel.New">
+              <MappingFragment StoreEntitySet="New">
+                <ScalarProperty Name="newId" ColumnName="newId" />
+                <ScalarProperty Name="header" ColumnName="header" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="featured" ColumnName="featured" />
+                <ScalarProperty Name="featuredList" ColumnName="featuredList" />
+                <ScalarProperty Name="dt_created" ColumnName="dt_created" />
+                <ScalarProperty Name="dt_modified" ColumnName="dt_modified" />
+                <ScalarProperty Name="cd_creater" ColumnName="cd_creater" />
+                <ScalarProperty Name="cd_modifier" ColumnName="cd_modifier" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

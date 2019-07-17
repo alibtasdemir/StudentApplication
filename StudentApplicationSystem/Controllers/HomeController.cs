@@ -9,8 +9,11 @@ namespace StudentApplicationSystem.Controllers
 {
     public class HomeController : Controller
     {
+        private StudentApplicationSystemEntities db = new StudentApplicationSystemEntities();
         public ActionResult Index()
         {
+            IList<New> news = db.News.Where(a => a.featured == 1).ToList();
+            ViewBag.News = news;
             return View();
         }
 

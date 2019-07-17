@@ -36,6 +36,15 @@
 
     @Html.ActionLink("Applications", "Index", "Applications")
 
+    <button class="dropdown-btn">
+        Announcements
+        <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-container">
+        @Html.ActionLink("News List", "Index", "News")
+        @Html.ActionLink("Add New", "Create", "News")
+    </div>
+
 </div>
 
 <script>

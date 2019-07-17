@@ -4,11 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7f5b23e3ec4f40e892be1c7f4e936fbb" Name="Diagram1">
+      <Diagram DiagramId="22c14cdb2b1e450a921fce9edaa7adc7" Name="Diagram1">
         <EntityTypeShape EntityType="StudentApplicationSystemModel.C__RefactorLog" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentApplicationSystemModel.Application" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentApplicationSystemModel.InterviewQuestionPaper" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentApplicationSystemModel.Job" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentApplicationSystemModel.New" Width="1.5" PointX="9.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentApplicationSystemModel.Question" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentApplicationSystemModel.Review" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentApplicationSystemModel.User" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />

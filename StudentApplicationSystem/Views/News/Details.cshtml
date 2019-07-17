@@ -1,0 +1,36 @@
+﻿@model StudentApplicationSystem.Models.New
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.header</h2>
+<hr class="soft"/>
+<table border="0" style="height: 422px; width: 600px; border-collapse: collapse;">
+    <tbody>
+        <tr style="height: 400px;">
+            <td style="width: 100%; height: 400px;"><img src="data:image;base64,@Convert.ToBase64String(Model.image)" alt="" width="600" height="400" /></td>
+        </tr>
+        <tr style="height: 21px;">
+            <td style="width: 400px; height: 20px;">
+                <p></p>
+                <p></p>
+                <p class="NewsTag"><em>Create Time: @Model.dt_created</em></p>
+                <p class="NewsTag"><em>Created by @Model.cd_creater</em></p>
+                <br>
+                <p>@Model.text</p>
+                <p>Lorem ipsum dolor sit amet, nonumes voluptatum mel ea, cu case ceteros cum. Novum commodo malorum vix ut. Dolores consequuntur in ius, sale electram dissentiunt quo te. Cu duo omnes invidunt, eos eu mucius fabellas. Stet facilis ius te, quando voluptatibus eos in. Ad vix mundi alterum, integre urbanitas intellegam vix in.</p>
+                <p>Eum facete intellegat ei, ut mazim melius usu. Has elit simul primis ne, regione minimum id cum. Sea deleniti dissentiet ea. Illud mollis moderatius ut per, at qui ubique populo. Eum ad cibo legimus, vim ei quidam fastidii.</p>
+                <p>Quo debet vivendo ex. Qui ut admodum senserit partiendo. Id adipiscing disputando eam, sea id magna pertinax concludaturque. Ex ignota epicurei quo, his ex doctus delenit fabellas, erat timeam cotidieque sit in. Vel eu soleat voluptatibus, cum cu exerci mediocritatem. Malis legere at per, has brute putant animal et, in consul utamur usu.</p>
+                <p>Te has amet modo perfecto, te eum mucius conclusionemque, mel te erat deterruisset. Duo ceteros phaedrum id, ornatus postulant in sea. His at autem inani volutpat. Tollit possit in pri, platonem persecuti ad vix, vel nisl albucius gloriatur no.</p>
+                <p>Ea duo atqui incorrupte, sed rebum regione suscipit ex, mea ex dicant percipit referrentur. Dicat luptatum constituam vix ut. His vide platonem omittantur id, vel quis vocent an. Ad pro inani zril omnesque. Mollis forensibus sea an, vim habeo adipisci contentiones ad, tale autem graecis ne sit.</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.newId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

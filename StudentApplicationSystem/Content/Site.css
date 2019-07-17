@@ -495,4 +495,7 @@ textarea.span3,
         border-radius: 0;
     }
 
-*/
+.NewsTag {
+    font-size: 11px;
+    color: #656565;
+}
