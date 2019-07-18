@@ -10,7 +10,7 @@
 </head>
 <body>
     @Html.Partial("_LeftMenu")
-<div class="container">
+<div id="page-container" class="container">
 
 
 
@@ -18,16 +18,19 @@
 
 
     <div class="row row-offcanvas row-offcanvas-right">
-        <div class="container body-content col-12 col-md-9">
 
-
+        <div id="content-wrap" class="container body-content col-12 col-md-9">
 
             @RenderBody()
 
         </div>
-        <footer>
-            <p class="noselect copyright">&copy; @DateTime.Now.Year - Ford Otosan Student Application Platform - Designed by Ali Baran Tasdemir</p>
-        </footer>
+
+
+
+        <footer class="noselect" id="footer">Copyright &copy; 2019<br> Ford Otosan Student Application System - Designed by Ali Baran Tasdemir</footer>
+        
+
+
     </div>
 
     @Scripts.Render("~/bundles/jquery")

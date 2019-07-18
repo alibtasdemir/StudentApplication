@@ -25,6 +25,14 @@ namespace StudentApplicationSystem.Models
         public string text { get; set; }
         public byte[] image { get; set; }
         public Nullable<int> featured { get; set; }
+
+        public bool BoolValue
+        {
+            // This function sets the int admin value by using checkbox in forms.
+            get { return featured == 1; }
+            set { featured = value ? 1 : 0; }
+        }
+
         public string featuredList { get; set; }
         [DisplayName("Created")]
         [DataType(DataType.Date)]

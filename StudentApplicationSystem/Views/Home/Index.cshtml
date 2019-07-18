@@ -2,9 +2,8 @@
     ViewBag.Title = "Home Page";
 }
 
-<div>
+<div class="jumbotron">
     <h1>Student Application Platform</h1>
-    <img src="../logo.png" alt="logo" />
 </div>
 
 
@@ -44,7 +43,7 @@
                         <div class="carousel-caption">
                             <h3>@item.header</h3>
                         </div>
-</div>
+                </div>
             }
             else
             {
@@ -73,6 +72,8 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
+
+<a href=@Url.Action("Index","News")>View All News...</a>
 
 
 @if (Session["UserName"] != null)

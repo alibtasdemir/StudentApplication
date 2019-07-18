@@ -31,6 +31,9 @@
 
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.newId }) |
+    @if (Session["userName"] != null && (int)Session["isAdmin"] == 1)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.newId })
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>

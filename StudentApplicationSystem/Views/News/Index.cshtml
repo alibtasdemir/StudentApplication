@@ -1,81 +1,42 @@
 ﻿@model IEnumerable<StudentApplicationSystem.Models.New>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Announcements";
 }
 
-<h2>Index</h2>
+<h2>All Announcements</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.header)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.text)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.image)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.featured)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.featuredList)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dt_created)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dt_modified)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cd_creater)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cd_modifier)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.header)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.text)
-        </td>
-        <td>
-            <img src="data:image;base64,@Convert.ToBase64String(item.image)" style="height: 100px; width: 100px;" />
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.featured)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.featuredList)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dt_created)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dt_modified)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cd_creater)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cd_modifier)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.newId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.newId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.newId })
-        </td>
-    </tr>
+@if (Session["userName"] != null && (int)Session["isAdmin"] == 1)
+{
+    <p>
+        <button class="btn btn-success" onclick="location.href='@Url.Action("Create", "News")';return false;">
+            <span class="glyphicon glyphicon-plus"></span> Create New
+        </button>
+    </p>
 }
 
+<table border="0" style="height: 184px; width: 100%; border-collapse: collapse;">
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr style="height: 100px; width: 100px;">
+            <td style="width: 19.0858%; height: 100px;"><img src="data:image;base64,@Convert.ToBase64String(item.image)" alt="" width="100" height="100" /></td>
+            <td style="width: 21.0284%; height: 100px;">
+                <div class="BarBlock"><a class="NewsButton" href="@Url.Action("Details", "News", new { id = item.newId })">@item.header</a></div>
+            </td>
+            <td style="width: 61.0504%; height: 100px; text-align: left;">@item.dt_created</td>
+
+            @if (Session["userName"] != null && (int)Session["isAdmin"] == 1)
+            {
+            <td>
+                <a href=@Url.Action("Edit", new { id = item.newId })><i class="glyphicon glyphicon-edit"> Edit </i></a>
+                <a href=@Url.Action("Details", new { id = item.newId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
+                <a href=@Url.Action("Delete", new { id = item.newId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
+            </td>
+            }
+
+        </tr>
+        }
+    </tbody>
 </table>
+
