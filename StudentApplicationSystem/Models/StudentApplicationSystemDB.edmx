@@ -23,6 +23,14 @@
           <Property Name="dt_created" Type="datetime" />
           <Property Name="status" Type="nchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="categoryId" />
+          </Key>
+          <Property Name="categoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryName" Type="nchar" MaxLength="100" />
+          <Property Name="Questions" Type="varchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="InterviewQuestionPaper">
           <Key>
             <PropertyRef Name="paperId" />
@@ -41,6 +49,8 @@
           <Property Name="dt_created" Type="datetime" />
           <Property Name="cd_modifier" Type="int" />
           <Property Name="dt_modified" Type="datetime" />
+          <Property Name="questionList" Type="varchar" MaxLength="30" />
+          <Property Name="numberOfQuestions" Type="int" />
         </EntityType>
         <EntityType Name="Job">
           <Key>
@@ -77,6 +87,7 @@
           <Property Name="cd_modifier" Type="int" />
           <Property Name="dt_created" Type="datetime" />
           <Property Name="dt_modified" Type="datetime" />
+          <Property Name="category" Type="int" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -134,6 +145,30 @@
             </Principal>
             <Dependent Role="InterviewQuestionPaper">
               <PropertyRef Name="applicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="categoryLink">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="categoryId" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Interview__userI__02FC7413">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="InterviewQuestionPaper" Type="Self.InterviewQuestionPaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="InterviewQuestionPaper">
+              <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -260,6 +295,7 @@
         <EntityContainer Name="StudentApplicationSystemModelStoreContainer">
           <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InterviewQuestionPaper" EntityType="Self.InterviewQuestionPaper" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="New" EntityType="Self.New" Schema="dbo" store:Type="Tables" />
@@ -272,6 +308,14 @@
           </AssociationSet>
           <AssociationSet Name="applicationId" Association="Self.applicationId">
             <End Role="Application" EntitySet="Application" />
+            <End Role="InterviewQuestionPaper" EntitySet="InterviewQuestionPaper" />
+          </AssociationSet>
+          <AssociationSet Name="categoryLink" Association="Self.categoryLink">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Interview__userI__02FC7413" Association="Self.FK__Interview__userI__02FC7413">
+            <End Role="User" EntitySet="User" />
             <End Role="InterviewQuestionPaper" EntitySet="InterviewQuestionPaper" />
           </AssociationSet>
           <AssociationSet Name="FK__Interview__userI__52593CB8" Association="Self.FK__Interview__userI__52593CB8">
@@ -343,6 +387,15 @@
           <NavigationProperty Name="InterviewQuestionPaper" Relationship="Self.paper" FromRole="Application" ToRole="InterviewQuestionPaper" />
           <NavigationProperty Name="User" Relationship="Self.userId" FromRole="Application" ToRole="User" />
         </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="categoryId" />
+          </Key>
+          <Property Name="categoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Questions" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Questions1" Relationship="Self.categoryLink" FromRole="Category" ToRole="Question" />
+        </EntityType>
         <EntityType Name="InterviewQuestionPaper">
           <Key>
             <PropertyRef Name="paperId" />
@@ -361,9 +414,12 @@
           <Property Name="dt_created" Type="DateTime" Precision="3" />
           <Property Name="cd_modifier" Type="Int32" />
           <Property Name="dt_modified" Type="DateTime" Precision="3" />
+          <Property Name="questionList" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="numberOfQuestions" Type="Int32" />
           <NavigationProperty Name="Application" Relationship="Self.applicationId" FromRole="InterviewQuestionPaper" ToRole="Application" />
           <NavigationProperty Name="Applications" Relationship="Self.paper" FromRole="InterviewQuestionPaper" ToRole="Application" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Interview__userI__52593CB8" FromRole="InterviewQuestionPaper" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Interview__userI__02FC7413" FromRole="InterviewQuestionPaper" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__Interview__userI__52593CB8" FromRole="InterviewQuestionPaper" ToRole="User" />
           <NavigationProperty Name="Reviews" Relationship="Self.paperid" FromRole="InterviewQuestionPaper" ToRole="Review" />
           <NavigationProperty Name="Question" Relationship="Self.q1" FromRole="InterviewQuestionPaper" ToRole="Question" />
           <NavigationProperty Name="Question4" Relationship="Self.q2" FromRole="InterviewQuestionPaper" ToRole="Question" />
@@ -406,6 +462,8 @@
           <Property Name="cd_modifier" Type="Int32" />
           <Property Name="dt_created" Type="DateTime" Precision="3" />
           <Property Name="dt_modified" Type="DateTime" Precision="3" />
+          <Property Name="category" Type="Int32" />
+          <NavigationProperty Name="Category1" Relationship="Self.categoryLink" FromRole="Question" ToRole="Category" />
           <NavigationProperty Name="InterviewQuestionPapers" Relationship="Self.q1" FromRole="Question" ToRole="InterviewQuestionPaper" />
           <NavigationProperty Name="InterviewQuestionPapers1" Relationship="Self.q2" FromRole="Question" ToRole="InterviewQuestionPaper" />
           <NavigationProperty Name="InterviewQuestionPapers2" Relationship="Self.q3" FromRole="Question" ToRole="InterviewQuestionPaper" />
@@ -449,7 +507,8 @@
           <Property Name="isAdmin" Type="Int32" />
           <Property Name="applicationList" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Applications" Relationship="Self.userId" FromRole="User" ToRole="Application" />
-          <NavigationProperty Name="InterviewQuestionPapers" Relationship="Self.FK__Interview__userI__52593CB8" FromRole="User" ToRole="InterviewQuestionPaper" />
+          <NavigationProperty Name="InterviewQuestionPapers" Relationship="Self.FK__Interview__userI__02FC7413" FromRole="User" ToRole="InterviewQuestionPaper" />
+          <NavigationProperty Name="InterviewQuestionPapers1" Relationship="Self.FK__Interview__userI__52593CB8" FromRole="User" ToRole="InterviewQuestionPaper" />
           <NavigationProperty Name="Reviews" Relationship="Self.user_id" FromRole="User" ToRole="Review" />
         </EntityType>
         <Association Name="application_id">
@@ -508,6 +567,30 @@
               <PropertyRef Name="userId" />
             </Principal>
             <Dependent Role="Application">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="categoryLink">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="categoryId" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Interview__userI__02FC7413">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="InterviewQuestionPaper" Type="Self.InterviewQuestionPaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="InterviewQuestionPaper">
               <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
@@ -599,6 +682,7 @@
         <EntityContainer Name="StudentApplicationSystemEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__RefactorLog" EntityType="Self.C__RefactorLog" />
           <EntitySet Name="Applications" EntityType="Self.Application" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="InterviewQuestionPapers" EntityType="Self.InterviewQuestionPaper" />
           <EntitySet Name="Jobs" EntityType="Self.Job" />
           <EntitySet Name="News" EntityType="Self.New" />
@@ -624,6 +708,14 @@
           <AssociationSet Name="userId" Association="Self.userId">
             <End Role="User" EntitySet="Users" />
             <End Role="Application" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="categoryLink" Association="Self.categoryLink">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Interview__userI__02FC7413" Association="Self.FK__Interview__userI__02FC7413">
+            <End Role="User" EntitySet="Users" />
+            <End Role="InterviewQuestionPaper" EntitySet="InterviewQuestionPapers" />
           </AssociationSet>
           <AssociationSet Name="FK__Interview__userI__52593CB8" Association="Self.FK__Interview__userI__52593CB8">
             <End Role="User" EntitySet="Users" />
@@ -680,6 +772,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="StudentApplicationSystemModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+                <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+                <ScalarProperty Name="Questions" ColumnName="Questions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="InterviewQuestionPapers">
             <EntityTypeMapping TypeName="StudentApplicationSystemModel.InterviewQuestionPaper">
               <MappingFragment StoreEntitySet="InterviewQuestionPaper">
@@ -697,6 +798,8 @@
                 <ScalarProperty Name="dt_created" ColumnName="dt_created" />
                 <ScalarProperty Name="cd_modifier" ColumnName="cd_modifier" />
                 <ScalarProperty Name="dt_modified" ColumnName="dt_modified" />
+                <ScalarProperty Name="questionList" ColumnName="questionList" />
+                <ScalarProperty Name="numberOfQuestions" ColumnName="numberOfQuestions" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -736,6 +839,7 @@
                 <ScalarProperty Name="cd_modifier" ColumnName="cd_modifier" />
                 <ScalarProperty Name="dt_created" ColumnName="dt_created" />
                 <ScalarProperty Name="dt_modified" ColumnName="dt_modified" />
+                <ScalarProperty Name="category" ColumnName="category" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

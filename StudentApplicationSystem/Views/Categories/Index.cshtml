@@ -1,0 +1,45 @@
+﻿@model IEnumerable<StudentApplicationSystem.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Categories</h2>
+
+<div class="container table-responsive">
+
+    <table class="table table-striped" id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.categoryId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.categoryName)
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody id="tableData">
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.categoryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.categoryName)
+                </td>
+                <td>
+                    <a href=@Url.Action("Edit", new { id = item.categoryId })><i class="glyphicon glyphicon-edit"> Edit </i></a>
+                    <a href=@Url.Action("Delete", new { id = item.categoryId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
+                </td>
+            </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

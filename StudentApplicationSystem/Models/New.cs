@@ -21,7 +21,7 @@ namespace StudentApplicationSystem.Models
         public int newId { get; set; }
         [DisplayName("Header")]
         public string header { get; set; }
-        
+
         public string text { get; set; }
         public byte[] image { get; set; }
         public Nullable<int> featured { get; set; }
