@@ -25,7 +25,7 @@
     <table class="table table-striped" id="myTable">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.applicantList)
+                @Html.DisplayNameFor(model => model.categories)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.jobName)
@@ -44,7 +44,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.applicantList)
+                    @Html.DisplayFor(modelItem => item.categoriesToString)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.jobName)

@@ -11,7 +11,9 @@ namespace StudentApplicationSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,11 +21,12 @@ namespace StudentApplicationSystem.Models
         {
             this.Questions1 = new HashSet<Question>();
         }
-    
+        [Key]
         public int categoryId { get; set; }
+        [DisplayName("Category Name")]
         public string categoryName { get; set; }
         public string Questions { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Question> Questions1 { get; set; }
     }

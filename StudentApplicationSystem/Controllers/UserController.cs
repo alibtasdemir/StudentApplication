@@ -83,7 +83,7 @@ namespace StudentApplicationSystem.Controllers
             ViewData["ListItems"] = items;
             return View();
         }
-
+        
         // POST: User/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -150,7 +150,7 @@ namespace StudentApplicationSystem.Controllers
 
             return View(user);
         }
-
+        
         // GET: User/Edit/5
         public ActionResult Edit(int? id)
         {

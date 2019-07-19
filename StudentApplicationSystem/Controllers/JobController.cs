@@ -57,6 +57,8 @@ namespace StudentApplicationSystem.Controllers
             {
                 return RedirectToAction("NotAuthorized", "Home");
             }
+            List<SelectListItem> items = CategoryList();
+            ViewBag.Categories = items;
             return View();
         }
 
@@ -65,10 +67,11 @@ namespace StudentApplicationSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "jobId,applicantList,jobName,applicationStart,applicationFinish")] Job job)
+        public ActionResult Create([Bind(Include = "jobId,applicantList,jobName,applicationStart,applicationFinish,SelectedCategories,questionNumber")] Job job)
         {
             if (ModelState.IsValid)
             {
+                job.categories = string.Join(",", job.SelectedCategories);
                 db.Jobs.Add(job);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -106,7 +109,7 @@ namespace StudentApplicationSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "jobId,applicantList,jobName,applicationStart,applicationFinish")] Job job)
+        public ActionResult Edit([Bind(Include = "jobId,applicantList,jobName,applicationStart,applicationFinish,questionNumber")] Job job)
         {
             if (ModelState.IsValid)
             {
@@ -156,6 +159,31 @@ namespace StudentApplicationSystem.Controllers
         {
             Session["jobId"] = id;
             return RedirectToAction("Create", "Applications");
+        }
+
+
+        public List<SelectListItem> CategoryList()
+        {
+            List<SelectListItem> selectlist = new List<SelectListItem>();
+            List<Category> DList = new List<Category>();
+
+            foreach(var category in db.Categories.ToList())
+            {
+                DList.Add(category);
+            }
+            
+
+            foreach (var category in DList)
+            {
+                selectlist.Add(new SelectListItem
+                {
+                    Text = category.categoryName,
+                    Value = category.categoryId.ToString()
+                });
+            }
+
+            return selectlist;
+
         }
 
         public bool CheckVisitor()

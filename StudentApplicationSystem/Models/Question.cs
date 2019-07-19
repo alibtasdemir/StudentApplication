@@ -42,7 +42,7 @@ namespace StudentApplicationSystem.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> dt_modified { get; set; }
         public Nullable<int> category { get; set; }
-    
+
         public virtual Category Category1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InterviewQuestionPaper> InterviewQuestionPapers { get; set; }

@@ -13,6 +13,7 @@ namespace StudentApplicationSystem.Models
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
     public partial class User
     {
@@ -88,5 +89,104 @@ namespace StudentApplicationSystem.Models
         public virtual ICollection<InterviewQuestionPaper> InterviewQuestionPapers1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
+
+        public static List<SelectListItem> DepartmentList
+        {
+            get { 
+            List<SelectListItem> selectlist = new List<SelectListItem>();
+            List<string> DList = new List<string>();
+            DList.Add("Faculty of Computer and Information Sciences - Computer Engineering");
+            DList.Add("Faculty of Computer and Information Sciences - Information Systems Engineering");
+            DList.Add("Faculty of Computer and Information Sciences - Software Engineering");
+
+            DList.Add("Faculty of Education - Computer Education and Instructional Technologies");
+            DList.Add("Faculty of Education - Foreign Language Education");
+            DList.Add("Faculty of Education - Special Education");
+            DList.Add("Faculty of Education - Science Education Department");
+            DList.Add("Faculty of Education - Mathematics Education Department");
+            DList.Add("Faculty of Education - Social Sciences Education Department");
+            DList.Add("Faculty of Education - Faculty of Education");
+
+            DList.Add("Faculty of Dentistry - Dentistry");
+
+            DList.Add("Faculty of Arts and Sciences - Turkish Language and Literature");
+            DList.Add("Faculty of Arts and Sciences - History");
+            DList.Add("Faculty of Arts and Sciences - Sociology");
+            DList.Add("Faculty of Arts and Sciences - Social Work");
+            DList.Add("Faculty of Arts and Sciences - History of Art");
+            DList.Add("Faculty of Arts and Sciences - Mathematics");
+            DList.Add("Faculty of Arts and Sciences - Chemistry");
+            DList.Add("Faculty of Arts and Sciences - Physics");
+            DList.Add("Faculty of Arts and Sciences - Philosophy");
+            DList.Add("Faculty of Arts and Sciences - Geography");
+            DList.Add("Faculty of Arts and Sciences - Translation Studies");
+            DList.Add("Faculty of Arts and Sciences - Biology");
+            DList.Add("Faculty of Arts and Sciences - German Language and Literature");
+
+            DList.Add("Faculty of Law - Law");
+
+            DList.Add("Faculty of Theology - Theology");
+
+            DList.Add("Faculty of Communication - Public Relations and Advertising");
+            DList.Add("Faculty of Communication - Communication Design and Media");
+            DList.Add("Faculty of Communication - Journalism");
+            DList.Add("Faculty of Communication - Radio Television and Cinema");
+
+            DList.Add("Sakarya Business School - Human Resources Management");
+            DList.Add("Sakarya Business School - Business");
+            DList.Add("Sakarya Business School - Health Administration");
+            DList.Add("Sakarya Business School - International Trade");
+            DList.Add("Sakarya Business School - Management Information Systems");
+
+            DList.Add("Faculty of Engineering - Environmental Engineering");
+            DList.Add("Faculty of Engineering - Civil Engineering");
+            DList.Add("Faculty of Engineering - Electrical and Electronics Engineering");
+            DList.Add("Faculty of Engineering - Food Engineering");
+            DList.Add("Faculty of Engineering - Industrial Engineering");
+            DList.Add("Faculty of Engineering - Geophysical Engineering");
+            DList.Add("Faculty of Engineering - Mechanical Engineering");
+            DList.Add("Faculty of Engineering - Metallurgical and Materials Engineering");
+
+            DList.Add("Faculty of Health Sciences - Midwifery");
+            DList.Add("Faculty of Health Sciences - Nursing");
+
+            DList.Add("Faculty of Art Design And Architecture - Visual Communication and Design");
+            DList.Add("Faculty of Art Design And Architecture - Traditional Turkish Arts");
+            DList.Add("Faculty of Art Design And Architecture - Painting");
+            DList.Add("Faculty of Art Design And Architecture - Architecture");
+            DList.Add("Faculty of Art Design And Architecture - Ceramic and Glass Design");
+
+
+            DList.Add("Faculty of Political Sciences - Labour Economics and Industrial Relations");
+            DList.Add("Faculty of Political Sciences - Econometrics");
+            DList.Add("Faculty of Political Sciences - Economics");
+            DList.Add("Faculty of Political Sciences - Political Science and Public Administration");
+            DList.Add("Faculty of Political Sciences - Public Finance");
+            DList.Add("Faculty of Political Sciences - International Relations");
+
+
+
+            DList.Add("Faculty of Technical Education - Electrical Training");
+            DList.Add("Faculty of Technical Education - Mechanical Education");
+            DList.Add("Faculty of Technical Education - Metal Education");
+            DList.Add("Faculty of Technical Education - Construction Education");
+
+            DList.Add("Faculty of Faculty of Medicine - Medicine");
+
+            DList.Sort();
+
+            foreach (string department in DList)
+            {
+                selectlist.Add(new SelectListItem
+                {
+                    Text = department,
+                    Value = department
+                });
+            }
+
+            return selectlist;
+            }
+        }
+
     }
 }

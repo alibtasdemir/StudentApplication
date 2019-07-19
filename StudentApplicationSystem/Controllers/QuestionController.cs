@@ -68,6 +68,9 @@ namespace StudentApplicationSystem.Controllers
                 // If normal user wants to reach question create.
                 return RedirectToAction("NotAuthorized", "Home");
             }
+            JobController jc = new JobController();
+            List<SelectListItem> items = jc.CategoryList();
+            ViewBag.Categories = items;
             return View();
         }
 
@@ -76,7 +79,7 @@ namespace StudentApplicationSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "question1")] Question question)
+        public ActionResult Create([Bind(Include = "category, question1")] Question question)
         {
             if (ModelState.IsValid)
             {
@@ -112,6 +115,9 @@ namespace StudentApplicationSystem.Controllers
             {
                 return HttpNotFound();
             }
+            JobController jc = new JobController();
+            List<SelectListItem> items = jc.CategoryList();
+            ViewBag.Categories = items;
             return View(question);
         }
 
@@ -120,7 +126,7 @@ namespace StudentApplicationSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "questionId,question1,cd_creater,dt_created")] Question question)
+        public ActionResult Edit([Bind(Include = "questionId,question1,cd_creater,dt_created,category")] Question question)
         {
             if (ModelState.IsValid)
             {

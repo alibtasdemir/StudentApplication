@@ -59,7 +59,7 @@ namespace StudentApplicationSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "paperId,applicationId,userId,jobId,question1,question2,question3,answer1,answer2,answer3,cd_creater,dt_created,cd_modifier,dt_modified")] InterviewQuestionPaper interviewQuestionPaper)
+        public ActionResult Create([Bind(Include = "paperId,applicationId,userId,jobId,cd_creater,dt_created,cd_modifier,dt_modified")] InterviewQuestionPaper interviewQuestionPaper)
         {
             if (ModelState.IsValid)
             {
@@ -70,9 +70,6 @@ namespace StudentApplicationSystem.Controllers
 
             ViewBag.applicationId = new SelectList(db.Applications, "applicationId", "applicationId", interviewQuestionPaper.applicationId);
             ViewBag.userId = new SelectList(db.Users, "userId", "name", interviewQuestionPaper.userId);
-            ViewBag.question1 = new SelectList(db.Questions, "questionId", "question1", interviewQuestionPaper.question1);
-            ViewBag.question1 = new SelectList(db.Questions, "questionId", "question1", interviewQuestionPaper.question1);
-            ViewBag.question1 = new SelectList(db.Questions, "questionId", "question1", interviewQuestionPaper.question1);
             return View(interviewQuestionPaper);
         }
 
@@ -106,9 +103,6 @@ namespace StudentApplicationSystem.Controllers
 
             ViewBag.applicationId = new SelectList(db.Applications, "applicationId", "applicationId", interviewQuestionPaper.applicationId);
             ViewBag.userId = new SelectList(db.Users, "userId", "name", interviewQuestionPaper.userId);
-            ViewBag.question1 = new SelectList(db.Questions, "questionId", "question1", interviewQuestionPaper.question1);
-            ViewBag.question1 = new SelectList(db.Questions, "questionId", "question1", interviewQuestionPaper.question1);
-            ViewBag.question1 = new SelectList(db.Questions, "questionId", "question1", interviewQuestionPaper.question1);
             return View(interviewQuestionPaper);
         }
 
@@ -117,10 +111,13 @@ namespace StudentApplicationSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "paperId,applicationId,userId,jobId,question1,question2,question3,answer1,answer2,answer3,cd_creater,dt_created,cd_modifier,dt_modified")] InterviewQuestionPaper interviewQuestionPaper)
+        public ActionResult Edit([Bind(Include = "paperId,applicationId,userId,jobId,answers,cd_creater,dt_created,cd_modifier,dt_modified,questionList")] InterviewQuestionPaper interviewQuestionPaper)
         {
             if (ModelState.IsValid)
             {
+                int applicationId = (int)interviewQuestionPaper.applicationId;
+                Application application = db.Applications.Find(applicationId);
+                application.status = "Pending";
                 interviewQuestionPaper.dt_modified = DateTime.Now;
                 interviewQuestionPaper.cd_modifier = (int)Session["userId"];  
                 db.Entry(interviewQuestionPaper).State = EntityState.Modified;
@@ -129,9 +126,6 @@ namespace StudentApplicationSystem.Controllers
             }
             ViewBag.applicationId = new SelectList(db.Applications, "applicationId", "applicationId", interviewQuestionPaper.applicationId);
             ViewBag.userId = new SelectList(db.Users, "userId", "name", interviewQuestionPaper.userId);
-            ViewBag.question1 = new SelectList(db.Questions, "questionId", "question1", interviewQuestionPaper.question1);
-            ViewBag.question1 = new SelectList(db.Questions, "questionId", "question1", interviewQuestionPaper.question1);
-            ViewBag.question1 = new SelectList(db.Questions, "questionId", "question1", interviewQuestionPaper.question1);
             return View(interviewQuestionPaper);
         }
 

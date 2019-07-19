@@ -30,6 +30,9 @@
         <table class="table table-striped" id="myTable">
             <tr>
                 <th>
+                    @Html.DisplayNameFor(model => model.category)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.question1)
                 </th>
                 <th>
@@ -49,35 +52,38 @@
 
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.question1)
-                    </td>
-                    <td>
-                        <a href=@Url.Action("Details", "User", new { id = item.cd_creater })><i class="glyphicon glyphicon-zoom-in"> @item.cd_creater </i></a>
-                    </td>
-                    <td>
-                        @if (item.cd_modifier != null)
-                        {
-                            <a href=@Url.Action("Details", "User", new { id = item.cd_modifier })><i class="glyphicon glyphicon-zoom-in"> @item.cd_modifier </i></a>
-                        }
-                        else
-                        {
-                            @Html.DisplayFor(modelItem => item.cd_modifier)
-                        }
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.dt_created)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.dt_modified)
-                    </td>
-                    <td>
-                        <a href=@Url.Action("Edit", new { id = item.questionId })><i class="glyphicon glyphicon-edit"> Edit </i></a>
-                        <a href=@Url.Action("Details", new { id = item.questionId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
-                        <a href=@Url.Action("Delete", new { id = item.questionId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category1.categoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.question1)
+                </td>
+                <td>
+                    <a href=@Url.Action("Details", "User", new { id = item.cd_creater })><i class="glyphicon glyphicon-zoom-in"> @item.cd_creater </i></a>
+                </td>
+                <td>
+                    @if (item.cd_modifier != null)
+                    {
+                        <a href=@Url.Action("Details", "User", new { id = item.cd_modifier })><i class="glyphicon glyphicon-zoom-in"> @item.cd_modifier </i></a>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.cd_modifier)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dt_created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dt_modified)
+                </td>
+                <td>
+                    <a href=@Url.Action("Edit", new { id = item.questionId })><i class="glyphicon glyphicon-edit"> Edit </i></a>
+                    <a href=@Url.Action("Details", new { id = item.questionId })><i class="glyphicon glyphicon-zoom-in"> Details </i></a>
+                    <a href=@Url.Action("Delete", new { id = item.questionId })><i class="glyphicon glyphicon-remove"> Delete </i></a>
+                </td>
+            </tr>
             }
 
         </table>
@@ -92,9 +98,10 @@
                 btn_reset: true,
                 loader: true,
                 loader_text: "Loading...",
-                col_1: "select",
+                col_0: "select",
                 col_2: "select",
-                col_5: "none",
+                col_3: "select",
+                col_6: "none",
                 display_all_text: " [ Show all ] ",
                 sort_select: true
             };

@@ -42,53 +42,25 @@
             @Html.DisplayFor(model => model.User.email)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Question.question1)
-        </dt>
+        @foreach (var item in Model.allQuestions)
+        {
+            <dt>
+                @Html.DisplayNameFor(modelItem => item.question1)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Question.question1)
-        </dd>
+            <dd>
+                @Html.DisplayFor(modelItem => item.question1)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.answer1)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(modelItem => Model.answers)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.answer1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Question4.question1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Question4.question1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.answer2)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.answer2)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Question5.question1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Question5.question1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.answer3)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.answer3)
-        </dd>
+            <dd>
+                @Html.DisplayFor(modelItem => Model.answers)
+            </dd>
+            
+        }
     </dl>
 </div>
 <p>

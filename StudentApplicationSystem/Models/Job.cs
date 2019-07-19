@@ -37,10 +37,34 @@ namespace StudentApplicationSystem.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> applicationFinish { get; set; }
+        public Nullable<int> questionNumber { get; set; }
+        public string categories { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Application> Applications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
+        public IList<string> SelectedCategories { get; set; }
+
+        public string categoriesToString
+        {
+            get
+            {
+                StudentApplicationSystemEntities db = new StudentApplicationSystemEntities();
+                string[] ids = categories.Split(',');
+                string output = "";
+                foreach (var id in ids)
+                {
+                    Category category = db.Categories.Find(int.Parse(id));
+                    if (category != null)
+                    {
+                        output += category.categoryName;
+                    }
+                    output += " ";
+                }
+
+                return output;
+            }
+        }
     }
 }
