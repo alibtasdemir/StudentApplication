@@ -26,5 +26,11 @@ namespace StudentApplicationSystem.Models
         public Nullable<int> cd_creater { get; set; }
         public Nullable<int> cd_modifier { get; set; }
         public HttpPostedFileBase imageFile { get; set; }
+        public bool BoolValue
+        {
+            // This function sets the int featured value by using checkbox in forms.
+            get { return featured == 1; }
+            set { featured = value ? 1 : 0; }
+        }
     }
 }

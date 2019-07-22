@@ -8,7 +8,7 @@
 @using (Html.BeginForm("Create", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>New Announcement</h4>
         <hr />
@@ -40,7 +40,7 @@
             @Html.LabelFor(model => model.featured, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.CheckBoxFor(model => model.BoolValue, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.featured, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.BoolValue, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -55,3 +55,40 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@Scripts.Render("~/Scripts/jquery-3.3.1.js")
+<script>
+    $(function () {
+        $("#imageFile").bind("change", function () {
+            //Get reference of FileUpload.
+            var fileUpload = $("#imageFile")[0];
+            //Check whether HTML5 is supported.
+            if (typeof (fileUpload.files) != "undefined") {
+                //Initiate the FileReader object.
+                var reader = new FileReader();
+                //Read the contents of Image File.
+                reader.readAsDataURL(fileUpload.files[0]);
+                reader.onload = function (e) {
+                    //Initiate the JavaScript Image object.
+                    var image = new Image();
+                    //Set the Base64 string return from FileReader as source.
+                    image.src = e.target.result;
+                    image.onload = function () {
+                        //Determine the Height and Width.
+                        var height = this.height;
+                        var width = this.width;
+                        if (height < 400 || width < 400) {
+                            $("#imageFile").val("");
+                            alert("Image cannot be smaller than 400x400 pixels");
+                            return false;
+                        }
+                        return true;
+                    };
+                }
+            } else {
+                alert("This browser does not support HTML5.");
+                return false;
+            }
+        });
+    });
+</script>
