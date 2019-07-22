@@ -27,6 +27,7 @@ namespace StudentApplicationSystem.Models
     
         public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
         public virtual DbSet<Application> Applications { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<InterviewQuestionPaper> InterviewQuestionPapers { get; set; }
         public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<New> News { get; set; }

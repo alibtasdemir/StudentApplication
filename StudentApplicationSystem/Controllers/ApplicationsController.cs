@@ -101,7 +101,7 @@ namespace StudentApplicationSystem.Controllers
                     }
                 }
                 application.userId = (int)Session["userId"];
-                application.status = "Pending";
+                application.status = "Interview";
                 User user = db.Users.Where(a => a.userId == (application.userId)).FirstOrDefault();
                 application.dt_created = DateTime.Now;
                 user.Applications.Add(application);
@@ -109,14 +109,31 @@ namespace StudentApplicationSystem.Controllers
                 application.jobId = (int)Session["jobId"];
 
                 Job job = db.Jobs.Find(application.jobId);
-                
-                var questionIds = db.Questions.OrderBy(h => Guid.NewGuid()).Select(c => c.questionId).Take(3).ToList();
-
                 InterviewQuestionPaper paper = new InterviewQuestionPaper();
-                paper.question1 = questionIds[0];
-                paper.question2 = questionIds[1];
-                paper.question3 = questionIds[2];
 
+
+                int totalQuestions = (int)job.questionNumber;
+                string[] categoriesArray = job.categories.Split(',');
+                //var questionIds = db.Questions.OrderBy(h => Guid.NewGuid()).Select(c => c.questionId).Take(3).ToList();
+                int[] numbers = new int[categoriesArray.Length];
+                List<int> allquestions = new List<int>();
+
+                for (int i = 0; i < totalQuestions; i++)
+                {
+                    numbers[i % (categoriesArray.Length)]++;
+                }
+
+                for(int i = 0; i < categoriesArray.Length; i++)
+                {
+                    int question = int.Parse(categoriesArray[i]);
+                    var list = db.Questions.Where(a => a.category == question);
+                    var questionIds = list.OrderBy(h => Guid.NewGuid()).Select(c => c.questionId).Take(numbers[i]).ToList();
+                    allquestions.AddRange(questionIds);
+                }
+
+                paper.questionList = string.Join(",", allquestions);
+
+                
                 paper.userId = application.userId;
                 paper.jobId = application.jobId;
                 paper.dt_created = DateTime.Now;

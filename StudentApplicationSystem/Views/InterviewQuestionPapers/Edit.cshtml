@@ -28,57 +28,31 @@
     @Html.HiddenFor(model => model.applicationId)
     @Html.HiddenFor(model => model.userId)
     @Html.HiddenFor(model => model.jobId)
-    @Html.HiddenFor(model => model.question1)
-    @Html.HiddenFor(model => model.question2)
-    @Html.HiddenFor(model => model.question3)
     @Html.HiddenFor(model => model.cd_creater)
     @Html.HiddenFor(model => model.dt_created)
+    @Html.HiddenFor(model => model.questionList)
 
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.question1, "question1", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextArea("question1", Model.Question.question1, new { disabled = "disabled", @readonly = true, style = "width:250px" })
+    @{ 
+        int i = 0;
+    }
+    @foreach (var item in Model.allQuestions)
+    {
+        <div class="form-group">
+            <p>@item.Category1.categoryName</p>
+            @Html.LabelFor(model => item.question1, "question1", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextArea("question1", item.question1, new { disabled = "disabled", @readonly = true, style = "width:250px" })
+            </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.answer1, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.answer1, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.answer1, "", new { @class = "text-danger" })
+        string idforanswer = "answer_" + i.ToString();
+        <div class="form-group">
+            <label class="control-label col-md-2">Answer: </label>
+            <div class="col-md-10">
+                @Html.TextArea(idforanswer, new { @class = "form-control", @id = idforanswer })
+            </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.question2, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextArea("question1", Model.Question4.question1, new { disabled = "disabled", @readonly = true, style = "width:250px" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.answer2, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.answer2, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.answer2, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.question3, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextArea("question1", Model.Question5.question1, new { disabled = "disabled", @readonly = true, style = "width:250px" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.answer3, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.answer3, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.answer3, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        i++;
+    }
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

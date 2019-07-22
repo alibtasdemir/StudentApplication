@@ -42,53 +42,26 @@
             @Html.DisplayFor(model => model.User.email)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Question.question1)
-        </dt>
+        @for (int i = 0; i < Model.allQuestions.Count; i++)
+        {
+            var listQuestions = Model.allQuestions;
+            var listAnswers = Model.answersList;
+            <dt>
+                @Html.DisplayNameFor(modelItem => listQuestions.ElementAt(i).question1)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Question.question1)
-        </dd>
+            <dd>
+                @Html.DisplayFor(modelItem => listQuestions.ElementAt(i).question1)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.answer1)
-        </dt>
+            <dt>
+                @Html.DisplayName("Answer")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.answer1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Question4.question1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Question4.question1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.answer2)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.answer2)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Question5.question1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Question5.question1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.answer3)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.answer3)
-        </dd>
+            <dd>
+                <p>@listAnswers.ElementAt(i)</p>
+            </dd>
+        }
     </dl>
 </div>
 <p>

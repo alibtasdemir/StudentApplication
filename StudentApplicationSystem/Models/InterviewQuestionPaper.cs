@@ -29,18 +29,7 @@ namespace StudentApplicationSystem.Models
         public Nullable<int> applicationId { get; set; }
         public Nullable<int> userId { get; set; }
         public Nullable<int> jobId { get; set; }
-        [DisplayName("Question 1")]
-        public Nullable<int> question1 { get; set; }
-        [DisplayName("Question 2")]
-        public Nullable<int> question2 { get; set; }
-        [DisplayName("Question 3")]
-        public Nullable<int> question3 { get; set; }
-        [DisplayName("Answer 1")]
-        public string answer1 { get; set; }
-        [DisplayName("Answer 2")]
-        public string answer2 { get; set; }
-        [DisplayName("Answer 3")]
-        public string answer3 { get; set; }
+        public string answers { get; set; }
         [DisplayName("Created by")]
         public Nullable<int> cd_creater { get; set; }
         [DisplayName("Created")]
@@ -53,15 +42,41 @@ namespace StudentApplicationSystem.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> dt_modified { get; set; }
-
+        public string questionList { get; set; }
+        public ICollection<string> answersList
+        {
+            get
+            {
+                string[] answers = this.answers.Split(',');
+                List<string> list_answers = new List<string>();
+                foreach(var str in answers)
+                {
+                    list_answers.Add(str);
+                }
+                return list_answers;
+             }
+        }
+        public ICollection<Question> allQuestions
+        {
+            get
+            {
+                string[] ids = this.questionList.Split(',');
+                List<Question> questions = new List<Question>();
+                StudentApplicationSystemEntities db = new StudentApplicationSystemEntities();
+                foreach (var strid in ids)
+                {
+                    int id = int.Parse(strid);
+                    Question que = db.Questions.Find(id);
+                    questions.Add(que);
+                }
+                return questions;
+            }
+        }
         public virtual Application Application { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Application> Applications { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
-        public virtual Question Question { get; set; }
-        public virtual Question Question4 { get; set; }
-        public virtual Question Question5 { get; set; }
     }
 }

@@ -45,6 +45,15 @@
         @Html.ActionLink("Add New", "Create", "News")
     </div>
 
+    <button class="dropdown-btn">
+        Question Categories
+        <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-container">
+        @Html.ActionLink("Categories List", "Index", "Categories")
+        @Html.ActionLink("Add Category", "Create", "Categories")
+    </div>
+
 </div>
 
 <script>
