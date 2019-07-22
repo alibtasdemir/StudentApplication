@@ -78,29 +78,23 @@ namespace StudentApplicationSystem.Controllers
 
                 }
             }
-            // Departments list for dropdown, prepared before Register form is rendered. 
-            List<SelectListItem> items = DepartmentList();
-            ViewData["ListItems"] = items;
             return View();
         }
-        
-        // POST: User/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,surname,password,email,department,gpa,phone_number,BoolValue")] User user)
+        public ActionResult Create(User user)
         {
-            
+
             if (ModelState.IsValid)
             {
                 try
                 {
                     // Check for email is already in use or not.
                     bool alreadyexists = false;
-                    
+
                     // Iterate in Database
-                    foreach( User u in db.Users.ToList())
+                    foreach (User u in db.Users.ToList())
                     {
                         if (u.email.Equals(user.email))
                         {
@@ -114,8 +108,6 @@ namespace StudentApplicationSystem.Controllers
                     {
                         // In case of duplicate emails, produce an error message and return back to register page.
                         ModelState.AddModelError(string.Empty, "This email already in use.");
-                        List<SelectListItem> items = DepartmentList();
-                        ViewData["ListItems"] = items;
                         return View();
                     }
 
@@ -144,13 +136,15 @@ namespace StudentApplicationSystem.Controllers
                     }
                     throw;
                 }
-                
                 return RedirectToAction("Index", "Home", null);
             }
 
             return View(user);
         }
-        
+
+
+
+
         // GET: User/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -179,17 +173,15 @@ namespace StudentApplicationSystem.Controllers
             {
                 return HttpNotFound();
             }
-            List<SelectListItem> items = DepartmentList();
-            ViewData["ListItems"] = items;
             return View(user);
         }
-
+        
         // POST: User/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "userId,name,surname,email,department,gpa,phone_number,password,dt_created,BoolValue")] User user)
+        public ActionResult Edit(User user)
         {
             if (ModelState.IsValid)
             {
@@ -210,8 +202,6 @@ namespace StudentApplicationSystem.Controllers
                 {
                     // In case of duplicate emails, produce an error message and return back to register page.
                     ModelState.AddModelError(string.Empty, "This email already in use.");
-                    List<SelectListItem> items = DepartmentList();
-                    ViewData["ListItems"] = items;
                     return RedirectToAction("Edit", new { id = user.userId });
                 }
 
@@ -301,101 +291,5 @@ namespace StudentApplicationSystem.Controllers
             return (int)Session["isAdmin"] == 1 ? true : false;
         }
 
-        public List<SelectListItem> DepartmentList()
-        {
-            List<SelectListItem> selectlist = new List<SelectListItem>();
-            List<string> DList = new List<string>();
-            DList.Add("Faculty of Computer and Information Sciences - Computer Engineering");
-            DList.Add("Faculty of Computer and Information Sciences - Information Systems Engineering");
-            DList.Add("Faculty of Computer and Information Sciences - Software Engineering");
-
-            DList.Add("Faculty of Education - Computer Education and Instructional Technologies");
-            DList.Add("Faculty of Education - Foreign Language Education");
-            DList.Add("Faculty of Education - Special Education");
-            DList.Add("Faculty of Education - Science Education Department");
-            DList.Add("Faculty of Education - Mathematics Education Department");
-            DList.Add("Faculty of Education - Social Sciences Education Department");
-            DList.Add("Faculty of Education - Faculty of Education");
-
-            DList.Add("Faculty of Dentistry - Dentistry");
-
-            DList.Add("Faculty of Arts and Sciences - Turkish Language and Literature");
-            DList.Add("Faculty of Arts and Sciences - History");
-            DList.Add("Faculty of Arts and Sciences - Sociology");
-            DList.Add("Faculty of Arts and Sciences - Social Work");
-            DList.Add("Faculty of Arts and Sciences - History of Art");
-            DList.Add("Faculty of Arts and Sciences - Mathematics");
-            DList.Add("Faculty of Arts and Sciences - Chemistry");
-            DList.Add("Faculty of Arts and Sciences - Physics");
-            DList.Add("Faculty of Arts and Sciences - Philosophy");
-            DList.Add("Faculty of Arts and Sciences - Geography");
-            DList.Add("Faculty of Arts and Sciences - Translation Studies");
-            DList.Add("Faculty of Arts and Sciences - Biology");
-            DList.Add("Faculty of Arts and Sciences - German Language and Literature");
-
-            DList.Add("Faculty of Law - Law");
-
-            DList.Add("Faculty of Theology - Theology");
-
-            DList.Add("Faculty of Communication - Public Relations and Advertising");
-            DList.Add("Faculty of Communication - Communication Design and Media");
-            DList.Add("Faculty of Communication - Journalism");
-            DList.Add("Faculty of Communication - Radio Television and Cinema");
-
-            DList.Add("Sakarya Business School - Human Resources Management");
-            DList.Add("Sakarya Business School - Business");
-            DList.Add("Sakarya Business School - Health Administration");
-            DList.Add("Sakarya Business School - International Trade");
-            DList.Add("Sakarya Business School - Management Information Systems");
-
-            DList.Add("Faculty of Engineering - Environmental Engineering");
-            DList.Add("Faculty of Engineering - Civil Engineering");
-            DList.Add("Faculty of Engineering - Electrical and Electronics Engineering");
-            DList.Add("Faculty of Engineering - Food Engineering");
-            DList.Add("Faculty of Engineering - Industrial Engineering");
-            DList.Add("Faculty of Engineering - Geophysical Engineering");
-            DList.Add("Faculty of Engineering - Mechanical Engineering");
-            DList.Add("Faculty of Engineering - Metallurgical and Materials Engineering");
-
-            DList.Add("Faculty of Health Sciences - Midwifery");
-            DList.Add("Faculty of Health Sciences - Nursing");
-
-            DList.Add("Faculty of Art Design And Architecture - Visual Communication and Design");
-            DList.Add("Faculty of Art Design And Architecture - Traditional Turkish Arts");
-            DList.Add("Faculty of Art Design And Architecture - Painting");
-            DList.Add("Faculty of Art Design And Architecture - Architecture");
-            DList.Add("Faculty of Art Design And Architecture - Ceramic and Glass Design");
-
-
-            DList.Add("Faculty of Political Sciences - Labour Economics and Industrial Relations");
-            DList.Add("Faculty of Political Sciences - Econometrics");
-            DList.Add("Faculty of Political Sciences - Economics");
-            DList.Add("Faculty of Political Sciences - Political Science and Public Administration");
-            DList.Add("Faculty of Political Sciences - Public Finance");
-            DList.Add("Faculty of Political Sciences - International Relations");
-
-
-
-            DList.Add("Faculty of Technical Education - Electrical Training");
-            DList.Add("Faculty of Technical Education - Mechanical Education");
-            DList.Add("Faculty of Technical Education - Metal Education");
-            DList.Add("Faculty of Technical Education - Construction Education");
-
-            DList.Add("Faculty of Faculty of Medicine - Medicine");
-
-            DList.Sort();
-
-            foreach (string department in DList)
-            {
-                selectlist.Add(new SelectListItem
-                {
-                    Text = department,
-                    Value = department
-                });
-            }
-
-            return selectlist;
-        
-        }
     }
 }

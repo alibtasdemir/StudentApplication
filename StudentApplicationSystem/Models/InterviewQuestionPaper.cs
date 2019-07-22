@@ -43,8 +43,19 @@ namespace StudentApplicationSystem.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> dt_modified { get; set; }
         public string questionList { get; set; }
-
-
+        public ICollection<string> answersList
+        {
+            get
+            {
+                string[] answers = this.answers.Split(',');
+                List<string> list_answers = new List<string>();
+                foreach(var str in answers)
+                {
+                    list_answers.Add(str);
+                }
+                return list_answers;
+             }
+        }
         public ICollection<Question> allQuestions
         {
             get

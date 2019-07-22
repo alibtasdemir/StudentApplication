@@ -32,7 +32,9 @@
     @Html.HiddenFor(model => model.dt_created)
     @Html.HiddenFor(model => model.questionList)
 
-
+    @{ 
+        int i = 0;
+    }
     @foreach (var item in Model.allQuestions)
     {
         <div class="form-group">
@@ -42,13 +44,14 @@
                 @Html.TextArea("question1", item.question1, new { disabled = "disabled", @readonly = true, style = "width:250px" })
             </div>
         </div>
-
+        string idforanswer = "answer_" + i.ToString();
         <div class="form-group">
             <label class="control-label col-md-2">Answer: </label>
             <div class="col-md-10">
-                @Html.TextArea("Answer", new { @class = "form-control", @id ="answers" })
+                @Html.TextArea(idforanswer, new { @class = "form-control", @id = idforanswer })
             </div>
         </div>
+        i++;
     }
 
     <div class="form-group">

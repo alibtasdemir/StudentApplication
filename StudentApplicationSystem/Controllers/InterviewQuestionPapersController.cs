@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -106,18 +107,42 @@ namespace StudentApplicationSystem.Controllers
             return View(interviewQuestionPaper);
         }
 
+        // [Bind(Include = "paperId,applicationId,userId,jobId,answers,cd_creater,dt_created,cd_modifier,dt_modified,questionList")] 
         // POST: InterviewQuestionPapers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "paperId,applicationId,userId,jobId,answers,cd_creater,dt_created,cd_modifier,dt_modified,questionList")] InterviewQuestionPaper interviewQuestionPaper)
+        public ActionResult Edit(InterviewQuestionPaper interviewQuestionPaper)
         {
+            NameValueCollection nvc = Request.Form;
+            int i = 0;
+            string name = "answer_" + i.ToString();
+            List<string> answers = new List<string>();
+            while (!string.IsNullOrEmpty(nvc[name])){
+                answers.Add(nvc[name]);
+                i++;
+                name = "answer_" + i.ToString();
+            }
+            /*
+            string userName, password;
+            if (!string.IsNullOrEmpty(nvc["txtUserName"]))
+            {
+                userName = nvc["txtUserName"];
+            }
+
+            if (!string.IsNullOrEmpty(nvc["txtPassword"]))
+            {
+                password = nvc["txtPassword"];
+            }*/
+            
+
             if (ModelState.IsValid)
             {
                 int applicationId = (int)interviewQuestionPaper.applicationId;
                 Application application = db.Applications.Find(applicationId);
                 application.status = "Pending";
+                interviewQuestionPaper.answers = String.Join(",", answers);
                 interviewQuestionPaper.dt_modified = DateTime.Now;
                 interviewQuestionPaper.cd_modifier = (int)Session["userId"];  
                 db.Entry(interviewQuestionPaper).State = EntityState.Modified;

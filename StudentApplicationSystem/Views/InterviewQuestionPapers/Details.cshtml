@@ -42,24 +42,25 @@
             @Html.DisplayFor(model => model.User.email)
         </dd>
 
-        @foreach (var item in Model.allQuestions)
+        @for (int i = 0; i < Model.allQuestions.Count; i++)
         {
+            var listQuestions = Model.allQuestions;
+            var listAnswers = Model.answersList;
             <dt>
-                @Html.DisplayNameFor(modelItem => item.question1)
+                @Html.DisplayNameFor(modelItem => listQuestions.ElementAt(i).question1)
             </dt>
 
             <dd>
-                @Html.DisplayFor(modelItem => item.question1)
+                @Html.DisplayFor(modelItem => listQuestions.ElementAt(i).question1)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(modelItem => Model.answers)
+                @Html.DisplayName("Answer")
             </dt>
 
             <dd>
-                @Html.DisplayFor(modelItem => Model.answers)
+                <p>@listAnswers.ElementAt(i)</p>
             </dd>
-            
         }
     </dl>
 </div>
