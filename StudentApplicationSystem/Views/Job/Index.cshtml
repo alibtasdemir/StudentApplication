@@ -66,13 +66,37 @@
                 else if ((int)Session["isAdmin"] == 0)
                 {
                     <td>
-                        @if (DateTime.Compare(DateTime.Now, (DateTime)item.applicationStart) >= 0)
+                        @{ 
+                            // EX. param1 = 12.12.2019, param2 = 01.01.2019
+                            // DateTime.Compare(param1, param2) = 1
+                            // DateTime.Compare(param2, param1) = -1
+                            // DateTime.Compare(param1, param1) = 0
+
+                            var timeCompStart = DateTime.Compare(DateTime.Now, (DateTime)item.applicationStart);
+                            var timeCompFinish = DateTime.Compare((DateTime)item.applicationFinish, DateTime.Now);
+
+                            //IF START 1 END 1
+                            //  APPLY
+                            //IF START -1
+                            //  REMAINING
+                            //IF END -1
+                            //  EXPIRED
+
+                        }
+
+                        @if (timeCompStart >= 0 && timeCompFinish >= 0)
                         {
                             <a href=@Url.Action("Apply", "Job", new { id = item.jobId })><i class="glyphicon glyphicon-edit"> Apply </i></a>
                         }
-                        else
+                        else if (timeCompStart < 0)
                         {
                             @String.Format("{0:%d} days {0:%h} hours {0:%m} minutes remaining", ((DateTime)item.applicationStart - DateTime.Now));
+                        }
+                        else if (timeCompFinish < 0)
+                        {
+                            <p style="color:red;">Application expired!</p>
+                        }else{
+                            <p>Something wrong. Please report to system admin.</p>
                         }
                     </td>
 
