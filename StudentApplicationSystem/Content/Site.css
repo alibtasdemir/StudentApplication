@@ -550,3 +550,35 @@ a:focus {
 
 .BarBlock {
 }
+
+.main-title {
+    background-color: rgb(80,80,80);
+    color: rgb(224,224,224);
+    display: grid;
+    border-radius: 2px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.announcement {
+    background-color: rgb(80,80,80);
+    color: rgb(224,224,224);
+}
+
+
+.see-all a {
+    color: rgb(224,224,224);
+}
+
+.see-all {
+    margin-top: 15px;
+    padding-left: 20px;
+    padding-bottom: 15px;
+}
+
+.announcement-header {
+    margin-top: 25px;
+    padding-left: 20px;
+    padding-bottom: 5px;
+    padding-top: 1px;
+}

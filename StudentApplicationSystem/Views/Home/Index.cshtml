@@ -2,79 +2,87 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>Student Application Platform</h1>
+<div class="main-title">
+    <h2>Ford Otosan Student Application Platform</h2>
 </div>
 
+<hr class="soft"/>
 
-<h2>Announcements</h2>
-<div id="myCarousel" class="carousel slide" data-ride="carousel" style="height:550px;width:950px;">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        @for (int iter = 0; iter < ViewBag.News.Count; iter++)
-        {
-            if (iter == 0)
+<div class="announcement">
+    <div class="announcement-header">
+        <h2>Announcements</h2>
+    </div>
+    <div id="myCarousel" class="carousel slide body-content" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            @for (int iter = 0; iter < ViewBag.News.Count; iter++)
             {
-                <li data-target="#myCarousel" data-slide-to="@iter" class="active"></li>
+                if (iter == 0)
+                {
+                    <li data-target="#myCarousel" data-slide-to="@iter" class="active"></li>
+                }
+                else
+                {
+                    <li data-target="#myCarousel" data-slide-to="@iter"></li>
+                }
             }
-            else
-            {
-                <li data-target="#myCarousel" data-slide-to="@iter"></li>
-            }
-        }
-        <!--
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>-->
-    </ol>
+            <!--
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>-->
+        </ol>
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-        @{
-            var i = 0;
-        }
-        @foreach (var item in ViewBag.News)
-        {
-            if (i == 0)
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            @{
+                var i = 0;
+            }
+            @foreach (var item in ViewBag.News)
             {
-                <div class="item active">
-                    <a href="@Url.Action("Details", "News", new { id = item.newId })">
-                        <img src="data:image;base64,@Convert.ToBase64String(item.image)" alt=@item.header style="height:550px;width:950px;"></a>
+                if (i == 0)
+                {
+                    <div class="item active">
+                        <a href="@Url.Action("Details", "News", new { id = item.newId })">
+                            <img src="data:image;base64,@Convert.ToBase64String(item.image)" alt=@item.header style="height:550px;width:950px;">
+                        </a>
                         <div class="carousel-caption">
                             <h3>@item.header</h3>
                         </div>
-                </div>
-            }
-            else
-            {
-                <div class="item">
-                    <a href="@Url.Action("Details", "News", new { id = item.newId })"><img src="data:image;base64,@Convert.ToBase64String(item.image)" alt=@item.header style="height:550px;width:950px;"></a>
-                    <div class="carousel-caption">
-                        <h3>@item.header</h3>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="item">
+                        <a href="@Url.Action("Details", "News", new { id = item.newId })"><img src="data:image;base64,@Convert.ToBase64String(item.image)" alt=@item.header style="height:550px;width:950px;"></a>
+                        <div class="carousel-caption">
+                            <h3>@item.header</h3>
+                        </div>
+                    </div>
+                }
+
+
+                i++;
+
             }
 
+        </div>
 
-            i++;
-
-        }
-
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
 
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-        <span class="sr-only">Next</span>
-    </a>
+    <div class="see-all">
+        <a href=@Url.Action("Index","News")>View All News...</a>
+    </div>
+
 </div>
-
-<a href=@Url.Action("Index","News")>View All News...</a>
-
 
 @if (Session["UserName"] != null)
 {
