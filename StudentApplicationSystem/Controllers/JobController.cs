@@ -150,6 +150,38 @@ namespace StudentApplicationSystem.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Job job = db.Jobs.Find(id);
+            var applications = db.Applications.Where(a => a.jobId == (job.jobId)).ToList();
+
+            foreach (var app in applications)
+            {
+                Review review = db.Reviews.Where(a => a.applicationId == (app.applicationId)).FirstOrDefault();
+                if(review != null)
+                {
+                    db.Reviews.Remove(review);
+                }
+                
+
+                InterviewQuestionPaper paper = db.InterviewQuestionPapers.Find(app.paperId);
+
+                if(paper != null)
+                {
+                    app.paperId = null;
+                    paper.applicationId = null;
+                
+                    db.SaveChanges();
+                    db.InterviewQuestionPapers.Remove(paper);
+                    db.Applications.Remove(app);
+                }
+                else
+                {
+                    db.SaveChanges();
+                    db.Applications.Remove(app);
+                }
+
+
+            }
+
+
             db.Jobs.Remove(job);
             db.SaveChanges();
             return RedirectToAction("Index");

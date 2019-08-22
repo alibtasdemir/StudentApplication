@@ -125,7 +125,7 @@ namespace StudentApplicationSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "newId,header,text,imageFile,BoolValue,featuredList,dt_created,dt_modified,cd_creater,cd_modifier")] New @new)
+        public ActionResult Edit([Bind(Include = "newId,header,text,image,BoolValue,featuredList,dt_created,dt_modified,cd_creater,cd_modifier")] New @new)
         {
             if (Session["userName"] == null)
             {
@@ -138,22 +138,6 @@ namespace StudentApplicationSystem.Controllers
             }
             if (ModelState.IsValid)
             {
-
-                if (@new.imageFile != null && @new.imageFile.ContentLength > 0)
-                {
-                    string FileExtension = Path.GetExtension(@new.imageFile.FileName).ToUpper();
-
-                    if (FileExtension == ".JPG" || FileExtension == ".PNG" || FileExtension == ".JPEG")
-                    {
-                        byte[] bytes;
-                        using (BinaryReader br = new BinaryReader(@new.imageFile.InputStream))
-                        {
-                            bytes = br.ReadBytes(@new.imageFile.ContentLength);
-                        }
-
-                        @new.image = bytes;
-                    }
-                }
                 @new.dt_modified = DateTime.Now;
                 @new.cd_modifier = (int)Session["userId"];
                 db.Entry(@new).State = EntityState.Modified;
